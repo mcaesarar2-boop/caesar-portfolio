@@ -177,7 +177,13 @@ main { padding-top: 44px; }
 
 /* ─── WORK SECTION ───────────────────────────────────────────────────── */
 #work .section-header { text-align: center; margin-bottom: var(--space-section); }
-.work-item { width: 100%; border-top: 1px solid var(--divider-soft); }
+.work-item { 
+  max-width: 1080px; 
+  margin: 0 auto 80px auto; /* Ngasih jarak gede antar kotak dan ke section Experience di bawahnya */
+  border-radius: 32px; /* Bikin pinggirnya halus membulat, gak kaku */
+  overflow: hidden; /* Biar lengkungannya rapi menahan gambar */
+  background: var(--surface-pearl); /* Warna dasar untuk kotak project terang */
+}
 .work-item__inner { max-width: 980px; margin: 0 auto; padding: 64px var(--space-xl); display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-section); align-items: center; }
 .work-item:nth-child(even) .work-item__inner { direction: rtl; }
 .work-item:nth-child(even) .work-item__content, .work-item:nth-child(even) .work-item__visual { direction: ltr; }
@@ -197,6 +203,8 @@ main { padding-top: 44px; }
 .client-name { flex: 0 0 auto; padding: var(--space-xl) var(--space-xxl); font-family: var(--font-display); font-size: 21px; font-weight: 600; letter-spacing: 0.231px; color: rgba(255, 255, 255, 0.35); transition: color 0.2s ease; border: 1px solid transparent; cursor: default; }
 .client-name:hover { color: rgba(255,255,255,0.8); }
 
+.services-header {margin-bottom: var(--space-xxl);}
+.services-grid {display: grid;}
 .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-lg); max-width: 980px; margin: 0 auto; }
 .service-card { background: var(--canvas); border: 1px solid var(--hairline); border-radius: var(--rounded-lg); padding: var(--space-xl) var(--space-lg); text-align: left; transition: border-color 0.2s ease; }
 .service-card:hover { border-color: var(--ink-muted-48); }
@@ -228,19 +236,159 @@ main { padding-top: 44px; }
 .contact-social a { color: var(--body-muted); font-size: 14px; transition: color 0.2s ease; }
 .contact-social a:hover { color: var(--on-dark); }
 
+/* ─── TECH STACK ─────────────────────────────────────────────────────── */
+.tech-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-sm);
+  max-width: 700px;
+  margin: var(--space-xxl) auto 0;
+}
+.tech-chip {
+  background: var(--surface-tile-2);
+  color: var(--body-muted);
+  padding: 14px 28px;
+  border-radius: var(--rounded-pill);
+  font-family: var(--font-text);
+  font-size: 17px;
+  font-weight: 500;
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  cursor: default;
+}
+.tech-chip:hover {
+  background: var(--surface-tile-3);
+  color: var(--on-dark);
+  border-color: var(--primary-on-dark);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* ─── TECH MODAL (POP-UP) ───────────────────────────────────────────── */
+.tech-chip {
+  cursor: pointer; /* Biar kursornya jadi bentuk tangan pas diarahkan */
+}
+
+.tech-modal {
+  position: fixed; 
+  inset: 0; 
+  z-index: 2000;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  opacity: 0; 
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.tech-modal.open {
+  opacity: 1; 
+  pointer-events: auto;
+}
+
+.tech-modal__overlay {
+  position: absolute; 
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.tech-modal__content {
+  position: relative; 
+  z-index: 2001;
+  background: var(--surface-tile-2);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--rounded-lg);
+  padding: var(--space-xl);
+  width: 90%; 
+  max-width: 480px;
+  transform: translateY(20px) scale(0.95);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+
+.tech-modal.open .tech-modal__content {
+  transform: translateY(0) scale(1);
+}
+
+.tech-modal__close {
+  position: absolute; 
+  top: var(--space-md); 
+  right: var(--space-md);
+  color: var(--body-muted); 
+  font-size: 20px;
+  width: 32px; 
+  height: 32px;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  border-radius: 50%; 
+  background: rgba(255,255,255,0.05);
+  transition: all 0.2s ease;
+}
+
+.tech-modal__close:hover {
+  background: rgba(255,255,255,0.1); 
+  color: var(--on-dark);
+}
+
+.tech-modal__list {
+  list-style: none; 
+  padding: 0; 
+  margin: 0;
+  text-align: left;
+}
+
+.tech-modal__list li {
+  color: var(--body-muted);
+  font-family: var(--font-text);
+  font-size: 16px;
+  padding: var(--space-sm) 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  display: flex; 
+  align-items: center; 
+  gap: var(--space-sm);
+}
+
+.tech-modal__list li:last-child {
+  border-bottom: none; 
+  padding-bottom: 0;
+}
+
+/* Tambahin icon bintang/diamond kecil di tiap list */
+.tech-modal__list li::before {
+  content: '✦'; 
+  color: var(--primary-on-dark); 
+  font-size: 14px;
+}
+
 /* ─── FOOTER ────────────────────────────────────────────────────────── */
-footer { background: var(--canvas-parchment); color: var(--ink-muted-80); padding: 64px var(--space-xl) var(--space-xl); }
+footer { background: var(--canvas-parchment); color: var(--ink-muted-80); padding: 64px var(--space-xl) 120px; }
 .footer__main { max-width: 980px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: var(--space-xl); padding-bottom: var(--space-xxl); border-bottom: 1px solid var(--hairline); }
 .footer__brand-name { font-family: var(--font-display); font-size: 17px; font-weight: 600; color: var(--ink); margin-bottom: var(--space-sm); }
 .footer__brand-tagline { font-size: 14px; color: var(--ink-muted-48); line-height: 1.43; }
 .footer__col-head { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: var(--space-sm); }
-.footer__links a { display: block; font-size: 17px; line-height: 2.41; color: var(--ink-muted-80); transition: color 0.15s ease; }
-.footer__links a:hover { color: var(--primary); }
-.footer__legal { max-width: 980px; margin: var(--space-xl) auto 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-md); }
-.footer__legal-text { font-size: 12px; color: var(--ink-muted-48); }
-.footer__legal-links { display: flex; gap: var(--space-xl); }
-.footer__legal-links a { font-size: 12px; color: var(--ink-muted-48); transition: color 0.15s ease; }
-.footer__legal-links a:hover { color: var(--primary); }
+.footer__links a { 
+  display: flex; /* Berubah dari block jadi flex biar sejajar */
+  align-items: center; 
+  gap: 10px; /* Jarak antara icon dan teks */
+  font-size: 17px; 
+  line-height: 2.41; 
+  color: var(--ink-muted-80); 
+  transition: color 0.15s ease; 
+}
+.footer__links a:hover { 
+  color: var(--primary); 
+}
+.footer__links a svg {
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+.footer__links a:hover svg {
+  transform: scale(1.15); /* Icon bakal membesar dikit pas di-hover */
+}
 
 /* ─── AVAILABILITY BADGE & STICKY BAR ────────────────────────────────── */
 .avail-badge { display: inline-flex; align-items: center; gap: var(--space-xs); background: rgba(0, 200, 100, 0.12); border: 1px solid rgba(0, 200, 100, 0.25); border-radius: var(--rounded-pill); padding: 6px 14px; font-size: 12px; color: #00c064; text-transform: uppercase; margin-bottom: var(--space-xl); }
@@ -331,7 +479,7 @@ footer { background: var(--canvas-parchment); color: var(--ink-muted-80); paddin
 .marquee-item img, .marquee-item svg {
   height: 100%;
   width: auto;
-  max-width: 400px;
+  max-width: 800px;
   object-fit: contain;
   
   /* Trik Ajaib: brightness(0) bikin semua jadi hitam pekat, 
