@@ -72,3 +72,50 @@ const navObserver = new IntersectionObserver(
 );
 document.querySelectorAll('section[id]').forEach(s => navObserver.observe(s));
 
+/* ── Tech Stack Modal (Pop-up) ─────────────────────────── */
+const techChips = document.querySelectorAll('.tech-chip');
+const techModal = document.getElementById('techModal');
+const techModalOverlay = document.getElementById('techModalOverlay');
+const techModalClose = document.getElementById('techModalClose');
+const techModalTitle = document.getElementById('techModalTitle');
+const techModalList = document.getElementById('techModalList');
+
+if (techChips.length > 0 && techModal) {
+  function openModal(title, skills) {
+    // Set judul pop-up
+    techModalTitle.textContent = title;
+    
+    // Bersihin list yang lama
+    techModalList.innerHTML = '';
+    
+    // Potong teks dari data-skills berdasarkan tanda koma, terus masukin ke list
+    const skillsArray = skills.split(',');
+    skillsArray.forEach(skill => {
+      const li = document.createElement('li');
+      li.textContent = skill.trim(); // Trim biar spasinya rapi
+      techModalList.appendChild(li);
+    });
+
+    // Munculin pop-up
+    techModal.classList.add('open');
+    document.body.style.overflow = 'hidden'; // Kunci background biar gak bisa di-scroll
+  }
+
+  function closeModal() {
+    techModal.classList.remove('open');
+    document.body.style.overflow = ''; // Balikin scroll background
+  }
+
+  // Pasang tombol klik di semua tech-chip
+  techChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const title = chip.getAttribute('data-title');
+      const skills = chip.getAttribute('data-skills');
+      openModal(title, skills);
+    });
+  });
+
+  // Tombol X dan klik di luar kotak buat nutup pop-up
+  techModalClose.addEventListener('click', closeModal);
+  techModalOverlay.addEventListener('click', closeModal);
+}
