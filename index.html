@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Muhammad Caesar Afian Rahman — Visual Director</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>  <!--ini adalah-->
+  <nav class="global-nav" role="navigation" aria-label="Primary navigation">
+    <a href="#hero" class="global-nav__logo" aria-label="Muhammad Caesar Afian Rahman — home">Muhammad Caesar Afian Rahman</a>
+    <ul class="global-nav__links" role="list">
+      <li><a href="#about">About</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#clients">With</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#tech-stack">Tools</a></li> <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="global-nav__actions">
+      <a href="#contact" class="global-nav__cta">Let's Talk</a>
+      <button class="nav-hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-nav-drawer" id="mobileNav" role="dialog" aria-label="Navigation menu">
+    <a href="#about"    onclick="closeNav()">About</a>
+    <a href="#work"     onclick="closeNav()">Work</a>
+    <a href="#clients"  onclick="closeNav()">With</a>
+    <a href="#services" onclick="closeNav()">Services</a>
+    <a href="#tech-stack" onclick="closeNav()">Tools</a> <a href="#contact"  onclick="closeNav()">Contact</a>
+  </div>
+
+  <main>
+    <section id="hero" aria-label="Hero">
+      <div class="avail-badge reveal" aria-label="Currently available for new projects">
+        <span class="avail-badge__dot"></span> Available for projects
+      </div>
+      <h1 class="hero__title reveal reveal-delay-1">Visual direction<br>without compromise.</h1>
+      <p class="hero__subtitle reveal reveal-delay-2">I craft cinematic identities for<br>brands that demand to be remembered.</p>
+      <div class="hero__ctas reveal reveal-delay-3">
+        <a href="#work" class="btn-primary">View my work</a>
+        <a href="#contact" class="btn-primary-dark" style="background:transparent;border:1px solid rgba(255,255,255,0.25);color:var(--on-dark);border-radius:var(--rounded-pill);padding:11px 22px;display:inline-block;">Start a project</a>
+      </div>
+    </section>
+
+    <section id="about" class="tile tile--parchment" aria-label="About">
+      <div class="about-grid tile__inner">
+        <div class="about__portrait reveal">
+          <img src="assets/images/foto-profil.jpg" alt="Muhammad Caesar Afian Rahman" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div class="about__content">
+          <p class="t-caption-strong" style="color:var(--primary);text-transform:uppercase;">About</p>
+          <h2 class="t-display-md reveal">A visual director with a cinema eye and a designer's rigor.</h2>
+          <p class="t-body about__body reveal reveal-delay-1">Seven years of learning, building, and refining visual experiences through design, creativity, and continuous exploration...</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="work" class="tile tile--light" style="padding-top:var(--space-section);padding-bottom:0;" aria-label="Selected work">
+      <div class="tile__inner">
+        <div class="section-header reveal">
+          <p class="t-caption-strong" style="color:var(--primary);text-transform:uppercase;">Selected work</p>
+          <h2 class="t-display-lg">Projects that define<br>a point of view.</h2>
+        </div>
+      </div>
+      
+      <article class="work-item" aria-label="Project 01">
+        <div class="work-item__inner tile__inner">
+          <a href="https://www.behance.net/gallery/245527979/Gerobak-Laris-Street-Vendor-Food-Restaurant" target="_blank" class="work-item__visual reveal">
+            <img src="assets/images/gerobak-laris.jpg" alt="Project Gerobak Laris" style="width: 100%; height: 100%; object-fit: cover;"> 
+          </a>
+          <div class="work-item__content reveal reveal-delay-2">
+            <p class="work-item__index">Project — 01</p>
+            <h3 class="work-item__title">Gerobak Laris</h3>
+            <p class="work-item__category">Brand Identity · Guideline</p>
+            <p class="t-body work-item__desc">A complete brand identity development for a rising street food vendor. From logo variations and typography rules to an interactive portfolio.</p>
+            <a href="https://www.behance.net/gallery/245527979/Gerobak-Laris-Street-Vendor-Food-Restaurant" target="_blank" class="btn-secondary-pill">View on Behance ↗</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="work-item" style="background:var(--surface-tile-1);" aria-label="Project 02">
+        <div class="work-item__inner tile__inner" style="padding-left:var(--space-xl);padding-right:var(--space-xl);">
+          <a href="https://www.behance.net/gallery/245402973/Islamic-School-Enrollment-Brochure-20262027" target="_blank" class="work-item__visual reveal">
+            <img src="assets/images/hdn-brochure.jpg" alt="Project School Brochure" style="width: 100%; height: 100%; object-fit: cover;"> 
+          </a>
+          <div class="work-item__content reveal reveal-delay-2" style="color:var(--on-dark);">
+            <p class="work-item__index" style="color:var(--body-muted);">Project — 02</p>
+            <h3 class="work-item__title" style="color:var(--on-dark);">Islamic School Brochure</h3>
+            <p class="work-item__category">Advertisement · School Identity</p>
+            <p class="t-body work-item__desc" style="color:var(--body-muted);">Designed a modern and meaningful brochure experience for an Islamic school, blending clarity, elegance, and values into a visual identity that feels both informative and inspiring.</p>
+            <a href="https://www.behance.net/gallery/245402973/Islamic-School-Enrollment-Brochure-20262027" target="_blank" class="text-link-on-dark" style="font-size:17px;">View on Behance ↗</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="work-item" aria-label="Project 03">
+        <div class="work-item__inner tile__inner">
+          <a href="https://www.behance.net/gallery/221246865/Photo" target="_blank" class="work-item__visual reveal">
+            <img src="assets/images/narative-photograph.jpg" alt="Narative Photography" style="width: 100%; height: 100%; object-fit: cover;"> 
+          </a>
+          <div class="work-item__content reveal reveal-delay-2">
+            <p class="work-item__index">Project — 03</p>
+            <h3 class="work-item__title">Narrative Photography</h3>
+            <p class="work-item__category">Photography · Human Interest</p>
+            <p class="t-body work-item__desc">Capturing honest moments through light, emotion, and human presence, framed with a cinematic and intimate approach.</p>
+            <a href="https://www.behance.net/gallery/221246865/Photo" target="_blank" class="btn-secondary-pill">View on Behance ↗</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="work-item" style="background:var(--surface-tile-2);" aria-label="Project 04">
+        <div class="work-item__inner tile__inner" style="padding-left:var(--space-xl);padding-right:var(--space-xl);">
+          <div class="work-item__visual reveal" style="aspect-ratio: 16/9; background: #000; border-radius: var(--rounded-sm); overflow: hidden;">
+            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/XXZIPe4hwd4" title="SRC Media Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border: none;"></iframe>
+          </div>
+          <div class="work-item__content reveal reveal-delay-2" style="color:var(--on-dark);">
+            <p class="work-item__index" style="color:var(--body-muted);">Project — 04</p>
+            <h3 class="work-item__title" style="color:var(--on-dark);">SRC MEDIA</h3>
+            <p class="work-item__category">YouTube Strategy · Video Editing</p>
+            <p class="t-body work-item__desc" style="color:var(--body-muted);">Scaled and transitioned the channel into the YouTube Partner Program. Focused on rhythmic editing, pacing, and retention-driven content strategy.</p>
+            <a href="https://www.youtube.com/@SRCMEDIA_id" target="_blank" class="text-link-on-dark" style="font-size:17px;">View on YouTube Page ↗</a>
+          </div>
+        </div>
+      </article>
+    </section>
+
+
+    <section id="clients" class="tile tile--dark" aria-label="Experience & Brands">
+      <div class="tile__inner">
+
+        <div class="clients-header reveal">
+          <p class="t-caption-strong" style="color:var(--primary-on-dark);text-transform:uppercase;margin-bottom:var(--space-sm);">Experience</p>
+          <h2 class="t-display-lg reveal reveal-delay-1">Places I've worked<br>& grown with.</h2>
+        </div>
+
+        <div class="marquee-wrapper reveal reveal-delay-2">
+          <div class="marquee-track">
+            
+            <div class="marquee-item" title="Adobe">
+              <img src="assets/images/adobe-svgrepo-com.svg" alt="Adobe" style="height: 100%;">
+            </div>
+            <div class="marquee-item" title="YouTube">
+              <img src="assets/images/youtube-svgrepo-com.svg" alt="YouTube" style="height: 100%;">
+            </div>
+            <div class="marquee-item" title="MNC Media">
+              <img src="assets/images/Logo_MNC.svg" alt="MNC Media" style="height: 100%;">
+            </div>
+            <div class="marquee-item" title="Pemerintah Kota Tangerang Selatan">
+              <img src="assets/images/Lambang_Kota_Tangerang_Selatan.svg" alt="Pemda Tangsel" style="height: 100%;">
+            </div>
+            <div class="marquee-item" title="Affinity">
+              <img src="assets/images/affinity-svgrepo-com.svg" alt="Affinity" style="height: 100%;">
+            </div>
+            <div class="marquee-item" title="Instagram">
+              <img src="assets/images/instagram-svgrepo-com.svg" alt="Instagram" style="height: 100%;">
+            </div>
+            <div class="marquee-item" title="Logo Sekolah">
+              <img src="assets/images/logo-sekolah.svg" alt="Logo Sekolah MI-Hadiqotunnasyiin" style="height: 100%;">
+            </div>
+
+            <div class="marquee-item" title="Adobe">
+              <img src="assets/images/adobe-svgrepo-com.svg" alt="Adobe" style="height: 100%;">
+            </div>
+            <div class="marquee-item" title="YouTube">
+              <img src="assets/images/youtube-svgrepo-com.svg" alt="YouTube" style="height: 100%;">
+            </div>
+            <div class="marquee-item" title="MNC Media">
+              <img src="assets/images/Logo_MNC.svg" alt="MNC Media" style="height: 100%;">
+            </div>
+            <div class="marquee-item" title="Pemerintah Kota Tangerang Selatan">
+              <img src="assets/images/Lambang_Kota_Tangerang_Selatan.svg" alt="Pemda Tangsel" style="height: 100%;">
+            </div>
+            <div class="marquee-item" title="Affinity">
+              <img src="assets/images/affinity-svgrepo-com.svg" alt="Affinity" style="height: 100%;">
+            </div>
+            <div class="marquee-item" title="Instagram">
+              <img src="assets/images/instagram-svgrepo-com.svg" alt="Instagram" style="height: 100%;">
+            </div>
+            <div class="marquee-item" title="Logo Sekolah">
+              <img src="assets/images/logo-sekolah.svg" alt="Logo Sekolah" style="height: 100%;">
+            </div>
+
+          </div>
+        </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <section id="services" class="tile tile--parchment" aria-label="Services">
+      <div class="tile__inner">
+
+        <div class="services-header reveal">
+          <p class="t-caption-strong" style="color:var(--primary);text-transform:uppercase;margin-bottom:var(--space-sm);">What I do</p>
+          <h2 class="t-display-lg">Expertise across the<br>full creative spectrum.</h2>
+        </div>
+
+        <div class="services-grid">
+
+          <div class="service-card reveal">
+            <h3 class="service-card__title">Graphic Design</h3>
+            <p class="service-card__desc">Crafting compelling visuals that communicate your brand's core message. From complete identity systems to marketing collaterals.</p>
+            <div class="service-card__tags">
+              <span class="service-tag">Visual Identity</span>
+              <span class="service-tag">Layout</span>
+              <span class="service-tag">Assets</span>
+            </div>
+          </div>
+
+          <div class="service-card reveal reveal-delay-1">
+            <h3 class="service-card__title">Social Media Specialist</h3>
+            <p class="service-card__desc">Building digital presence through strategic content planning, engaging copy, and data-driven campaigns.</p>
+            <div class="service-card__tags">
+              <span class="service-tag">Strategy</span>
+              <span class="service-tag">Copywriting</span>
+              <span class="service-tag">Analytics</span>
+              <span class="service-tag">Content</span>
+            </div>
+          </div>
+
+          <div class="service-card reveal reveal-delay-2">
+            <h3 class="service-card__title">Video Editor</h3>
+            <p class="service-card__desc">Stitching raw footage into rhythmic, narrative-driven stories. Color grading, sound design, and pacing that keeps eyes glued.</p>
+            <div class="service-card__tags">
+              <span class="service-tag">Storytelling</span>
+              <span class="service-tag">Color Grading</span>
+              <span class="service-tag">Motion</span>
+            </div>
+          </div>
+
+          <div class="service-card reveal reveal-delay-3">
+            <h3 class="service-card__title">Live Production</h3>
+            <p class="service-card__desc">Directing real-time broadcasts with technical precision. Managing multi-camera setups, audio routing, and seamless streaming.</p>
+            <div class="service-card__tags">
+              <span class="service-tag">OBS / vMix</span>
+              <span class="service-tag">Multi-cam</span>
+              <span class="service-tag">Streaming</span>
+            </div>
+          </div>
+
+          <div class="service-card reveal reveal-delay-1">
+            <h3 class="service-card__title">Photography</h3>
+            <p class="service-card__desc">Capturing moments that matter. Event documentation, commercial portraits, and atmospheric shots with an eye for lighting.</p>
+            <div class="service-card__tags">
+              <span class="service-tag">Events</span>
+              <span class="service-tag">Portrait</span>
+              <span class="service-tag">Commercial</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="tech-stack" class="tile tile--black" aria-label="Tech Stack & Workflow">
+      <div class="tile__inner">
+        <div class="section-header reveal">
+          <p class="t-caption-strong" style="color:var(--primary-on-dark);text-transform:uppercase;margin-bottom:var(--space-sm);">Workflow & Tools</p>
+          <h2 class="t-display-lg" style="color:var(--on-dark);">Beyond standard design.</h2>
+          <p class="t-body" style="color:var(--body-muted); max-width: 600px; margin: var(--space-md) auto 0;">Compremise Visual, Broadcast, Automation, AI, and industry-standard tools to deliver uncompromising quality at speed.</p>
+        </div>
+        
+        <div class="tech-grid reveal reveal-delay-2">
+          
+          <button class="tech-chip" data-title="Creative Suite" data-skills="Adobe Creative Suite, Affinity, Figma, Graphic Tools, Design Ecosystem">Creative Suite</button>
+          
+          <button class="tech-chip" data-title="Post-Production" data-skills="Editing, Color Grading, Finishing, Mastering, Delivery">Post-Production</button>
+          
+          <button class="tech-chip" data-title="AI & Automation" data-skills="ComfyUI, Python Automation, Workflow Automation, AI Pipeline, Batch Processing, Scripting">AI & Automation</button>
+          
+          <button class="tech-chip" data-title="Live Production" data-skills="OBS & vMix, Switching, Livestream, ENG Camera Operation, Broadcast, Multi-cam, Routing, Projection">Live Production</button>
+          
+          <button class="tech-chip" data-title="Cinematic Workflow" data-skills="Mirrorless / DSLR Operation, Photography, Cinema Pipeline, Storytelling, Visual Finishing, Film Workflow, Color Science">Cinematic Workflow</button>
+          
+          <button class="tech-chip" data-title="Audio Enthusiast" data-skills="Have a little knowledge about audio systems">Audio Enthusiast</button>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="tech-modal" id="techModal" aria-hidden="true">
+      <div class="tech-modal__overlay" id="techModalOverlay"></div>
+      <div class="tech-modal__content">
+        <button class="tech-modal__close" id="techModalClose" aria-label="Close modal">✕</button>
+        <h3 class="t-display-md" id="techModalTitle" style="color:var(--on-dark);margin-bottom:var(--space-md);font-size:24px;">Judul</h3>
+        <ul class="tech-modal__list" id="techModalList">
+          </ul>
+      </div>
+    </div>
+
+    <section id="contact" class="tile tile--dark" aria-label="Contact">
+      <div class="contact-inner reveal">
+        <h2 class="t-display-lg" style="color:var(--on-dark);">Let's make<br>something remarkable.</h2>
+        <form class="contact-form" action="https://formspree.io/f/mvzlnlqb" method="POST">
+          <div class="form-row">
+            <div class="form-field">
+              <input type="text" id="name" name="name" placeholder="Your name" required />
+            </div>
+            <div class="form-field">
+              <input type="email" id="email" name="email" placeholder="you@company.com" required />
+            </div>
+          </div>
+          
+          <div class="form-field" style="margin-top: var(--space-md);">
+            <textarea id="message" name="message" placeholder="Tell me about your project, timeline, or whatever is on your mind..." required></textarea>
+          </div>
+
+          <div class="contact-form__submit">
+            <button type="submit" class="btn-store-hero">Send message</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+<footer role="contentinfo">
+    <div class="footer__main">
+      <div>
+        <p class="footer__brand-name">Muhammad Caesar Afian Rahman</p>
+        <p class="footer__brand-tagline">Graphic Designer & Social Media Specialist<br>Greater Jakarta, Indonesia</p>
+      </div>
+      
+      <div>
+        <p class="footer__col-head">Keep in Touch</p>
+        <nav class="footer__links" aria-label="Social links">
+          <a href="mailto:mcaesarar@gmail.com">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            Email Me
+          </a>
+          <a href="https://www.linkedin.com/in/muhammad-caesar-afian-rahman-2317981a5/" target="_blank" rel="noopener noreferrer">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+            LinkedIn
+          </a>
+          <a href="https://www.instagram.com/muhammadcaesar_ar" target="_blank" rel="noopener noreferrer">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            Instagram
+          </a>
+          <a href="https://www.behance.net/caesarafian" target="_blank" rel="noopener noreferrer">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7.6 10.4h-3v-2.8h2.9c1.6 0 2.4.8 2.4 2.1 0 1.2-.8 2-2.3 2V10.4zm.5 5.5H5.4v-3.2h3.1c1.8 0 2.7.9 2.7 2.3 0 1.3-1 2.3-3.1 2.3v-1.4zM22 13h-5.2c0 1.3.8 2 2 2 .8 0 1.4-.4 1.8-1h1.5c-.6 1.7-2 2.6-3.8 2.6-2.6 0-4-1.8-4-4.2s1.5-4.2 3.8-4.2c2.5 0 3.9 1.8 3.9 4.2v.6h0zm-1.5-1.2c0-1.2-.7-1.8-1.8-1.8-1 0-1.7.6-1.9 1.8h3.7v0zM17.1 6.8h4.5v1.4h-4.5V6.8zM2.8 17.5h5c2.6 0 4.1-1.3 4.1-3.3 0-1.3-.8-2.3-2-2.7 1-.4 1.6-1.4 1.6-2.5 0-1.9-1.4-3-3.8-3H2.8v11.5z"/></svg>
+            Behance
+          </a>
+        </nav>
+      </div>
+
+      <div>
+        <p class="footer__col-head">Portfolio</p>
+        <nav class="footer__links" aria-label="Quick links">
+          <a href="#about">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"></circle><path d="M20 21a8 8 0 0 0-16 0"></path></svg>
+            About
+          </a>
+          <a href="#work">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            Selected Work
+          </a>
+          <a href="#services">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+            Services
+          </a>
+        </nav>
+      </div>
+    </div>
+
+    <div class="footer__legal">
+      <p class="footer__legal-text">Copyright © 2026 Muhammad Caesar Afian Rahman. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <div class="sticky-bar" id="stickyBar">
+    <span class="sticky-bar__label">Currently available for new projects.</span>
+    <a href="#contact" class="btn-primary">Start a project</a>
+  </div>
+
+  <script src="js/script.js"></script>
+
+</body>
+</html>
