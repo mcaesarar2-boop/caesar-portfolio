@@ -119,3 +119,28 @@ if (techChips.length > 0 && techModal) {
   techModalClose.addEventListener('click', closeModal);
   techModalOverlay.addEventListener('click', closeModal);
 }
+
+/* ── World Clocks Logic ──────────────────────────────────────────────── */
+function updateWorldClocks() {
+  const options = { hour: '2-digit', minute: '2-digit', hour12: false };
+  
+  try {
+    const jktTime = new Intl.DateTimeFormat('en-US', { ...options, timeZone: 'Asia/Jakarta' }).format(new Date());
+    const laTime = new Intl.DateTimeFormat('en-US', { ...options, timeZone: 'America/Los_Angeles' }).format(new Date());
+    const meccaTime = new Intl.DateTimeFormat('en-US', { ...options, timeZone: 'Asia/Riyadh' }).format(new Date());
+
+    const jktEl = document.getElementById('clock-jkt');
+    const laEl = document.getElementById('clock-la');
+    const meccaEl = document.getElementById('clock-mecca');
+
+    if (jktEl) jktEl.textContent = jktTime;
+    if (laEl) laEl.textContent = laTime;
+    if (meccaEl) meccaEl.textContent = meccaTime;
+  } catch (error) {
+    console.error("Error updating clocks:", error);
+  }
+}
+
+// Jalankan langsung pas halaman kebuka, lalu update tiap 1 detik
+updateWorldClocks();
+setInterval(updateWorldClocks, 1000);

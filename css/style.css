@@ -138,20 +138,45 @@ main { padding-top: 44px; }
 .tile__inner { max-width: 980px; margin: 0 auto; }
 .tile__inner--wide { max-width: 1200px; margin: 0 auto; }
 
+/* ─── HERO WORLD CLOCKS ─────────────────────────────────────────────── */
+.hero__clocks {
+  display: flex;
+  gap: var(--space-xs);
+  align-items: center;
+  font-family: var(--font-text);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--body-muted);
+  margin-bottom: var(--space-sm);
+}
+
+.clock-item span {
+  color: var(--on-dark);
+  font-weight: 600;
+  margin-left: 2px;
+}
+
+.clock-divider {
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 10px;
+}
+
 /* ─── HERO SECTION ───────────────────────────────────────────────────── */
 #hero { 
   background: var(--surface-tile-1); 
   color: var(--on-dark); 
-  min-height: 75vh; /* Tadinya 100svh, gw kurangin jadi 75vh biar gak kejauhan */
+  min-height: 75vh; /* Tetap 75vh biar ukuran kotak background gak berubah */
   display: flex; 
   flex-direction: column; 
   align-items: center; 
   justify-content: center; 
   text-align: center; 
-  padding: 140px var(--space-xl) var(--space-section); /* Padding atas ditambah dikit biar aman dari ketutup menu */
+  padding: 60px var(--space-xl) var(--space-section); /* Angka 140px diganti jadi 60px */
   position: relative; 
   overflow: hidden; 
 }
+
 #hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,102,204,0.07) 0%, transparent 70%); pointer-events: none; }
 .hero__title { font-family: var(--font-display); font-size: clamp(34px, 5vw, 56px); font-weight: 600; line-height: 1.07; letter-spacing: -0.28px; color: var(--on-dark); max-width: 800px; }
 .hero__subtitle { font-family: var(--font-display); font-size: clamp(22px, 3vw, 28px); font-weight: 400; line-height: 1.14; letter-spacing: 0.196px; color: var(--body-muted); margin-top: var(--space-lg); max-width: 600px; }
@@ -398,6 +423,12 @@ footer { background: var(--canvas-parchment); color: var(--ink-muted-80); paddin
 .sticky-bar { position: fixed; bottom: 0; left: 0; right: 0; z-index: 900; height: 64px; background: rgba(245, 245, 247, 0.85); backdrop-filter: blur(20px) saturate(180%); border-top: 1px solid rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: space-between; padding: 12px var(--space-xl); transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
 .sticky-bar.visible { transform: translateY(0); }
 
+.footer__legal {
+  text-align: center;
+  padding-top: var(--space-lg); /* Ngasih sedikit jarak dari garis batas atasnya */
+  width: 100%;
+}
+
 /* ─── RESPONSIVE ─────────────────────────────────────────────────────── */
 @media (max-width: 833px) {
   .global-nav__links, .global-nav__cta { display: none; }
@@ -411,7 +442,7 @@ footer { background: var(--canvas-parchment); color: var(--ink-muted-80); paddin
 @media (max-width: 640px) {
   .hero__title { font-size: 34px; }
   .services-grid, .process-steps, .form-row, .footer__main { grid-template-columns: 1fr; }
-  .footer__legal { flex-direction: column; align-items: flex-start; }
+  .footer__legal { flex-direction: column; align-items: center; text-align: center; }
 }
 
 /* ─── CUSTOM ADDITIONS (Hero BG & Marquee) ───────────────────────────── */
@@ -493,3 +524,6 @@ footer { background: var(--canvas-parchment); color: var(--ink-muted-80); paddin
 
 /* KODE HOVER IMAGE SEBELUMNYA DIHAPUS AJA, 
    biar pas di-hover warnanya tetep putih, gak balik ke hitam/warna-warni */
+
+
+   
