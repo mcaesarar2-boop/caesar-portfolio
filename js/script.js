@@ -1,9 +1,9 @@
 /* ── Scroll reveal ─────────────────────────────────────── */
 const revealObserver = new IntersectionObserver(
-  entries => entries.forEach(e => {
+  (entries, observer) => entries.forEach(e => {
     if (e.isIntersecting) {
       e.target.classList.add('visible');
-      revealObserver.unobserve(e.target);
+      observer.unobserve(e.target);
     }
   }),
   { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
@@ -23,31 +23,35 @@ const stickyObserver = new IntersectionObserver(
   ([entry]) => stickyBar.classList.toggle('visible', !entry.isIntersecting),
   { threshold: 0.1 }
 );
-stickyObserver.observe(heroEl);
+if (heroEl && stickyBar) stickyObserver.observe(heroEl);
 
 /* ── Mobile nav ────────────────────────────────────────── */
 const hamburger  = document.querySelector('.nav-hamburger');
 const mobileNav  = document.getElementById('mobileNav');
 
-hamburger.addEventListener('click', () => {
-  const isOpen = hamburger.classList.toggle('open');
-  mobileNav.classList.toggle('open', isOpen);
-  hamburger.setAttribute('aria-expanded', isOpen);
-  document.body.style.overflow = isOpen ? 'hidden' : '';
-});
+if (hamburger && mobileNav) {
+  hamburger.addEventListener('click', () => {
+    const isOpen = hamburger.classList.toggle('open');
+    mobileNav.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+}
 
 function closeNav() {
-  hamburger.classList.remove('open');
-  mobileNav.classList.remove('open');
-  hamburger.setAttribute('aria-expanded', 'false');
-  document.body.style.overflow = '';
+  if (hamburger && mobileNav) {
+    hamburger.classList.remove('open');
+    mobileNav.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
 }
 
 /* Close nav when clicking outside */
 document.addEventListener('click', e => {
-  if (mobileNav.classList.contains('open') &&
+  if (mobileNav && mobileNav.classList.contains('open') &&
       !mobileNav.contains(e.target) &&
-      !hamburger.contains(e.target)) {
+      hamburger && !hamburger.contains(e.target)) {
     closeNav();
   }
 });
@@ -85,16 +89,10 @@ if (techChips.length > 0 && techModal) {
     // Set judul pop-up
     techModalTitle.textContent = title;
     
-    // Bersihin list yang lama
-    techModalList.innerHTML = '';
-    
-    // Potong teks dari data-skills berdasarkan tanda koma, terus masukin ke list
-    const skillsArray = skills.split(',');
-    skillsArray.forEach(skill => {
-      const li = document.createElement('li');
-      li.textContent = skill.trim(); // Trim biar spasinya rapi
-      techModalList.appendChild(li);
-    });
+    // Potong teks dari data-skills dan map langsung ke HTML secara fluent
+    techModalList.innerHTML = skills.split(',')
+      .map(skill => `<li>${skill.trim()}</li>`)
+      .join('');
 
     // Munculin pop-up
     techModal.classList.add('open');
@@ -116,31 +114,34 @@ if (techChips.length > 0 && techModal) {
   });
 
   // Tombol X dan klik di luar kotak buat nutup pop-up
-  techModalClose.addEventListener('click', closeModal);
-  techModalOverlay.addEventListener('click', closeModal);
+      if (techModalClose) techModalClose.addEventListener('click', closeModal);
+      if (techModalOverlay) techModalOverlay.addEventListener('click', closeModal);
 }
 
 /* ── World Clocks Logic ──────────────────────────────────────────────── */
+// Cache formatter di luar fungsi agar tidak membebani memory (Garbage Collection) tiap detik
+const options = { hour: '2-digit', minute: '2-digit', hour12: false };
+const formatJkt = new Intl.DateTimeFormat('en-US', { ...options, timeZone: 'Asia/Jakarta' });
+const formatLA = new Intl.DateTimeFormat('en-US', { ...options, timeZone: 'America/Los_Angeles' });
+const formatMecca = new Intl.DateTimeFormat('en-US', { ...options, timeZone: 'Asia/Riyadh' });
+
+const jktEl = document.getElementById('clock-jkt');
+const laEl = document.getElementById('clock-la');
+const meccaEl = document.getElementById('clock-mecca');
+
 function updateWorldClocks() {
-  const options = { hour: '2-digit', minute: '2-digit', hour12: false };
-  
   try {
-    const jktTime = new Intl.DateTimeFormat('en-US', { ...options, timeZone: 'Asia/Jakarta' }).format(new Date());
-    const laTime = new Intl.DateTimeFormat('en-US', { ...options, timeZone: 'America/Los_Angeles' }).format(new Date());
-    const meccaTime = new Intl.DateTimeFormat('en-US', { ...options, timeZone: 'Asia/Riyadh' }).format(new Date());
-
-    const jktEl = document.getElementById('clock-jkt');
-    const laEl = document.getElementById('clock-la');
-    const meccaEl = document.getElementById('clock-mecca');
-
-    if (jktEl) jktEl.textContent = jktTime;
-    if (laEl) laEl.textContent = laTime;
-    if (meccaEl) meccaEl.textContent = meccaTime;
+    const now = new Date();
+    if (jktEl) jktEl.textContent = formatJkt.format(now);
+    if (laEl) laEl.textContent = formatLA.format(now);
+    if (meccaEl) meccaEl.textContent = formatMecca.format(now);
   } catch (error) {
     console.error("Error updating clocks:", error);
   }
 }
 
 // Jalankan langsung pas halaman kebuka, lalu update tiap 1 detik
-updateWorldClocks();
-setInterval(updateWorldClocks, 1000);
+if (jktEl || laEl || meccaEl) {
+  updateWorldClocks();
+  setInterval(updateWorldClocks, 1000);
+}
