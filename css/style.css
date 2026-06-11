@@ -536,6 +536,19 @@ footer { background: var(--canvas-parchment); color: var(--ink-muted-80); paddin
   opacity: 1; /* Pas di-hover, dia jadi putih terang benderang */
 }
 
+/* ─── CROSS-DOCUMENT VIEW TRANSITIONS ───────────────────────────────── */
+@view-transition {
+  navigation: auto;
+}
+
+/* Memperhalus durasi animasi morphing agar tidak terlalu ngagetin */
+::view-transition-old(root),
+::view-transition-new(root),
+::view-transition-old(qurban-mockup),
+::view-transition-new(qurban-mockup) {
+  animation-duration: 0.5s;
+}
+
 /* KODE HOVER IMAGE SEBELUMNYA DIHAPUS AJA, 
    biar pas di-hover warnanya tetep putih, gak balik ke hitam/warna-warni */
 

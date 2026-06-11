@@ -1,0 +1,48 @@
+/* Custom CSS for Brand Guideline Qurban An-Nur */
+
+/* Enable Cross-Document View Transitions */
+@view-transition {
+    navigation: auto;
+}
+
+/* Memperhalus durasi animasi morphing agar tidak terlalu ngagetin */
+::view-transition-old(root),
+::view-transition-new(root),
+::view-transition-old(qurban-mockup),
+::view-transition-new(qurban-mockup) {
+  animation-duration: 0.5s;
+}
+
+/* Animasi masuk elemen hero untuk menyempurnakan efek morphing */
+@keyframes heroFadeIn {
+    0%, 40% { opacity: 0; }
+    100% { opacity: 1; }
+}
+@keyframes heroSlideUp {
+    0%, 40% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+.hero-fade { animation: heroFadeIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+.hero-slide { animation: heroSlideUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+
+.toast {
+    visibility: hidden;
+    min-width: 250px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 8px;
+    padding: 12px;
+    position: fixed;
+    z-index: 50;
+    left: 50%;
+    bottom: 30px;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s, bottom 0.3s;
+}
+.toast.show {
+    visibility: visible;
+    opacity: 1;
+    bottom: 50px;
+}

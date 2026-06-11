@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brand Guideline - Qurban An-Nur 2026</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Fredoka for Display (Playful/Rounded), Plus Jakarta Sans for Body (Professional) -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style-annur2026-guidline.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            teal: '#0B4C63',
+                            mint: '#009B8B',
+                            powder: '#B8DCE5',
+                            navy: '#152445',
+                            olive: '#5D6444',
+                            gold: '#C9BAA3',
+                            red: '#D12E33',
+                            bglight: '#F4F7F6'
+                        }
+                    },
+                    fontFamily: {
+                        display: ['Fredoka', 'sans-serif'],
+                        body: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'wave-pattern': "url('data:image/svg+xml,%3Csvg width=\\'60\\' height=\\'60\\' viewBox=\\'0 0 60 60\\' xmlns=\\'http://www.w3.org/2000/svg\\'%3E%3Cg fill=\\'none\\' fill-rule=\\'evenodd\\'%3E%3Cg fill=\\'%23009b8b\\' fill-opacity=\\'0.15\\'%3E%3Cpath d=\\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')",
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-body bg-brand-bglight text-gray-800 antialiased selection:bg-brand-mint selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white/90 backdrop-blur-md border-b border-gray-200 z-40 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-3 sm:gap-5">
+                    <!-- Tombol Back Floating di Header -->
+                    <a href="index.html" class="group flex items-center justify-center w-9 h-9 md:w-10 md:h-10 rounded-full bg-white border border-gray-200 text-gray-500 hover:bg-brand-mint hover:text-white hover:border-brand-mint transition-all shadow-sm" title="Kembali ke Portofolio Utama">
+                        <svg class="w-4 h-4 md:w-5 md:h-5 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    </a>
+                    <div class="w-px h-5 bg-gray-200 hidden sm:block"></div>
+                    <div class="flex items-center gap-2">
+                        <img src="assets/Logo-Breakdown/Logo Panitia Qurban (Logo Only Full).png" alt="Logo An-Nur" class="h-8 w-auto object-contain">
+                        <span class="font-display font-semibold text-lg text-brand-olive hidden sm:block">An-Nur Qurban</span>
+                    </div>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#strategy" class="text-sm font-medium text-gray-600 hover:text-brand-teal transition-colors">Strategi</a>
+                    <a href="#logo" class="text-sm font-medium text-gray-600 hover:text-brand-teal transition-colors">Sistem Logo</a>
+                    <a href="#colors" class="text-sm font-medium text-gray-600 hover:text-brand-teal transition-colors">Warna</a>
+                    <a href="#typography" class="text-sm font-medium text-gray-600 hover:text-brand-teal transition-colors">Tipografi</a>
+                    <a href="#mascots" class="text-sm font-medium text-gray-600 hover:text-brand-teal transition-colors">Maskot</a>
+                    <a href="#aplikasi" class="text-sm font-medium text-brand-teal font-bold hover:text-brand-mint transition-colors">Aplikasi Desain</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 bg-brand-teal overflow-hidden">
+        <!-- Layer terpisah untuk gambar agar morphing tidak membuat teks ikut melar/glitchy -->
+        <div class="absolute inset-0" style="background-image: url('assets/images/Qurban__Annur_2026_Mockup_1.png'); background-size: cover; background-position: 30% center; view-transition-name: qurban-mockup;"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-brand-teal/80 via-brand-teal/95 to-brand-teal pointer-events-none hero-fade"></div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center hero-slide">
+            <span class="inline-block py-1 px-3 rounded-full bg-brand-mint/30 text-white border border-brand-mint/50 text-sm font-semibold mb-6 tracking-wide uppercase">Brand Identity Manual</span>
+            <h1 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+                Mau Qurban <br>
+                <span class="text-brand-gold relative inline-block">
+                    Tanpa Ribet?
+                    <svg class="absolute -bottom-2 left-0 w-full h-3 text-brand-red" viewBox="0 0 100 20" preserveAspectRatio="none"><path d="M0 10 Q 50 20 100 10" fill="transparent" stroke="currentColor" stroke-width="4"/></svg>
+                </span>
+            </h1>
+            <p class="text-brand-bglight/90 text-lg md:text-xl max-w-2xl mx-auto font-medium mb-10">
+                Panduan komprehensif sistem visual dan strategi kampanye Qurban Masjid An-Nur Kebon Kopi 2026. Menjembatani nilai ibadah dengan pendekatan modern.
+            </p>
+            <a href="#strategy" class="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-brand-teal bg-white rounded-full hover:bg-brand-gold hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1">
+                Jelajahi Guideline
+                <svg class="w-5 h-5 ml-2 -mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- Strategy Section -->
+    <section id="strategy" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-16 max-w-3xl">
+                <h2 class="font-display text-4xl font-bold text-brand-teal mb-4">Strategi & Filosofi</h2>
+                <p class="text-gray-600 text-lg">Konsep "Tanpa Ribet" adalah poros strategi kampanye ini. Mengawinkan sakralitas ibadah dengan kemudahan antarmuka modern untuk audiens urban lintas generasi.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Pillar 1 -->
+                <div class="bg-brand-bglight p-8 rounded-3xl border border-gray-100 hover:shadow-lg transition-shadow">
+                    <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-sm mb-6 text-brand-olive">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    </div>
+                    <h3 class="font-display font-semibold text-xl text-brand-teal mb-3">Amanah</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Mewakili integritas panitia. Setiap elemen visual memancarkan kejujuran, transparansi, dan tanggung jawab penuh atas amanah umat.</p>
+                </div>
+                <!-- Pillar 2 -->
+                <div class="bg-brand-bglight p-8 rounded-3xl border border-gray-100 hover:shadow-lg transition-shadow">
+                    <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-sm mb-6 text-brand-mint">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="font-display font-semibold text-xl text-brand-teal mb-3">Ramah</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Meninggalkan gaya birokratis kaku, merangkul estetika yang bersahabat dan mudah dipahami oleh semua kalangan lintas generasi.</p>
+                </div>
+                <!-- Pillar 3 -->
+                <div class="bg-brand-bglight p-8 rounded-3xl border border-gray-100 hover:shadow-lg transition-shadow">
+                    <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-sm mb-6 text-brand-teal">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path></svg>
+                    </div>
+                    <h3 class="font-display font-semibold text-xl text-brand-teal mb-3">Tertib</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Tata letak informasi yang sangat rapi, menunjukkan panitia bekerja dengan sistem yang terstruktur dan minim kesalahan (no cognitive overload).</p>
+                </div>
+                <!-- Pillar 4 -->
+                <div class="bg-brand-bglight p-8 rounded-3xl border border-gray-100 hover:shadow-lg transition-shadow">
+                    <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-sm mb-6 text-brand-red">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                    </div>
+                    <h3 class="font-display font-semibold text-xl text-brand-teal mb-3">Riang</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Mengubah proses kurban yang terkesan 'menakutkan' menjadi sebuah festival kebaikan yang penuh optimisme dan suka cita.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Logo System Section -->
+    <section id="logo" class="py-20 bg-brand-bglight">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-4xl font-bold text-brand-teal mb-4">Sistem & Anatomi Logo</h2>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto">Logo dirancang dengan pendekatan <em>sacred geometry</em> yang menggabungkan elemen organik siluet hewan qurban dengan struktur arsitektur institusi masjid.</p>
+            </div>
+
+            <!-- Full Width Space for Final Logo Image -->
+            <div class="mb-16 bg-white p-8 md:p-16 rounded-[40px] shadow-sm border border-gray-100 flex flex-col items-center justify-center relative overflow-hidden group hover:shadow-lg transition-shadow">
+                <div class="absolute inset-0 bg-wave-pattern opacity-5"></div>
+                
+                <!-- Final Logo Image Showcase -->
+                <div class="relative z-10 mb-12 lg:mb-16 w-full max-w-xs md:max-w-md mx-auto flex items-center justify-center">
+                    <img src="assets/Logo-Breakdown/Logo Panitia Qurban (Logo Only Full).png" alt="Logo Utama Qurban An-Nur" class="w-full h-auto drop-shadow-sm group-hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openLightbox(this.src)">
+                </div>
+
+                <!-- Section Divider -->
+                <div class="w-full h-px bg-gray-100 mb-12 lg:mb-16 relative z-10">
+                    <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-6 text-xs font-bold text-brand-mint uppercase tracking-widest border border-gray-100 rounded-full py-1 shadow-sm">Anatomi Bentuk</div>
+                </div>
+
+                <!-- Logo SVG Breakdown -->
+                <div class="w-full relative z-10 grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 px-4">
+                    <div class="flex flex-col items-center justify-center group">
+                        <img src="assets/Logo-Breakdown/Kambing.svg" alt="Elemen Kambing" class="w-24 md:w-32 lg:w-40 h-auto mb-4 drop-shadow-sm group-hover:scale-110 transition-transform duration-300">
+                        <span class="font-display font-medium text-brand-teal text-sm bg-brand-bglight px-3 py-1 rounded-full border border-gray-200">1. Kambing</span>
+                    </div>
+                    <div class="flex flex-col items-center justify-center group">
+                        <img src="assets/Logo-Breakdown/Menara-Obor.svg" alt="Elemen Menara & Obor" class="w-24 md:w-32 lg:w-40 h-auto mb-4 drop-shadow-sm group-hover:scale-110 transition-transform duration-300">
+                        <span class="font-display font-medium text-brand-teal text-sm bg-brand-bglight px-3 py-1 rounded-full border border-gray-200">2. Menara & Obor</span>
+                    </div>
+                    <div class="flex flex-col items-center justify-center group">
+                        <img src="assets/Logo-Breakdown/Bulan.svg" alt="Elemen Bulan Sabit" class="w-24 md:w-32 lg:w-40 h-auto mb-4 drop-shadow-sm group-hover:scale-110 transition-transform duration-300">
+                        <span class="font-display font-medium text-brand-teal text-sm bg-brand-bglight px-3 py-1 rounded-full border border-gray-200">3. Bulan Sabit</span>
+                    </div>
+                    <div class="flex flex-col items-center justify-center group">
+                        <img src="assets/Logo-Breakdown/Masjid.svg" alt="Elemen Masjid" class="w-24 md:w-32 lg:w-40 h-auto mb-4 drop-shadow-sm group-hover:scale-110 transition-transform duration-300">
+                        <span class="font-display font-medium text-brand-teal text-sm bg-brand-bglight px-3 py-1 rounded-full border border-gray-200">4. Masjid</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Logo Breakdown Layout -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Breakdown 1 -->
+                <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm relative overflow-hidden group hover:-translate-y-1 transition-transform">
+                    <div class="w-10 h-10 rounded-full bg-brand-olive/10 flex items-center justify-center text-brand-olive font-bold text-lg mb-4">1</div>
+                    <h4 class="font-display font-semibold text-lg text-brand-teal mb-2">Kambing</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">Profil siluet hewan ternak yang diposisikan cerdas di tengah logo, bertindak sebagai representasi subjek utama dalam ibadah qurban.</p>
+                </div>
+                <!-- Breakdown 2 -->
+                <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm relative overflow-hidden group hover:-translate-y-1 transition-transform">
+                    <div class="w-10 h-10 rounded-full bg-brand-olive/10 flex items-center justify-center text-brand-olive font-bold text-lg mb-4">2</div>
+                    <h4 class="font-display font-semibold text-lg text-brand-teal mb-2">Menara & Obor</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">Menggabungkan arsitektur vertikal menara dengan nyala api. Melambangkan "An-Nur" (Sang Cahaya) dan semangat syiar panitia yang senantiasa menyala.</p>
+                </div>
+                <!-- Breakdown 3 -->
+                <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm relative overflow-hidden group hover:-translate-y-1 transition-transform">
+                    <div class="w-10 h-10 rounded-full bg-brand-olive/10 flex items-center justify-center text-brand-olive font-bold text-lg mb-4">3</div>
+                    <h4 class="font-display font-semibold text-lg text-brand-teal mb-2">Bulan Sabit</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">Kurva tegas yang mengingatkan umat pada ketaatan waktu ibadah dan penentuan hari besar Islam (Idul Adha) menggunakan penanggalan qamariyah.</p>
+                </div>
+                <!-- Breakdown 4 -->
+                <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm relative overflow-hidden group hover:-translate-y-1 transition-transform">
+                    <div class="w-10 h-10 rounded-full bg-brand-gold/30 flex items-center justify-center text-brand-olive font-bold text-lg mb-4">4</div>
+                    <h4 class="font-display font-semibold text-lg text-brand-teal mb-2">Masjid</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">Siluet kubah elegan yang membingkai seluruh elemen, menegaskan bahwa seluruh proses ibadah ini berpusat pada kemakmuran otoritas institusi masjid.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Colors Section -->
+    <section id="colors" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-12 text-center max-w-2xl mx-auto">
+                <h2 class="font-display text-4xl font-bold text-brand-teal mb-4">Sistem Warna</h2>
+                <p class="text-gray-600 text-lg">Harmonisasi dua dunia: Identitas inti yang membumi dan sakral, berpadu dengan warna kampanye pemasaran yang segar, modern, dan energik.</p>
+            </div>
+
+            <!-- Core Identity Colors -->
+            <h3 class="font-display text-xl font-bold text-gray-800 mb-6 border-b pb-2">Identitas Inti (Institusi & Logo)</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <!-- Color Card -->
+                <div class="group cursor-pointer rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2" onclick="copyToClipboard('#5D6444')">
+                    <div class="h-32 bg-brand-olive w-full relative">
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                            <span class="text-white font-medium opacity-0 group-hover:opacity-100 bg-black/40 px-3 py-1 rounded-full text-sm">Salin HEX</span>
+                        </div>
+                    </div>
+                    <div class="p-5 bg-white">
+                        <h4 class="font-bold text-gray-900">Earthy Olive Green</h4>
+                        <div class="mt-2 space-y-1 text-xs text-gray-500 font-mono">
+                            <div class="flex justify-between"><span class="text-gray-400">HEX</span> <span>#5D6444</span></div>
+                            <div class="flex justify-between"><span class="text-gray-400">RGB</span> <span>93, 100, 68</span></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Color Card -->
+                <div class="group cursor-pointer rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2" onclick="copyToClipboard('#C9BAA3')">
+                    <div class="h-32 bg-brand-gold w-full relative">
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                            <span class="text-white font-medium opacity-0 group-hover:opacity-100 bg-black/40 px-3 py-1 rounded-full text-sm">Salin HEX</span>
+                        </div>
+                    </div>
+                    <div class="p-5 bg-white">
+                        <h4 class="font-bold text-gray-900">Soft Gold / Beige</h4>
+                        <div class="mt-2 space-y-1 text-xs text-gray-500 font-mono">
+                            <div class="flex justify-between"><span class="text-gray-400">HEX</span> <span>#C9BAA3</span></div>
+                            <div class="flex justify-between"><span class="text-gray-400">RGB</span> <span>201, 186, 163</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Campaign Colors -->
+            <h3 class="font-display text-xl font-bold text-gray-800 mb-6 border-b pb-2">Kampanye & Media Visual (60-30-10 Rule)</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Color Card -->
+                <div class="group cursor-pointer rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2" onclick="copyToClipboard('#0A5F6B')">
+                    <div class="h-32 bg-brand-teal w-full relative">
+                        <div class="absolute top-2 right-2 bg-white/20 text-white text-xs font-bold px-2 py-1 rounded backdrop-blur-sm">60% Dominant</div>
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                            <span class="text-white font-medium opacity-0 group-hover:opacity-100 bg-black/40 px-3 py-1 rounded-full text-sm">Salin HEX</span>
+                        </div>
+                    </div>
+                    <div class="p-5 bg-white">
+                        <h4 class="font-bold text-gray-900">Dark Teal</h4>
+                        <p class="text-xs text-gray-500 mb-2 leading-tight">Memadukan ketenangan biru & keseimbangan hijau. Alternatif modern hijau tradisional yang berkesan terpercaya, amanah, dan menenangkan.</p>
+                        <div class="mt-2 space-y-1 text-xs text-gray-500 font-mono">
+                            <div class="flex justify-between"><span class="text-gray-400">HEX</span> <span>#0B4C63</span></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Color Card -->
+                <div class="group cursor-pointer rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2" onclick="copyToClipboard('#108F87')">
+                    <div class="h-32 bg-brand-mint w-full relative">
+                         <div class="absolute top-2 right-2 bg-white/20 text-white text-xs font-bold px-2 py-1 rounded backdrop-blur-sm">30% Secondary</div>
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                            <span class="text-white font-medium opacity-0 group-hover:opacity-100 bg-black/40 px-3 py-1 rounded-full text-sm">Salin HEX</span>
+                        </div>
+                    </div>
+                    <div class="p-5 bg-white">
+                        <h4 class="font-bold text-gray-900">Bright Turquoise</h4>
+                        <p class="text-xs text-gray-500 mb-2 leading-tight">Menyuntikkan energi, kesegaran, dan aksi. Mengarahkan mata ke solusi utama ("Di Masjid An-Nur Aja!") dan area kontak.</p>
+                        <div class="mt-2 space-y-1 text-xs text-gray-500 font-mono">
+                            <div class="flex justify-between"><span class="text-gray-400">HEX</span> <span>#009B8B</span></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Color Card -->
+                <div class="group cursor-pointer rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2" onclick="copyToClipboard('#B8DCE5')">
+                    <div class="h-32 bg-brand-powder w-full relative">
+                         <div class="absolute top-2 right-2 bg-gray-900/20 text-gray-800 text-xs font-bold px-2 py-1 rounded backdrop-blur-sm">10% Soft Accent</div>
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                            <span class="text-white font-medium opacity-0 group-hover:opacity-100 bg-black/40 px-3 py-1 rounded-full text-sm">Salin HEX</span>
+                        </div>
+                    </div>
+                    <div class="p-5 bg-white">
+                        <h4 class="font-bold text-gray-900">Soft Powder Blue</h4>
+                        <p class="text-xs text-gray-500 mb-2 leading-tight">Area "istirahat" mata (breathing space). Menghadirkan kejernihan dan transparansi agar info krusial (harga) terasa ringan.</p>
+                        <div class="mt-2 space-y-1 text-xs text-gray-500 font-mono">
+                            <div class="flex justify-between"><span class="text-gray-400">HEX</span> <span>#B8DCE5</span></div>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Color Card -->
+                 <div class="group cursor-pointer rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2" onclick="copyToClipboard('#FFFFFF')">
+                    <div class="h-32 bg-white border-b border-gray-100 w-full relative">
+                         <div class="absolute top-2 right-2 bg-gray-100 text-gray-600 border border-gray-200 text-xs font-bold px-2 py-1 rounded backdrop-blur-sm">Text / Base</div>
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                            <span class="text-white font-medium opacity-0 group-hover:opacity-100 bg-black/40 px-3 py-1 rounded-full text-sm">Salin HEX</span>
+                        </div>
+                    </div>
+                    <div class="p-5 bg-white">
+                        <h4 class="font-bold text-gray-900">White</h4>
+                        <p class="text-xs text-gray-500 mb-2 leading-tight">Digunakan pada headline dan bubble chat. Melambangkan kesucian ibadah, dan memberi tingkat keterbacaan tertinggi di atas latar gelap.</p>
+                        <div class="mt-2 space-y-1 text-xs text-gray-500 font-mono">
+                            <div class="flex justify-between"><span class="text-gray-400">HEX</span> <span>#FFFFFF</span></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Color Card -->
+                <div class="group cursor-pointer rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2" onclick="copyToClipboard('#152445')">
+                    <div class="h-32 bg-brand-navy w-full relative">
+                         <div class="absolute top-2 right-2 bg-white/20 text-white text-xs font-bold px-2 py-1 rounded backdrop-blur-sm">Outline / Shadow</div>
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                            <span class="text-white font-medium opacity-0 group-hover:opacity-100 bg-black/40 px-3 py-1 rounded-full text-sm">Salin HEX</span>
+                        </div>
+                    </div>
+                    <div class="p-5 bg-white">
+                        <h4 class="font-bold text-gray-900">Dark Navy</h4>
+                        <p class="text-xs text-gray-500 mb-2 leading-tight">Efek 3D/shadow pada teks "Tanpa Ribet" dan harga. Memberikan penegasan (boldness) & kedalaman dimensi agar teks pop-out tanpa kesan mati.</p>
+                        <div class="mt-2 space-y-1 text-xs text-gray-500 font-mono">
+                            <div class="flex justify-between"><span class="text-gray-400">HEX</span> <span>#152445</span></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Color Card -->
+                <div class="group cursor-pointer rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2" onclick="copyToClipboard('#D12E33')">
+                    <div class="h-32 bg-brand-red w-full relative">
+                         <div class="absolute top-2 right-2 bg-white/20 text-white text-xs font-bold px-2 py-1 rounded backdrop-blur-sm">Spot Color</div>
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                            <span class="text-white font-medium opacity-0 group-hover:opacity-100 bg-black/40 px-3 py-1 rounded-full text-sm">Salin HEX</span>
+                        </div>
+                    </div>
+                    <div class="p-5 bg-white">
+                        <h4 class="font-bold text-gray-900">Red Pin</h4>
+                        <p class="text-xs text-gray-500 mb-2 leading-tight">Focal point instan yang menarik mata ke area harga. Melambangkan urgency (sesuatu yang penting untuk diperhatikan).</p>
+                        <div class="mt-2 space-y-1 text-xs text-gray-500 font-mono">
+                            <div class="flex justify-between"><span class="text-gray-400">HEX</span> <span>#D12E33</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Typography Section -->
+    <section id="typography" class="py-20 bg-brand-teal text-white overflow-hidden relative">
+        <div class="absolute inset-0 bg-wave-pattern opacity-50"></div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-16">
+                <h2 class="font-display text-4xl font-bold mb-4 text-brand-gold">Sistem Tipografi</h2>
+                <p class="text-brand-bglight/80 text-lg max-w-3xl">Meninggalkan gaya formal dan kaku brosur keagamaan pada umumnya. Sistem tipografi dirancang berlapis untuk memberikan hirarki visual yang jelas: mulai dari pemancing atensi, kemudahan membaca data faktual, hingga elemen <em>storytelling</em> maskot.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Font 1: GROBOLD -->
+                <div class="bg-white/10 backdrop-blur-md p-6 xl:p-8 rounded-3xl border border-white/20 flex flex-col hover:-translate-y-1 transition-transform">
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <span class="text-brand-mint font-bold tracking-wider text-xs uppercase">Header Utama / Headline</span>
+                            <h3 class="font-display text-2xl mt-1">GROBOLD</h3>
+                        </div>
+                        <div class="text-5xl font-display font-bold text-brand-gold opacity-50" style="font-family: 'Grobold', 'Fredoka', sans-serif;">Aa</div>
+                    </div>
+                    <div class="space-y-4 mb-6 flex-grow">
+                        <p class="text-3xl font-black text-white drop-shadow-md tracking-wide" style="font-family: 'Grobold', 'Fredoka', sans-serif;">Mau Qurban Tanpa Ribet?</p>
+                    </div>
+                    <div class="pt-6 border-t border-white/10">
+                        <p class="text-sm font-semibold text-brand-mint mb-2">Karakteristik: <span class="text-brand-bglight/90 font-normal">Chunky, playful, gaya komik & sangat bold.</span></p>
+                        <div class="text-sm text-brand-bglight/70 space-y-2">
+                            <p><strong class="text-white">Attention Grabber:</strong> Elemen pertama yang teriak "Lihat ke sini!".</p>
+                            <p><strong class="text-white">Pemecah Kebekuan:</strong> Mematahkan ekspektasi brosur kaku. Membuat proses Qurban terasa seperti kegiatan yang seru, bersahabat, dan approachable.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Font 2: Fredoka One -->
+                <div class="bg-white p-6 xl:p-8 rounded-3xl shadow-xl text-gray-800 flex flex-col hover:-translate-y-1 transition-transform">
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <span class="text-brand-teal font-bold tracking-wider text-xs uppercase">Sub-headline & Data</span>
+                            <h3 class="font-display font-bold text-2xl mt-1 text-gray-900">Fredoka One</h3>
+                        </div>
+                        <div class="text-5xl font-display font-bold text-gray-200">Aa</div>
+                    </div>
+                    <div class="space-y-4 font-display mb-6 flex-grow">
+                        <p class="text-xl font-bold text-brand-teal">Di Masjid An-Nur Aja!</p>
+                        <p class="text-lg font-semibold text-gray-600 mt-2">Sapi/Kambing... <br><span class="text-brand-red font-bold text-2xl inline-block mt-1">3,6 JT</span></p>
+                        <p class="text-base text-gray-500 font-body font-medium mt-2">Contact: Ust. Imron</p>
+                    </div>
+                    <div class="pt-6 border-t border-gray-100">
+                        <p class="text-sm font-semibold text-brand-teal mb-2">Karakteristik: <span class="text-gray-600 font-normal">Rounded sans-serif, lebih geometris, proporsional & bersih.</span></p>
+                        <div class="text-sm text-gray-600 space-y-2">
+                            <p><strong class="text-gray-900">The Perfect Sidekick:</strong> Pasangan sempurna untuk mempertahankan nuansa ramah Grobold tapi jauh lebih teratur.</p>
+                            <p><strong class="text-gray-900">Legibility Tinggi:</strong> Sangat mudah dibaca, menyeimbangkan fungsionalitas dan santai untuk menyampaikan harga & kontak.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Font 3: Arial Rounded MT Bold -->
+                <div class="bg-brand-bglight p-6 xl:p-8 rounded-3xl shadow-inner border border-gray-100 text-gray-800 flex flex-col hover:-translate-y-1 transition-transform">
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <span class="text-brand-olive font-bold tracking-wider text-xs uppercase">Voice of Mascot</span>
+                            <h3 class="font-bold text-xl mt-1 text-gray-900 leading-tight" style="font-family: 'Arial Rounded MT Bold', sans-serif;">Arial Rounded<br>MT Bold</h3>
+                        </div>
+                        <div class="text-5xl font-bold text-gray-300" style="font-family: 'Arial Rounded MT Bold', sans-serif;">Aa</div>
+                    </div>
+                    <div class="space-y-3 mb-6 flex-grow" style="font-family: 'Arial Rounded MT Bold', sans-serif;">
+                        <div class="inline-block bg-white border border-gray-200 rounded-2xl rounded-bl-none px-4 py-2 shadow-sm text-brand-teal font-bold text-sm">2026 Saatnya Qurban!</div>
+                        <div class="inline-block bg-brand-red text-white rounded-2xl rounded-br-none px-4 py-2 shadow-sm font-bold text-sm float-right">Berangkattt!!</div>
+                        <div class="inline-block bg-white border border-gray-200 rounded-2xl rounded-bl-none px-4 py-2 shadow-sm text-brand-teal font-bold text-sm mt-3">Saya Catat!!</div>
+                    </div>
+                    <div class="pt-6 border-t border-gray-200">
+                        <p class="text-sm font-semibold text-brand-olive mb-2">Karakteristik: <span class="text-gray-600 font-normal">Font sistem klasik, rapi, membulat, dan netral.</span></p>
+                        <div class="text-sm text-gray-600 space-y-2">
+                            <p><strong class="text-gray-900">Voice of Characters:</strong> Diletakkan di dalam *speech bubbles* untuk merepresentasikan obrolan natural para maskot.</p>
+                            <p><strong class="text-gray-900">Hirarki Visual Pas:</strong> Ornamen *storytelling* yang sengaja dipilih paling *basic* agar tidak merusak hirarki judul & harga.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mascots Section -->
+    <section id="mascots" class="py-20 bg-brand-bglight">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="inline-block p-3 rounded-full bg-brand-gold/20 text-brand-olive mb-4">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </span>
+                <h2 class="font-display text-4xl font-bold text-brand-teal mb-4">Mascot Trio 3D</h2>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto">Meninggalkan vektor datar pasaran, kampanye ini menggunakan karakter 3D (CGI/Clay style) untuk menarik perhatian visual dan menceritakan proses administrasi yang profesional.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-10 items-center">
+                <!-- Full Image Showcase -->
+                <div class="lg:col-span-3 relative group">
+                    <div class="absolute inset-0 bg-brand-mint/10 transform -rotate-2 rounded-[40px] transition-transform group-hover:-rotate-3"></div>
+                    <div class="relative bg-white p-4 rounded-[40px] shadow-xl border border-gray-100">
+                        <div class="w-full rounded-[28px] overflow-hidden relative shadow-inner bg-gray-50 flex items-center justify-center">
+                            <img src="assets/Design/Maskot Qurban (Full).png" alt="Mascot Trio Qurban" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openLightbox(this.src)">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Descriptions -->
+                <div class="lg:col-span-2 space-y-5">
+                    <!-- Role 1 -->
+                    <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm flex gap-4 items-start group hover:-translate-y-1 transition-transform">
+                        <div class="w-14 h-14 rounded-full bg-brand-teal/5 flex-shrink-0 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform mt-1">🐐</div>
+                        <div>
+                            <h3 class="font-display text-xl font-bold text-brand-teal">Bashir <span class="text-base font-normal text-gray-500">— Pengamat</span></h3>
+                            <p class="text-brand-mint text-xs font-bold uppercase tracking-wider mb-2">Pembawa Kabar Gembira</p>
+                            <p class="text-gray-600 text-sm leading-relaxed">Visioner yang selalu antusias melihat peluang kebaikan dengan teropongnya. Kehadirannya membawa pesan positif dan berseru, <em class="font-bold text-brand-teal">"2026 Saatnya Qurban!"</em>.</p>
+                        </div>
+                    </div>
+                    <!-- Role 2 -->
+                    <div class="bg-white p-6 rounded-3xl border border-brand-mint shadow-md flex gap-4 items-start relative group hover:-translate-y-1 transition-transform">
+                        <div class="absolute -top-3 -right-2 bg-brand-red text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-sm transform rotate-12 group-hover:rotate-0 transition-transform z-10">Berangkattt!!</div>
+                        <div class="w-14 h-14 rounded-full bg-brand-mint/10 flex-shrink-0 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform mt-1">🐮</div>
+                        <div>
+                            <h3 class="font-display text-xl font-bold text-brand-teal">Fatih <span class="text-base font-normal text-gray-500">— Nahkoda</span></h3>
+                            <p class="text-brand-mint text-xs font-bold uppercase tracking-wider mb-2">Sang Pembuka Jalan</p>
+                            <p class="text-gray-600 text-sm leading-relaxed">Sapi gagah berkacamata <em>aviator</em> di kemudi. Sebagai <em>leader</em>, ia memastikan perjalanan niat ibadah jamaah berjalan lancar, aman, dan tanpa hambatan.</p>
+                        </div>
+                    </div>
+                    <!-- Role 3 -->
+                    <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm flex gap-4 items-start group hover:-translate-y-1 transition-transform">
+                        <div class="w-14 h-14 rounded-full bg-brand-gold/20 flex-shrink-0 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform mt-1">🐑</div>
+                        <div>
+                            <h3 class="font-display text-xl font-bold text-brand-teal">Amin <span class="text-base font-normal text-gray-500">— Pencatat</span></h3>
+                            <p class="text-brand-mint text-xs font-bold uppercase tracking-wider mb-2">Yang Dapat Dipercaya</p>
+                            <p class="text-gray-600 text-sm leading-relaxed">Melambangkan panitia yang sangat teliti. Memastikan setiap nama dan titipan tercatat rapi (<em class="font-bold text-brand-teal">"Saya Catat!!"</em>), memvalidasi pesan amanah.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Graphic Elements Notes -->
+            <div class="mt-16 bg-white p-8 md:p-12 rounded-[40px] border border-gray-100 flex flex-col md:flex-row items-center gap-12">
+                <div class="flex-1">
+                    <h3 class="font-display text-2xl font-bold text-brand-teal mb-4">Elemen Pendukung Lainnya</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <img src="assets/Elements/pin.svg" alt="Pushpin" class="w-6 h-6 mt-1">
+                            <div>
+                                <strong class="text-gray-800">Pushpin Accent (Jarum Pentul):</strong>
+                                <p class="text-sm text-gray-600">Memberikan rasa <em>tangible</em> pada aset digital, menyiratkan pesan psikologis <em>"Saved Date / Pinned"</em>.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <img src="assets/Elements/Speech-Bubbles.svg" alt="Speech Bubbles" class="w-6 h-6 mt-1">
+                            <div>
+                                <strong class="text-gray-800">Speech Bubbles:</strong>
+                                <p class="text-sm text-gray-600">Menambahkan lapisan <em>interactive storytelling</em>, merubah poster statis menjadi dialog yang energik.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            <!-- Graphic Elements Showcase -->
+            <div class="w-full md:w-1/3 flex gap-4 h-48">
+                <div class="flex-1 bg-gray-50 rounded-2xl flex items-center justify-center group hover:shadow-md transition-all border border-gray-100">
+                    <img src="assets/Elements/pin.svg" alt="Pushpin Element" class="w-16 md:w-20 h-auto group-hover:scale-110 group-hover:-rotate-12 transition-transform duration-300 drop-shadow-sm">
+                </div>
+                <div class="flex-1 bg-gray-50 rounded-2xl flex items-center justify-center group hover:shadow-md transition-all border border-gray-100">
+                    <img src="assets/Elements/Speech-Bubbles.svg" alt="Speech Bubbles Element" class="w-16 md:w-20 h-auto group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300 drop-shadow-sm">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Design Applications Section (Brochure & Coupon) -->
+    <section id="aplikasi" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <span class="inline-block p-3 rounded-full bg-brand-mint/10 text-brand-mint mb-4">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                </span>
+                <h2 class="font-display text-4xl font-bold text-brand-teal mb-4">Aplikasi & Layout Publikasi</h2>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto">Implementasi identitas visual ke dalam media komunikasi massa. Membedah tata letak brosur promosi dan struktur sistem pembagian kupon antrean.</p>
+            </div>
+
+            <!-- Brosur Breakdown -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-32 border-b border-gray-100 pb-24">
+                <!-- Image Space Brochure -->
+                <div class="order-2 lg:order-1 relative group">
+                    <div class="absolute inset-0 bg-brand-teal/5 transform rotate-3 rounded-[40px] transition-transform group-hover:rotate-6"></div>
+                    <div class="relative bg-white p-4 rounded-[40px] shadow-xl border border-gray-100">
+                        <div class="w-full rounded-[28px] overflow-hidden relative shadow-inner">
+                            <img src="assets/Design/Flayer Qurban 2026 Annur.png" alt="Desain Brosur Qurban" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openLightbox(this.src)">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Breakdown Text -->
+                <div class="order-1 lg:order-2">
+                    <div class="inline-block py-1 px-3 rounded-full bg-brand-mint/10 text-brand-mint text-xs font-bold mb-4 uppercase tracking-widest border border-brand-mint/20">Media Promosi</div>
+                    <h3 class="font-display text-3xl md:text-4xl font-bold text-brand-teal mb-8">Breakdown Desain Brosur</h3>
+                    
+                    <div class="space-y-8">
+                        <div class="flex gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-brand-bglight border border-gray-200 flex-shrink-0 flex items-center justify-center text-brand-teal font-bold shadow-sm">1</div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-lg font-display">Z-Pattern Reading Flow</h4>
+                                <p class="text-gray-600 text-sm mt-1">Tata letak memandu mata turun dari <strong class="text-gray-800">Logo Institusi</strong> di *header* putih (membangun kepercayaan awal), turun ke *headline* judul yang menarik, disapa oleh Maskot 3D di tengah, dan berakhir mulus pada *Call-to-Action* Kontak di bagian bawah (*footer* hitam).</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-brand-bglight border border-gray-200 flex-shrink-0 flex items-center justify-center text-brand-teal font-bold shadow-sm">2</div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-lg font-display">Hierarki Tipografi Ekstrim</h4>
+                                <p class="text-gray-600 text-sm mt-1">Kalimat <em>"Mau Qurban Tanpa Ribet?"</em> menggunakan tipografi display Komik Style (<span class="font-display font-medium">GROBOLD</span>) ukuran raksasa untuk memicu atensi emosional dan kesan santai (Fun). Sementara detail Harga dan Spesifikasi menggunakan <span class="font-body font-semibold">Fredoka One</span> agar sangat jelas terbaca secara data finansial serta tidak kaku.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-brand-bglight border border-gray-200 flex-shrink-0 flex items-center justify-center text-brand-teal font-bold shadow-sm">3</div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-lg font-display">Kontainer Informasi High-Contrast</h4>
+                                <p class="text-gray-600 text-sm mt-1">Logo utama dan panel harga <strong>3,6 JT</strong> ditempatkan aman di dalam blok kontainer membulat (*pill shape/cards*). Teknik ini memberikan *clearspace* wajib, memastikan teks tidak bertabrakan dengan ombak corak *background halftone teal* di belakangnya.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Decorative Connection Arrow (S-Curve Hierarchy) -->
+            <div class="hidden lg:flex justify-center w-full relative z-0" style="height: 0;">
+                <svg class="absolute -top-[240px] w-[600px] h-[280px] pointer-events-none" viewBox="0 0 600 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="480" cy="8" r="6" fill="#108F87" opacity="0.5" />
+                    <path d="M 480,8 C 480,140 120,120 120,255" stroke="#108F87" stroke-width="3" stroke-dasharray="8 8" opacity="0.5" fill="none" stroke-linecap="round" />
+                    <path d="M 108,240 L 120,258 L 132,240" stroke="#108F87" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.5" fill="none" />
+                </svg>
+            </div>
+
+            <!-- Coupon Breakdown -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <!-- Breakdown Text -->
+                <div class="order-2 lg:order-1">
+                    <div class="inline-block py-1 px-3 rounded-full bg-brand-gold/20 text-brand-olive text-xs font-bold mb-4 uppercase tracking-widest border border-brand-gold/40">Sistem Operasional</div>
+                    <h3 class="font-display text-3xl md:text-4xl font-bold text-brand-teal mb-8">Breakdown Tata Letak Kupon</h3>
+                    
+                    <div class="space-y-8">
+                        <div class="flex gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-brand-bglight border border-gray-200 flex-shrink-0 flex items-center justify-center text-brand-olive font-bold shadow-sm">1</div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-lg font-display">Modular Information Architecture</h4>
+                                <p class="text-gray-600 text-sm mt-1">Semua info teknis antrean dipecah masuk ke dalam modul kartu berbentuk pil *mint green* (Tempat, Tanggal, Jam). Ini adalah ilmu UX dasar; mendesain untuk mencegah <em>cognitive overload</em> bagi warga yang melihat tiket ini di lapangan terbuka atau di bawah terik matahari.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-brand-bglight border border-gray-200 flex-shrink-0 flex items-center justify-center text-brand-olive font-bold shadow-sm">2</div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-lg font-display">Integrasi Maskot Anti-Kaku</h4>
+                                <p class="text-gray-600 text-sm mt-1">Penempatan dinamis dari ketiga Maskot 3D dengan *speech bubble* memberikan kesan riang. Ini mendisrupsi aura kupon pembagian daging yang biasanya terlalu kaku, berubah menjadi sebuah "tiket perayaan/festival" yang eksklusif.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-brand-bglight border border-gray-200 flex-shrink-0 flex items-center justify-center text-brand-olive font-bold shadow-sm">3</div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-lg font-display">Aksen Pushpin (Jarum Pentul Merah)</h4>
+                                <p class="text-gray-600 text-sm mt-1">Aksen visual berwarna <strong class="text-brand-red">Coral Red</strong> berwujud jarum pentul di pinggiran kartu. Ini memberikan kesan tangibilitas (*fisik*), dan secara psikologi alam bawah sadar mengajak warga untuk "menyimpan tanggal" tersebut (*save the date / pin it*).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Image Space Coupon -->
+                <div class="order-1 lg:order-2 relative group">
+                    <div class="absolute inset-0 bg-brand-gold/15 transform -rotate-3 rounded-[40px] transition-transform group-hover:-rotate-6"></div>
+                    <div class="relative bg-white p-4 rounded-[40px] shadow-xl border border-gray-100">
+                        <div class="w-full rounded-[28px] overflow-hidden relative shadow-inner">
+                            <img src="assets/Design/Qupon Qurban 2026 Annur.png" alt="Desain Kupon Qurban" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500 cursor-pointer" onclick="openLightbox(this.src)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 border-t-4 border-brand-teal">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center gap-3 mb-6 md:mb-0">
+                     <img src="assets/Logo-Breakdown/Logo Panitia Qurban (Logo Only Full).png" alt="Logo An-Nur" class="h-10 w-auto object-contain bg-white/10 p-1 rounded-lg">
+                    <div>
+                        <h4 class="font-display font-bold text-xl tracking-wide">Panitia Qurban An-Nur</h4>
+                        <p class="text-xs text-gray-400">Kampanye 2026 / 1447H</p>
+                    </div>
+                </div>
+                <div class="text-center md:text-right">
+                    <p class="text-sm text-gray-400 mb-2">Dokumen Internal & Brand Guideline Portfolio.</p>
+                    <a href="index.html" class="inline-flex items-center gap-2 text-xs font-bold text-brand-mint hover:text-white transition-colors mt-2 group">
+                        <svg class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                        KEMBALI KE HOMEPAGE
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Copyright Section -->
+            <div class="mt-6 pt-6 border-t border-gray-800 text-center flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-xs text-gray-500 tracking-wide">&copy; 2026 Muhammad Caesar Afian Rahman. All rights reserved.</p>
+                <p class="text-xs text-gray-600">Assets & Design are protected by copyright.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lightbox Modal (Flying Popup) -->
+    <div id="lightbox" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/90 backdrop-blur-sm transition-opacity duration-300 opacity-0" onclick="closeLightbox()">
+        <button class="absolute top-6 right-6 text-white bg-white/10 hover:bg-white/20 p-2 rounded-full backdrop-blur-md transition-colors" onclick="closeLightbox()" aria-label="Close">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+        <div class="relative w-full max-w-5xl max-h-[90vh] p-4 md:p-8 flex justify-center items-center" onclick="event.stopPropagation()">
+            <img id="lightbox-img" src="" alt="Full View" class="max-w-full max-h-[85vh] object-contain rounded-xl shadow-2xl transform scale-95 transition-all duration-300">
+        </div>
+    </div>
+
+    <!-- Toast Notification for Copy -->
+    <div id="toast" class="toast font-body shadow-2xl border border-gray-600 font-medium">
+        Warna disalin ke clipboard!
+    </div>
+
+    <!-- Interactive Script -->
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                var toast = document.getElementById("toast");
+                toast.innerHTML = `<span class="text-brand-mint font-bold mr-2">✓</span> Disalin: ${text}`;
+                toast.className = "toast show";
+                setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+            }, function(err) {
+                // Fallback for older browsers
+                var textArea = document.createElement("textarea");
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    var toast = document.getElementById("toast");
+                    toast.innerHTML = `<span class="text-brand-mint font-bold mr-2">✓</span> Disalin: ${text}`;
+                    toast.className = "toast show";
+                    setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+                } catch (err) {
+                    console.error('Oops, unable to copy', err);
+                }
+                document.body.removeChild(textArea);
+            });
+        }
+
+        // Lightbox Functions
+        function openLightbox(src) {
+            const lightbox = document.getElementById('lightbox');
+            const img = document.getElementById('lightbox-img');
+            img.src = src;
+            lightbox.classList.remove('hidden');
+            lightbox.classList.add('flex');
+            
+            // Delay tipis agar CSS transisi zoom dan fade-in terbaca
+            setTimeout(() => {
+                lightbox.classList.remove('opacity-0');
+                img.classList.remove('scale-95');
+                img.classList.add('scale-100');
+            }, 10);
+            
+            document.body.style.overflow = 'hidden'; // Mengunci scroll halaman
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            const img = document.getElementById('lightbox-img');
+            lightbox.classList.add('opacity-0');
+            img.classList.remove('scale-100');
+            img.classList.add('scale-95');
+            
+            setTimeout(() => {
+                lightbox.classList.add('hidden');
+                lightbox.classList.remove('flex');
+                img.src = '';
+                document.body.style.overflow = ''; // Mengembalikan scroll
+            }, 300);
+        }
+
+        // Menutup lightbox dengan tombol ESC
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                const lightbox = document.getElementById('lightbox');
+                if (lightbox && !lightbox.classList.contains('hidden')) {
+                    closeLightbox();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
