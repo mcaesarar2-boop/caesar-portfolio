@@ -5,25 +5,28 @@
     navigation: auto;
 }
 
-/* Memperhalus durasi animasi morphing agar tidak terlalu ngagetin */
-::view-transition-old(root),
-::view-transition-new(root),
-::view-transition-old(qurban-mockup),
-::view-transition-new(qurban-mockup) {
+/* Terapkan durasi 0.5s ke SEMUA elemen yang bertransisi */
+::view-transition-old(*),
+::view-transition-new(*) {
   animation-duration: 0.5s;
 }
 
-/* Animasi masuk elemen hero untuk menyempurnakan efek morphing */
-@keyframes heroFadeIn {
-    0%, 40% { opacity: 0; }
-    100% { opacity: 1; }
+/* Daftarkan elemen teks & gradasi ke View Transition agar tersinkronisasi dengan morphing gambar */
+.hero-fade { 
+    view-transition-name: hero-gradient; 
+}
+.hero-slide { 
+    view-transition-name: hero-content; 
+}
+
+/* Kustomisasi animasi masuk (slide up) khusus untuk teks hero */
+::view-transition-new(hero-content) {
+    animation: heroSlideUp 0.5s ease-out forwards;
 }
 @keyframes heroSlideUp {
-    0%, 40% { opacity: 0; transform: translateY(30px); }
-    100% { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
 }
-.hero-fade { animation: heroFadeIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-.hero-slide { animation: heroSlideUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
 
 .toast {
     visibility: hidden;

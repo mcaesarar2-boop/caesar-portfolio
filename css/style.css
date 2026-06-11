@@ -541,11 +541,9 @@ footer { background: var(--canvas-parchment); color: var(--ink-muted-80); paddin
   navigation: auto;
 }
 
-/* Memperhalus durasi animasi morphing agar tidak terlalu ngagetin */
-::view-transition-old(root),
-::view-transition-new(root),
-::view-transition-old(qurban-mockup),
-::view-transition-new(qurban-mockup) {
+/* Terapkan durasi 0.5s ke SEMUA elemen yang bertransisi */
+::view-transition-old(*),
+::view-transition-new(*) {
   animation-duration: 0.5s;
 }
 
