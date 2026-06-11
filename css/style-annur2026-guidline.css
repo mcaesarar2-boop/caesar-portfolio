@@ -1,5 +1,22 @@
 /* Custom CSS for Brand Guideline Qurban An-Nur */
 
+/* ─── CUSTOM FONTS ─────────────────────────────────────────────────── */
+@font-face {
+    font-family: 'Grobold';
+    src: url('../assets/fonts/GROBOLD.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Berlin Sans FB Demi';
+    src: url('../assets/fonts/BRLNSDB.TTF') format('truetype'); /* Sesuaikan nama file .TTF nya jika berbeda */
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
 /* Enable Cross-Document View Transitions */
 @view-transition {
     navigation: auto;
