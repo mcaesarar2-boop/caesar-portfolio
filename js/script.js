@@ -145,3 +145,48 @@ if (jktEl || laEl || meccaEl) {
   updateWorldClocks();
   setInterval(updateWorldClocks, 1000);
 }
+
+/* ── Lightbox for Project Gallery ─────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  const galleryItems = document.querySelectorAll('.work-gallery-grid .gallery-item');
+  const lightbox = document.getElementById('lightbox');
+  
+  if (galleryItems.length > 0 && lightbox) {
+    const lightboxImage = lightbox.querySelector('.lightbox__image');
+    const lightboxClose = lightbox.querySelector('.lightbox__close');
+
+    const openLightbox = (imgElement) => {
+      if (!imgElement) return;
+      const imgSrc = imgElement.getAttribute('src');
+      lightboxImage.setAttribute('src', imgSrc);
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    };
+
+    const closeLightbox = () => {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+    };
+
+    galleryItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const img = item.querySelector('img');
+        openLightbox(img);
+      });
+    });
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightbox.classList.contains('open')) {
+        closeLightbox();
+      }
+    });
+  }
+});
