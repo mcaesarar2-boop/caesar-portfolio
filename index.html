@@ -65,7 +65,10 @@
         <div class="about__content">
           <p class="t-caption-strong" style="color:var(--primary);text-transform:uppercase;">About</p>
           <h2 class="t-display-md reveal">A visual director with a cinema eye and a designer's rigor.</h2>
-          <p class="t-body about__body reveal reveal-delay-1">Seven years of learning, building, and refining visual experiences through design, creativity, and continuous exploration...</p>
+          <p class="t-body about__body reveal reveal-delay-1">Seven years of learning, building, and refining visual experiences through design, creativity, and continuous exploration.</p>
+          <div class="about__actions reveal reveal-delay-2" style="margin-top: var(--space-xl);">
+            <button id="exploreTasteBtn" class="btn-secondary-pill">Explore My Taste</button>
+          </div>
         </div>
       </div>
     </section>
@@ -442,6 +445,88 @@
       <img src="" alt="Enlarged project screenshot" class="lightbox__image">
     </div>
     <button class="lightbox__close" aria-label="Close image viewer">×</button>
+  </div>
+
+  <!-- Off-Canvas Sidebar for "My Taste" -->
+  <div class="off-canvas-sidebar" id="tasteSidebar" aria-hidden="true">
+    <div class="off-canvas-overlay" id="tasteOverlay"></div>
+    <div class="off-canvas-content" role="dialog" aria-modal="true" aria-labelledby="tasteSidebarTitle">
+      <div class="off-canvas-header">
+        <h3 id="tasteSidebarTitle" class="t-tagline" style="color: var(--on-dark);">Inspirations</h3>
+        <button class="off-canvas-close" id="closeTasteSidebar" aria-label="Close inspirations sidebar">×</button>
+      </div>
+      <div class="off-canvas-body">
+        <p class="t-caption" style="color: var(--body-muted); margin-bottom: var(--space-xxl);">A curated collection of films, music, and games that shape my creative perspective.</p>
+        
+        <!-- Kategori 1: Cinema Eye -->
+        <div class="taste-category">
+          <h4 class="taste-category__title">🎬 Cinema Eye</h4>
+          <div class="taste-grid">
+            <a href="https://youtu.be/8p0YBrmfLyA?si=usnIh8S9jCqWKSt7" target="_blank" rel="noopener noreferrer" class="taste-item">
+              <img src="assets/Personal/Movie/Silver Linings Playbook.jpg" alt="Silver Linings Playbook Poster">
+              <div class="taste-item__overlay"><span>Sort of Like Me</span></div>
+            </a>
+            <a href="https://youtu.be/ONH-pxBMJu4?si=nEPc0rhni1W5BJ5T" target="_blank" rel="noopener noreferrer" class="taste-item">
+              <img src="assets/Personal/Movie/Forrest Gump.jpg" alt="Forrest Gump Poster">
+              <div class="taste-item__overlay"><span>Vietnam Basic Training</span></div>
+            </a>
+            <a href="https://youtu.be/_9RwSjIoR00?si=hQAOp5oGFSdH5Wpe" target="_blank" rel="noopener noreferrer" class="taste-item">
+              <img src="assets/Personal/Movie/Once Upon a Time in Hollywood.jpg" alt="Once Upon a Time in Hollywood Poster">
+              <div class="taste-item__overlay"><span>Cliff Booth punched a Hippie</span></div>
+            </a>
+            <a href="https://youtu.be/5i_DKxZu0aI?si=rT5NKFqZk5MqzrDI" target="_blank" rel="noopener noreferrer" class="taste-item">
+              <img src="assets/Personal/Movie/Pixar Soul.jpg" alt="Pixar Soul Poster">
+              <div class="taste-item__overlay"><span>Regular old living</span></div>
+            </a>
+          </div>
+          <a href="https://boxd.it/fOnZx" target="_blank" rel="noopener noreferrer" class="taste-category__link">Explore My Letterboxd</a>
+        </div>
+
+        <!-- Kategori 2: Sonic Landscape -->
+        <div class="taste-category">
+          <h4 class="taste-category__title">🎵 Sonic Landscape</h4>
+          <div class="taste-grid">
+            <a href="https://youtu.be/5UMCrq-bBCg?si=YpOq5m2cwTxzm8ef" target="_blank" rel="noopener noreferrer" class="taste-item taste-item--square">
+              <img src="assets/Personal/Music/Taylor Swift.jpg" alt="Taylor Swift">
+              <div class="taste-item__overlay"><span>I Bet You Think About Me</span></div>
+            </a>
+            <a href="https://youtu.be/Nv-cni9Sjpk?si=WaaXNYTLN8TPxjRh" target="_blank" rel="noopener noreferrer" class="taste-item taste-item--square">
+              <img src="assets/Personal/Music/Muse.jpg" alt="Muse">
+              <div class="taste-item__overlay"><span>City of Delusion</span></div>
+            </a>
+            <a href="https://youtu.be/cXpOF9iauuY?si=_dGQKC3jvtdPst5Y" target="_blank" rel="noopener noreferrer" class="taste-item taste-item--square">
+              <img src="assets/Personal/Music/Nubiyan Twist.webp" alt="Nubiyan Twist">
+              <div class="taste-item__overlay"><span>Carry Me</span></div>
+            </a>
+            <a href="https://youtu.be/VMnjF1O4eH0?si=-sTBbXpkcP6Y00om" target="_blank" rel="noopener noreferrer" class="taste-item taste-item--square">
+              <img src="assets/Personal/Music/Queen.jpg" alt="Queen">
+              <div class="taste-item__overlay"><span>Fat Bottomed Girls</span></div>
+            </a>
+          </div>
+          <a href="https://music.youtube.com/playlist?list=PL1t7yrBaiSJ96m8wvYhl3a4xdsTk6VyhY&si=b5inP7G4P7GWzaYv" target="_blank" rel="noopener noreferrer" class="taste-category__link">Listen on YT Music</a>
+        </div>
+
+        <!-- Kategori 3: The Downtime -->
+        <div class="taste-category">
+          <h4 class="taste-category__title">⚽ The Downtime</h4>
+          <p class="taste-category__narrative">Where strategy, macro-management, and die-hard fandom take over.</p>
+          <div class="taste-grid taste-grid--3col">
+            <a href="https://fcbayern.com/en" target="_blank" rel="noopener noreferrer" class="taste-item taste-item--square">
+              <img src="assets/Personal/Football/Bayern Munchen.jpg" alt="Bayern Munchen Logo">
+              <div class="taste-item__overlay"><span>Mia San Mia</span></div>
+            </a>
+            <a href="https://support.supercell.com/clash-of-clans/id/index.html" target="_blank" rel="noopener noreferrer" class="taste-item taste-item--square">
+              <img src="assets/Personal/Game/Clash Of Clans.jpg" alt="Clash Of Clans">
+              <div class="taste-item__overlay"><span>Base Strategy</span></div>
+            </a>
+            <a href="https://store.steampowered.com/app/703080/Planet_Zoo/" target="_blank" rel="noopener noreferrer" class="taste-item taste-item--square">
+              <img src="assets/Personal/Game/Planet Zoo.jpg" alt="Planet Zoo">
+              <div class="taste-item__overlay"><span>Macro-Management</span></div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script src="js/script.js"></script>

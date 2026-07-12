@@ -118,6 +118,42 @@ if (techChips.length > 0 && techModal) {
       if (techModalOverlay) techModalOverlay.addEventListener('click', closeModal);
 }
 
+/* ── Off-Canvas Sidebar (My Taste) ───────────────────── */
+const exploreBtn = document.getElementById('exploreTasteBtn');
+const tasteSidebar = document.getElementById('tasteSidebar');
+const tasteOverlay = document.getElementById('tasteOverlay');
+const closeTasteBtn = document.getElementById('closeTasteSidebar');
+
+if (exploreBtn && tasteSidebar && tasteOverlay && closeTasteBtn) {
+  const openTasteSidebar = () => {
+    tasteSidebar.classList.add('open');
+    tasteSidebar.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeTasteSidebar = () => {
+    tasteSidebar.classList.remove('open');
+    tasteSidebar.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  };
+
+  exploreBtn.addEventListener('click', (e) => {
+    e.preventDefault(); // Prevent default anchor behavior if it were an <a>
+    openTasteSidebar();
+  });
+
+  closeTasteBtn.addEventListener('click', closeTasteSidebar);
+  tasteOverlay.addEventListener('click', closeTasteSidebar);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && tasteSidebar.classList.contains('open')) {
+      closeTasteSidebar();
+    }
+  });
+}
+
+
+
 /* ── World Clocks Logic ──────────────────────────────────────────────── */
 // Cache formatter di luar fungsi agar tidak membebani memory (Garbage Collection) tiap detik
 const options = { hour: '2-digit', minute: '2-digit', hour12: false };
