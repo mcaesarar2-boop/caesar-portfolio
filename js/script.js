@@ -96,11 +96,13 @@ if (techChips.length > 0 && techModal) {
 
     // Munculin pop-up
     techModal.classList.add('open');
+    techModal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden'; // Kunci background biar gak bisa di-scroll
   }
 
   function closeModal() {
     techModal.classList.remove('open');
+    techModal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = ''; // Balikin scroll background
   }
 
@@ -196,11 +198,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const imgSrc = imgElement.getAttribute('src');
       lightboxImage.setAttribute('src', imgSrc);
       lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
     };
 
     const closeLightbox = () => {
       lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
     };
 
