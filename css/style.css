@@ -813,5 +813,33 @@ footer { background: var(--canvas-parchment); color: var(--ink-muted-80); paddin
 /* KODE HOVER IMAGE SEBELUMNYA DIHAPUS AJA, 
    biar pas di-hover warnanya tetep putih, gak balik ke hitam/warna-warni */
 
+/* Custom Scrollbar Styling (Webkit & Firefox) */
+
+/* Untuk browser berbasis Webkit (Chrome, Safari, Edge, dll.) */
+::-webkit-scrollbar {
+  width: 8px; /* Lebar scrollbar */
+  height: 8px; /* Tinggi scrollbar untuk scroll horizontal */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* Membuat jalur scrollbar transparan */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #4b5563; /* Warna abu-abu gelap untuk pegangan scroll */
+  border-radius: 10px; /* Membuat ujung pegangan melengkung */
+  border: 2px solid transparent; /* Memberi sedikit jarak antara thumb dan track */
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #6b7280; /* Warna pegangan menjadi sedikit lebih terang saat di-hover */
+}
+
+/* Untuk browser Firefox */
+html {
+  scrollbar-width: thin; /* Opsi: 'auto' atau 'thin' */
+  scrollbar-color: #6b7280 transparent; /* Warna pegangan (thumb) dan jalur (track) */
+}
 
    

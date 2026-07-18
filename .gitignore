@@ -1,0 +1,6 @@
+# Folder mentahan Vite yang tidak perlu di-hosting
+movie-reviews-mentahan/
+
+# File cache dan system OS (biasanya muncul di Windows/Mac)
+.DS_Store
+Thumbs.db
