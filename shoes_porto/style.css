@@ -1,0 +1,224 @@
+/* ==========================================================================
+   WAYAG ARCHIPELAGO - BRAND GUIDELINE & DESIGN SYSTEM
+   Modern Light Theme Stylesheet
+   ========================================================================== */
+
+/* Design System Variables - Light Theme */
+:root {
+  --bg: #f8f9fa;
+  --card: #ffffff;
+  --card-subtle: #f3f4f6;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --accent: #153953;
+  --accent-soft: rgba(21, 57, 83, 0.08);
+  --accent-karst: #455279;
+  --accent-karst-soft: rgba(69, 82, 121, 0.08);
+  --accent2: #C4693D;
+  --accent2-soft: rgba(196, 105, 61, 0.08);
+  --border: #e5e7eb;
+}
+
+/* Base & Global Styles */
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+::selection {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+/* Background Atmosphere Glow - Soft Light Gradients */
+.bg-canvas {
+  background-color: var(--bg);
+  background-image: 
+    radial-gradient(1200px 600px at 85% -5%, rgba(21, 57, 83, 0.05), transparent 60%),
+    radial-gradient(1000px 500px at 10% 10%, rgba(196, 105, 61, 0.04), transparent 55%),
+    radial-gradient(800px 400px at 50% 90%, rgba(69, 82, 121, 0.03), transparent 50%);
+  background-attachment: fixed;
+}
+
+/* Hero Background Wrapper & Mask - Responsive Mobile (Vertical) to Desktop (Smooth Radial Fade) */
+.hero-bg-wrapper {
+  -webkit-mask-image: linear-gradient(to top, transparent 0%, transparent 20%, black 100%);
+  mask-image: linear-gradient(to top, transparent 0%, transparent 20%, black 100%);
+}
+
+@media (min-width: 1024px) {
+  .hero-bg-wrapper {
+    -webkit-mask-image: radial-gradient(ellipse 85% 95% at 100% 50%, black 50%, transparent 95%);
+    mask-image: radial-gradient(ellipse 85% 95% at 100% 50%, black 50%, transparent 95%);
+  }
+}
+
+/* Entrance Animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.7s ease forwards;
+}
+
+.reveal:nth-child(2) { animation-delay: 0.1s; }
+.reveal:nth-child(3) { animation-delay: 0.2s; }
+.reveal:nth-child(4) { animation-delay: 0.3s; }
+.reveal:nth-child(5) { animation-delay: 0.4s; }
+.reveal:nth-child(6) { animation-delay: 0.5s; }
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Tab Navigation Controls */
+.tab-btn {
+  transition: all 0.25s ease;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+.tab-btn:hover {
+  color: var(--text);
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.tab-btn.active {
+  color: var(--accent);
+  font-weight: 600;
+  border-bottom-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+/* Tab Panels */
+.tab-content {
+  display: none;
+  animation: fadeIn 0.4s ease;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Interactive Components & Cards */
+.gallery-card {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+.gallery-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px -8px rgba(21, 57, 83, 0.12), 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.color-swatch {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.color-swatch:hover {
+  transform: scale(1.06);
+}
+
+.value-card {
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.value-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.06);
+}
+
+.element-card {
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.element-card:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  box-shadow: 0 12px 24px -6px rgba(21, 57, 83, 0.08);
+}
+
+.transform-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  font-size: 24px;
+  font-weight: 400;
+}
+
+/* Specification Rows */
+.spec-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+
+.spec-row:last-child {
+  border-bottom: none;
+}
+
+/* Timeline / Process Step Indicator */
+.process-step {
+  position: relative;
+  padding-left: 40px;
+}
+
+.process-step::before {
+  content: "";
+  position: absolute;
+  left: 12px;
+  top: 32px;
+  bottom: -20px;
+  width: 2px;
+  background: var(--border);
+}
+
+.process-step:last-child::before {
+  display: none;
+}
+
+.process-dot {
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  border: 2px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--accent);
+}
