@@ -602,7 +602,7 @@
                  alt="Line Texture Pure" class="max-w-[60%] max-h-full object-contain" 
                  onerror="this.style.display='none'" loading="lazy"/>
           </div>
-          <p class="text-xs text-[var(--text)] text-center mt-3 leading-[1.4] font-medium">Dijadikan tekstur garis vertikal yang halus</p>
+          <p class="text-xs text-[var(--text)] text-center mt-3 leading-[1.4] font-medium">Dijadikan tekstur garis Horizontal yang halus</p>
         </div>
 
         <div class="transform-arrow">→</div>
@@ -684,15 +684,22 @@
         </div>
 
         <!-- Card 5: Line Texture -->
-        <div class="element-card p-7 rounded-[14px] bg-[var(--card)] border border-[var(--border)]">
-          <div class="aspect-[4/3] flex items-center justify-center bg-[var(--card-subtle)] border border-[var(--border)]/60 rounded-xl mb-5 overflow-hidden">
-            <img src="./assets/Only Design - Line Opacity 15%.png" 
-                 alt="Line Texture" class="max-w-[50%] max-h-full object-contain" 
-                 onerror="this.style.display='none'" loading="lazy"/>
+        <div class="element-card group p-7 rounded-[14px] bg-[var(--card)] border border-[var(--border)] cursor-pointer">
+          <div class="relative aspect-[4/3] flex items-center justify-center bg-[var(--card-subtle)] border border-[var(--border)]/60 rounded-xl mb-5 overflow-hidden">
+            <!-- Default (Non-hover): Opacity 15% -->
+            <img src="./assets/Only Design - Line - Opacity 15%.png" 
+                 alt="Vertical Line Texture (Opacity 15%)" 
+                 class="max-w-[50%] max-h-full object-contain transition-opacity duration-300 group-hover:opacity-0" 
+                 loading="lazy"/>
+            <!-- Hover state: Opacity 100% -->
+            <img src="./assets/Tahap 2 - Desain Murni - Only Design - Line - Opacity 100%.png" 
+                 alt="Vertical Line Texture (Opacity 100%)" 
+                 class="absolute inset-0 m-auto max-w-[50%] max-h-full object-contain opacity-0 transition-opacity duration-300 group-hover:opacity-100 pointer-events-none" 
+                 loading="lazy"/>
           </div>
-          <h4 class="font-bold text-xl mb-2 text-[var(--text)]">Vertical Line Texture</h4>
+          <h4 class="font-bold text-xl mb-2 text-[var(--text)]">Horizontal Line Texture</h4>
           <p class="text-[11px] tracking-[0.12em] uppercase text-[var(--muted)] mb-3 font-semibold">Texture Element</p>
-          <p class="text-sm text-[var(--muted)] leading-[1.6]">Tekstur garis vertikal halus. Memberikan kedalaman visual dan nuansa pada area upper.</p>
+          <p class="text-sm text-[var(--muted)] leading-[1.6]">Tekstur garis Horizontal halus. Memberikan kedalaman visual dan nuansa pada area upper.</p>
         </div>
 
         <!-- Card 6: Complete Harmony -->
