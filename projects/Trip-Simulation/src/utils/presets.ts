@@ -17,6 +17,7 @@ export const DEFAULT_INITIAL_STATE: TripState = {
     destination: '',
     type: 'domestic',
     startDate: new Date().toISOString().split('T')[0],
+    endDate: '',
     durationDays: 0,
     durationNights: 0,
     adults: 0,
@@ -50,6 +51,11 @@ export const DEFAULT_INITIAL_STATE: TripState = {
     addons: [],
   },
   accommodation: {
+    name: '',
+    location: '',
+    followTripDuration: true,
+    checkInDate: '',
+    checkOutDate: '',
     pricePerNight: 0,
     totalNights: 0,
     roomCount: 0,
@@ -69,9 +75,11 @@ export const DEFAULT_INITIAL_STATE: TripState = {
       fuelOrTransitDaily: 0,
     },
     activities: {
+      followTripDuration: true,
       ticketsDailyPerAdult: 0,
       ticketsDailyPerChild: 0,
       tourGuideDaily: 0,
+      items: [],
     },
     telecom: {
       roamingOrWifiDaily: 0,

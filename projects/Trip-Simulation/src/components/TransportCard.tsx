@@ -36,8 +36,12 @@ import {
   Coffee,
   Armchair,
   FileCheck2,
-  Navigation
+  Navigation,
+  Pencil,
+  X,
+  Calendar
 } from 'lucide-react';
+import { addDaysToDateStr, formatDateIndo } from '../utils/dateUtils';
 
 interface TransportCardProps {
   onOpenSearch?: () => void;
@@ -46,9 +50,11 @@ interface TransportCardProps {
 export const TransportCard: React.FC<TransportCardProps> = ({ onOpenSearch }) => {
   const { 
     state, 
+    updateProfile,
     updateMainTransport, 
     addTransportAddon, 
     removeTransportAddon,
+    updateTransportAddon,
     updateSectionNote,
     calculations 
   } = useTripContext();
@@ -62,6 +68,35 @@ export const TransportCard: React.FC<TransportCardProps> = ({ onOpenSearch }) =>
   const [newAddonCost, setNewAddonCost] = useState<number | ''>('');
   const [newAddonIsPerPerson, setNewAddonIsPerPerson] = useState(true);
   const [isAddingCustomAddon, setIsAddingCustomAddon] = useState(false);
+
+  // Edit existing addon state
+  const [editingAddonId, setEditingAddonId] = useState<string | null>(null);
+  const [editAddonName, setEditAddonName] = useState('');
+  const [editAddonCost, setEditAddonCost] = useState<number | ''>('');
+  const [editAddonIsPerPerson, setEditAddonIsPerPerson] = useState(true);
+
+  const startEditingAddon = (addon: TransportAddon) => {
+    setEditingAddonId(addon.id);
+    setEditAddonName(addon.name);
+    setEditAddonCost(addon.cost);
+    setEditAddonIsPerPerson(addon.isPerPerson);
+  };
+
+  const cancelEditingAddon = () => {
+    setEditingAddonId(null);
+    setEditAddonName('');
+    setEditAddonCost('');
+  };
+
+  const saveEditingAddon = (id: string) => {
+    if (!editAddonName.trim() || !editAddonCost || Number(editAddonCost) <= 0) return;
+    updateTransportAddon(id, {
+      name: editAddonName.trim(),
+      cost: Number(editAddonCost),
+      isPerPerson: editAddonIsPerPerson,
+    });
+    setEditingAddonId(null);
+  };
 
   const handleAddCustomAddon = (e: React.FormEvent) => {
     e.preventDefault();
@@ -199,6 +234,57 @@ export const TransportCard: React.FC<TransportCardProps> = ({ onOpenSearch }) =>
               {formatCurrency(calculations.mainTransportTotal, currency)}
             </span>
           </div>
+        </div>
+      </div>
+
+      {/* Sinkronisasi Kalender Tanggal Tiket (Berangkat & Pulang) */}
+      <div className="p-3.5 rounded-xl bg-blue-50/70 border border-blue-200/80 space-y-2">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div className="flex items-center space-x-2">
+            <Calendar className="w-4 h-4 text-blue-700 shrink-0" />
+            <span className="text-xs font-bold text-blue-950">
+              Jadwal Tanggal Tiket ({mainTransport.tripType === 'roundTrip' ? 'Pulang-Pergi' : 'Satu Arah'})
+            </span>
+            <span className="text-[10px] bg-blue-200/60 text-blue-800 font-semibold px-2 py-0.5 rounded-md">
+              Sinkron dengan Profil
+            </span>
+          </div>
+          <span className="text-[11px] text-blue-800 font-semibold">
+            ⏱️ {profile.durationDays} Hari, {profile.durationNights} Malam
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+          <div>
+            <label className="block text-[11px] font-semibold text-slate-700 mb-1">
+              Tanggal Berangkat ({profile.origin || 'Asal'} ➔ {profile.destination || 'Tujuan'})
+            </label>
+            <input
+              type="date"
+              value={profile.startDate}
+              onChange={(e) => updateProfile({ startDate: e.target.value })}
+              className="w-full px-3 py-1.5 text-xs rounded-lg border border-blue-200 bg-white font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+
+          {mainTransport.tripType === 'roundTrip' ? (
+            <div>
+              <label className="block text-[11px] font-semibold text-slate-700 mb-1">
+                Tanggal Pulang ({profile.destination || 'Tujuan'} ➔ {profile.origin || 'Asal'})
+              </label>
+              <input
+                type="date"
+                min={profile.startDate}
+                value={profile.endDate || addDaysToDateStr(profile.startDate, profile.durationNights)}
+                onChange={(e) => updateProfile({ endDate: e.target.value })}
+                className="w-full px-3 py-1.5 text-xs rounded-lg border border-blue-200 bg-white font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              />
+            </div>
+          ) : (
+            <div className="flex items-center text-xs text-slate-500 italic pt-4">
+              * Mode satu arah (tidak ada tiket pulang terjadwal)
+            </div>
+          )}
         </div>
       </div>
 
@@ -1208,6 +1294,70 @@ export const TransportCard: React.FC<TransportCardProps> = ({ onOpenSearch }) =>
           <div className="space-y-2 pt-1">
             {mainTransport.addons.map((addon) => {
               const subtotal = addon.isPerPerson ? addon.cost * totalPeople : addon.cost;
+
+              if (editingAddonId === addon.id) {
+                return (
+                  <div
+                    key={addon.id}
+                    className="p-3 rounded-xl border-2 border-indigo-300 bg-indigo-50/50 space-y-2 animate-fade-in"
+                  >
+                    <div className="flex items-center justify-between text-[11px] font-bold text-indigo-900">
+                      <span>Edit Add-on Layanan</span>
+                      <button
+                        type="button"
+                        onClick={cancelEditingAddon}
+                        className="text-slate-400 hover:text-slate-600 p-0.5"
+                      >
+                        <X className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      <input
+                        type="text"
+                        value={editAddonName}
+                        onChange={(e) => setEditAddonName(e.target.value)}
+                        placeholder="Nama Add-on"
+                        className="px-2.5 py-1.5 text-xs rounded-lg border border-slate-300 bg-white focus:border-indigo-500 outline-none"
+                      />
+                      <FormattedNumberInput
+                        value={typeof editAddonCost === 'number' ? editAddonCost : 0}
+                        onChange={(val) => setEditAddonCost(val)}
+                        placeholder="Nominal"
+                        className="px-2.5 py-1.5 text-xs rounded-lg border border-slate-300 bg-white font-semibold focus:border-indigo-500 outline-none"
+                      />
+                    </div>
+                    <div className="flex items-center justify-between pt-1">
+                      <label className="flex items-center space-x-1.5 text-xs text-slate-700 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={editAddonIsPerPerson}
+                          onChange={(e) => setEditAddonIsPerPerson(e.target.checked)}
+                          className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 w-3.5 h-3.5"
+                        />
+                        <span>Dikalikan per orang ({totalPeople} peserta)</span>
+                      </label>
+                      <div className="flex items-center space-x-1.5">
+                        <button
+                          type="button"
+                          onClick={cancelEditingAddon}
+                          className="px-2.5 py-1 text-xs text-slate-600 hover:bg-slate-200 rounded-lg transition-colors"
+                        >
+                          Batal
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => saveEditingAddon(addon.id)}
+                          className="px-3 py-1 text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-colors shadow-2xs flex items-center space-x-1"
+                        >
+                          <Check className="w-3 h-3" />
+                          <span>Simpan</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+
               return (
                 <div
                   key={addon.id}
@@ -1221,8 +1371,8 @@ export const TransportCard: React.FC<TransportCardProps> = ({ onOpenSearch }) =>
                     </span>
                   </div>
 
-                  <div className="flex items-center space-x-3">
-                    <div className="text-right">
+                  <div className="flex items-center space-x-2">
+                    <div className="text-right mr-1">
                       <span className="text-xs font-bold text-slate-900">
                         {formatCurrency(subtotal, currency)}
                       </span>
@@ -1232,6 +1382,14 @@ export const TransportCard: React.FC<TransportCardProps> = ({ onOpenSearch }) =>
                         </span>
                       )}
                     </div>
+                    <button
+                      type="button"
+                      onClick={() => startEditingAddon(addon)}
+                      className="p-1 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"
+                      title="Edit add-on ini"
+                    >
+                      <Pencil className="w-3.5 h-3.5" />
+                    </button>
                     <button
                       type="button"
                       onClick={() => removeTransportAddon(addon.id)}

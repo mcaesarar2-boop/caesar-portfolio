@@ -93,7 +93,13 @@ export function useTripCalculator(state: TripState): CalculationResults {
     const taxRate = (Number(accommodation.taxPercentage) || 0) / 100;
     const depositAmount = Number(accommodation.depositAmount) || 0;
 
-    const accommodationRentTotal = pricePerNight * nights * roomCount;
+    // Menghormati opsi apakah mengikuti durasi malam trip atau kustom input
+    const effectiveNights =
+      accommodation.followTripDuration !== false
+        ? nights
+        : Math.max(0, accommodation.totalNights || 0);
+
+    const accommodationRentTotal = pricePerNight * effectiveNights * roomCount;
     const accommodationTaxTotal = accommodationRentTotal * taxRate;
     const accommodationTotal = accommodationRentTotal + accommodationTaxTotal;
     // Deposit ditandai terpisah karena uang akan dikembalikan (refundable)
@@ -118,11 +124,41 @@ export function useTripCalculator(state: TripState): CalculationResults {
       (Number(dailyCosts.localTransport.fuelOrTransitDaily) || 0);
     const dailyLocalTransportTotal = dailyLocalTransSum * days;
 
-    // Aktivitas & Wisata (Tiket harian dewasa & anak + Tour Guide harian)
-    const dailyTicketsAdult = (Number(dailyCosts.activities.ticketsDailyPerAdult) || 0) * adults;
-    const dailyTicketsChild = (Number(dailyCosts.activities.ticketsDailyPerChild) || 0) * children;
-    const dailyGuide = Number(dailyCosts.activities.tourGuideDaily) || 0;
-    const dailyActivitiesTotal = (dailyTicketsAdult + dailyTicketsChild + dailyGuide) * days;
+    // Aktivitas & Wisata (Tiket harian umum + Tour Guide harian + Tiket Spesifik)
+    const followActDays = dailyCosts.activities.followTripDuration !== false ? days : 1;
+    const dailyTicketsAdult = (Number(dailyCosts.activities.ticketsDailyPerAdult) || 0) * adults * followActDays;
+    const dailyTicketsChild = (Number(dailyCosts.activities.ticketsDailyPerChild) || 0) * children * followActDays;
+    const dailyGuide = (Number(dailyCosts.activities.tourGuideDaily) || 0) * followActDays;
+    const generalActivitiesTotal = dailyTicketsAdult + dailyTicketsChild + dailyGuide;
+
+    // Tambahan tiket & aktivitas kustom / spesifik
+    let customActivitiesTotal = 0;
+    let customActAdultTotal = 0;
+    let customActChildTotal = 0;
+    let customActSharedTotal = 0;
+
+    (dailyCosts.activities.items || []).forEach((item) => {
+      const cost = Number(item.cost) || 0;
+      const multiplier = item.followTripDuration ? days : Math.max(1, item.daysCount || 1);
+
+      if (item.target === 'per_person') {
+        customActivitiesTotal += cost * totalPeople * multiplier;
+        if (adults > 0) customActAdultTotal += cost * multiplier;
+        if (children > 0) customActChildTotal += cost * multiplier;
+      } else if (item.target === 'adult_only') {
+        customActivitiesTotal += cost * adults * multiplier;
+        if (adults > 0) customActAdultTotal += cost * multiplier;
+      } else if (item.target === 'child_only') {
+        customActivitiesTotal += cost * children * multiplier;
+        if (children > 0) customActChildTotal += cost * multiplier;
+      } else {
+        // group / lump sum
+        customActivitiesTotal += cost * multiplier;
+        customActSharedTotal += cost * multiplier;
+      }
+    });
+
+    const dailyActivitiesTotal = generalActivitiesTotal + customActivitiesTotal;
 
     // Telekomunikasi (Roaming / Sewa Wi-Fi harian x jumlah perangkat x durasi)
     const deviceCount = Math.max(0, dailyCosts.telecom.devicesCount || 0);
@@ -219,8 +255,17 @@ export function useTripCalculator(state: TripState): CalculationResults {
 
     // Tiket & aktivitas
     const transportPerPerson = effectiveTicketPerPerson + (Number(mainTransport.baggageCostPerPerson) || 0);
-    const activitiesPerAdultTotal = (Number(dailyCosts.activities.ticketsDailyPerAdult) || 0) * days + (totalPeople > 0 ? (dailyGuide * days / totalPeople) : 0);
-    const activitiesPerChildTotal = (Number(dailyCosts.activities.ticketsDailyPerChild) || 0) * days + (totalPeople > 0 ? (dailyGuide * days / totalPeople) : 0);
+    const sharedCustomActPerPerson = totalPeople > 0 ? customActSharedTotal / totalPeople : 0;
+    const activitiesPerAdultTotal =
+      (Number(dailyCosts.activities.ticketsDailyPerAdult) || 0) * followActDays +
+      (totalPeople > 0 ? (dailyGuide / totalPeople) : 0) +
+      customActAdultTotal +
+      sharedCustomActPerPerson;
+    const activitiesPerChildTotal =
+      (Number(dailyCosts.activities.ticketsDailyPerChild) || 0) * followActDays +
+      (totalPeople > 0 ? (dailyGuide / totalPeople) : 0) +
+      customActChildTotal +
+      sharedCustomActPerPerson;
 
     const costPerAdult = adults > 0 ? Math.round(sharedPerPerson + mealAdultTotal + transportPerPerson + activitiesPerAdultTotal) : 0;
     const costPerChild = children > 0 

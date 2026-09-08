@@ -18,6 +18,7 @@ export interface TripProfile {
   destination: string;
   type: DestinationType;
   startDate: string;
+  endDate?: string;
   durationDays: number;
   durationNights: number;
   adults: number;
@@ -27,6 +28,11 @@ export interface TripProfile {
 }
 
 export interface AccommodationCost {
+  name?: string; // Nama Hotel / Villa / Resort
+  location?: string;
+  followTripDuration?: boolean; // True jika mengikuti malam perjalanan, False jika kustom
+  checkInDate?: string;
+  checkOutDate?: string;
   pricePerNight: number;
   totalNights: number;
   roomCount: number;
@@ -87,6 +93,16 @@ export interface MainTransportCost {
   addons?: TransportAddon[];
 }
 
+export interface ActivityItem {
+  id: string;
+  name: string; // Nama Tiket / Objek Wisata
+  cost: number; // Harga tiket / biaya
+  target: 'per_person' | 'adult_only' | 'child_only' | 'group'; // Dikalikan peserta atau lump sum
+  followTripDuration?: boolean; // True jika berulang tiap hari, False jika sekali masuk / kustom
+  daysCount?: number; // Jumlah hari / kali jika tidak mengikuti durasi penuh
+  date?: string; // Opsional: tanggal kunjungan
+}
+
 export interface DailyVariableCosts {
   meals: {
     breakfastPerAdult: number;
@@ -99,9 +115,11 @@ export interface DailyVariableCosts {
     fuelOrTransitDaily: number;
   };
   activities: {
+    followTripDuration?: boolean; // Default true: tiket harian umum dikali hari keseluruhan
     ticketsDailyPerAdult: number;
     ticketsDailyPerChild: number;
     tourGuideDaily: number;
+    items?: ActivityItem[]; // Daftar tiket & aktivitas spesifik yang fleksibel dan editable
   };
   telecom: {
     roamingOrWifiDaily: number;

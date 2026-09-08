@@ -137,7 +137,7 @@ export const Step1Profile: React.FC = () => {
           </div>
 
           <div className="pt-1 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div className="w-full sm:w-1/2">
+            <div className="w-full">
               <label className="block text-xs font-semibold text-slate-700 mb-1.5">
                 Tanggal Estimasi Keberangkatan
               </label>
@@ -145,16 +145,16 @@ export const Step1Profile: React.FC = () => {
                 type="date"
                 value={profile.startDate}
                 onChange={(e) => updateProfile({ startDate: e.target.value })}
-                className="w-full px-3.5 py-2 text-sm rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all text-slate-700"
+                className="w-full px-3.5 py-2 text-sm rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all text-slate-700 font-medium"
               />
             </div>
 
             {/* Tombol Cek di Search Engine */}
-            <div className="w-full sm:w-1/2 flex items-end">
+            <div className="w-full sm:w-auto shrink-0 flex items-end">
               <button
                 type="button"
                 onClick={() => setIsSearchModalOpen(true)}
-                className="w-full py-2.5 px-3 text-xs font-bold rounded-xl border border-blue-200 bg-blue-50/70 hover:bg-blue-100 text-blue-700 transition-all flex items-center justify-center space-x-1.5 shadow-2xs"
+                className="w-full sm:w-auto py-2.5 px-3.5 text-xs font-bold rounded-xl border border-blue-200 bg-blue-50/80 hover:bg-blue-100 text-blue-700 transition-all flex items-center justify-center space-x-1.5 shadow-2xs"
               >
                 <Search className="w-3.5 h-3.5" />
                 <span>Cek Harga di Search Engine</span>
@@ -163,23 +163,75 @@ export const Step1Profile: React.FC = () => {
           </div>
         </div>
 
-        {/* Durasi & Waktu */}
+        {/* Durasi & Waktu Interaktif */}
         <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
-          <h3 className="text-sm font-bold text-slate-900 flex items-center space-x-2">
-            <Calendar className="w-4 h-4 text-indigo-600" />
-            <span>Durasi Perjalanan</span>
-          </h3>
+          <div className="flex items-center justify-between">
+            <h3 className="text-sm font-bold text-slate-900 flex items-center space-x-2">
+              <Calendar className="w-4 h-4 text-indigo-600" />
+              <span>Jadwal & Durasi Perjalanan</span>
+            </h3>
+            <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-100">
+              Interaktif
+            </span>
+          </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200/80">
-              <label className="block text-xs font-semibold text-slate-600 mb-1">
-                Jumlah Hari (Daytime)
+          {/* Kalender Tanggal Berangkat & Pulang */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+                Tanggal Berangkat
+              </label>
+              <input
+                type="date"
+                value={profile.startDate}
+                onChange={(e) => updateProfile({ startDate: e.target.value })}
+                className="w-full px-3.5 py-2 text-sm rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-800 font-medium"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+                Tanggal Pulang
+              </label>
+              <input
+                type="date"
+                value={profile.endDate || (profile.startDate ? profile.startDate : '')}
+                min={profile.startDate}
+                onChange={(e) => updateProfile({ endDate: e.target.value })}
+                className="w-full px-3.5 py-2 text-sm rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-slate-800 font-medium"
+              />
+            </div>
+          </div>
+
+          {/* Banner Hasil Durasi Dinamis */}
+          <div className="p-3 bg-indigo-50/70 rounded-xl border border-indigo-100 flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <span className="text-base">📅</span>
+              <div>
+                <span className="text-xs font-bold text-indigo-950 block">
+                  {profile.durationDays} Hari • {profile.durationNights} Malam
+                </span>
+                <span className="text-[11px] text-indigo-700">
+                  {profile.startDate && profile.endDate ? `${profile.startDate} s/d ${profile.endDate}` : 'Durasi terhitung otomatis dari tanggal'}
+                </span>
+              </div>
+            </div>
+            <span className="text-[11px] font-semibold bg-white text-indigo-800 px-2 py-1 rounded-lg border border-indigo-200 shadow-2xs">
+              Tersinkron ke Tiket & Hotel
+            </span>
+          </div>
+
+          {/* Stepper Cadangan / Manual Tweak */}
+          <div className="grid grid-cols-2 gap-3 pt-1 border-t border-slate-100">
+            <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80">
+              <label className="block text-[11px] font-semibold text-slate-600 mb-1">
+                Jumlah Hari
               </label>
               <div className="flex items-center space-x-2">
                 <button
                   type="button"
                   onClick={() => updateProfile({ durationDays: Math.max(0, profile.durationDays - 1) })}
-                  className="w-8 h-8 rounded-lg bg-white border border-slate-200 font-bold text-slate-700 hover:bg-slate-100 transition-colors"
+                  className="w-7 h-7 rounded-lg bg-white border border-slate-200 font-bold text-slate-700 hover:bg-slate-100 transition-colors"
                 >
                   -
                 </button>
@@ -191,12 +243,12 @@ export const Step1Profile: React.FC = () => {
                   onChange={(e) =>
                     updateProfile({ durationDays: Math.max(0, parseInt(e.target.value) || 0) })
                   }
-                  className="w-14 text-center font-bold text-lg text-slate-900 bg-transparent focus:outline-none"
+                  className="w-12 text-center font-bold text-base text-slate-900 bg-transparent focus:outline-none"
                 />
                 <button
                   type="button"
                   onClick={() => updateProfile({ durationDays: profile.durationDays + 1 })}
-                  className="w-8 h-8 rounded-lg bg-white border border-slate-200 font-bold text-slate-700 hover:bg-slate-100 transition-colors"
+                  className="w-7 h-7 rounded-lg bg-white border border-slate-200 font-bold text-slate-700 hover:bg-slate-100 transition-colors"
                 >
                   +
                 </button>
@@ -204,15 +256,15 @@ export const Step1Profile: React.FC = () => {
               </div>
             </div>
 
-            <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200/80">
-              <label className="block text-xs font-semibold text-slate-600 mb-1">
-                Jumlah Malam (Menginap)
+            <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80">
+              <label className="block text-[11px] font-semibold text-slate-600 mb-1">
+                Jumlah Malam
               </label>
               <div className="flex items-center space-x-2">
                 <button
                   type="button"
                   onClick={() => updateProfile({ durationNights: Math.max(0, profile.durationNights - 1) })}
-                  className="w-8 h-8 rounded-lg bg-white border border-slate-200 font-bold text-slate-700 hover:bg-slate-100 transition-colors"
+                  className="w-7 h-7 rounded-lg bg-white border border-slate-200 font-bold text-slate-700 hover:bg-slate-100 transition-colors"
                 >
                   -
                 </button>
@@ -224,22 +276,18 @@ export const Step1Profile: React.FC = () => {
                   onChange={(e) =>
                     updateProfile({ durationNights: Math.max(0, parseInt(e.target.value) || 0) })
                   }
-                  className="w-14 text-center font-bold text-lg text-slate-900 bg-transparent focus:outline-none"
+                  className="w-12 text-center font-bold text-base text-slate-900 bg-transparent focus:outline-none"
                 />
                 <button
                   type="button"
                   onClick={() => updateProfile({ durationNights: profile.durationNights + 1 })}
-                  className="w-8 h-8 rounded-lg bg-white border border-slate-200 font-bold text-slate-700 hover:bg-slate-100 transition-colors"
+                  className="w-7 h-7 rounded-lg bg-white border border-slate-200 font-bold text-slate-700 hover:bg-slate-100 transition-colors"
                 >
                   +
                 </button>
                 <span className="text-xs font-medium text-slate-500">Malam</span>
               </div>
             </div>
-          </div>
-
-          <div className="text-xs text-slate-500 bg-blue-50/60 p-2.5 rounded-lg border border-blue-100">
-            💡 <strong>Info Akomodasi:</strong> Durasi malam ({profile.durationNights} malam) akan otomatis disinkronkan ke perhitungan total sewa hotel.
           </div>
         </div>
       </div>

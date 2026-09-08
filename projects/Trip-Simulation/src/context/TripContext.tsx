@@ -1,8 +1,9 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { TripState, FixedCostItem, TravelStyle, CurrencyCode, CalculationResults, TransportAddon, SectionNotes } from '../types';
+import { TripState, FixedCostItem, TravelStyle, CurrencyCode, CalculationResults, TransportAddon, ActivityItem, SectionNotes } from '../types';
 import { DEFAULT_INITIAL_STATE, TRIP_PRESETS, getStyleRecommendations } from '../utils/presets';
 import { useTripCalculator } from '../hooks/useTripCalculator';
 import { convertCurrency } from '../utils/currency';
+import { calculateDurationFromDates, addDaysToDateStr, isValidDateStr } from '../utils/dateUtils';
 
 interface TripContextType {
   state: TripState;
@@ -22,6 +23,9 @@ interface TripContextType {
   updateMeals: (meals: Partial<TripState['dailyCosts']['meals']>) => void;
   updateLocalTransport: (transport: Partial<TripState['dailyCosts']['localTransport']>) => void;
   updateActivities: (activities: Partial<TripState['dailyCosts']['activities']>) => void;
+  addActivityItem: (item: Omit<ActivityItem, 'id'>) => void;
+  updateActivityItem: (id: string, update: Partial<ActivityItem>) => void;
+  removeActivityItem: (id: string) => void;
   updateTelecom: (telecom: Partial<TripState['dailyCosts']['telecom']>) => void;
   updateContingency: (contingency: Partial<TripState['contingency']>) => void;
   updateSectionNote: (sectionKey: keyof SectionNotes, note: string) => void;
@@ -86,28 +90,69 @@ export const TripProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
   }, [state]);
 
-  // Synchronize durationNights with accommodation.totalNights if duration changes
+  // Synchronize durationNights with accommodation.totalNights if duration changes and followTripDuration is active
   useEffect(() => {
-    if (state.accommodation.totalNights !== state.profile.durationNights) {
-      setState((prev) => ({
-        ...prev,
-        accommodation: {
-          ...prev.accommodation,
-          totalNights: prev.profile.durationNights,
-        },
-      }));
+    if (state.accommodation.followTripDuration !== false) {
+      const expectedCheckOut = state.profile.endDate || addDaysToDateStr(state.profile.startDate, state.profile.durationNights);
+      if (
+        state.accommodation.totalNights !== state.profile.durationNights ||
+        state.accommodation.checkInDate !== state.profile.startDate ||
+        state.accommodation.checkOutDate !== expectedCheckOut
+      ) {
+        setState((prev) => ({
+          ...prev,
+          accommodation: {
+            ...prev.accommodation,
+            totalNights: prev.profile.durationNights,
+            checkInDate: prev.profile.startDate,
+            checkOutDate: expectedCheckOut,
+          },
+        }));
+      }
     }
-  }, [state.profile.durationNights]);
+  }, [
+    state.profile.durationNights,
+    state.profile.startDate,
+    state.profile.endDate,
+    state.accommodation.followTripDuration,
+  ]);
 
   const calculations = useTripCalculator(state);
 
   const updateProfile = (profileUpdate: Partial<TripState['profile']>) => {
     setState((prev) => {
       const nextProfile = { ...prev.profile, ...profileUpdate };
-      // If durationDays changed, update nights automatically to days - 1 if sensible
+
+      // Case 1: Jika startDate dan endDate keduanya diubah atau salah satu diubah dan keduanya valid
+      if (profileUpdate.startDate !== undefined || profileUpdate.endDate !== undefined) {
+        const sDate = profileUpdate.startDate !== undefined ? profileUpdate.startDate : nextProfile.startDate;
+        const eDate = profileUpdate.endDate !== undefined ? profileUpdate.endDate : nextProfile.endDate;
+
+        if (sDate && eDate && isValidDateStr(sDate) && isValidDateStr(eDate)) {
+          // Hanya hitung ulang durasi jika tanggal diubah oleh user
+          if (profileUpdate.durationDays === undefined && profileUpdate.durationNights === undefined) {
+            const { days, nights } = calculateDurationFromDates(sDate, eDate);
+            nextProfile.durationDays = days;
+            nextProfile.durationNights = nights;
+          }
+        } else if (sDate && (!eDate || !isValidDateStr(eDate)) && nextProfile.durationNights > 0) {
+          nextProfile.endDate = addDaysToDateStr(sDate, nextProfile.durationNights);
+        }
+      }
+
+      // Case 2: Jika durationDays atau durationNights diubah secara eksplisit
       if (profileUpdate.durationDays !== undefined && profileUpdate.durationNights === undefined) {
         nextProfile.durationNights = Math.max(0, profileUpdate.durationDays - 1);
+        if (nextProfile.startDate) {
+          nextProfile.endDate = addDaysToDateStr(nextProfile.startDate, nextProfile.durationNights);
+        }
+      } else if (profileUpdate.durationNights !== undefined && profileUpdate.durationDays === undefined) {
+        nextProfile.durationDays = nextProfile.durationNights === 0 ? 1 : nextProfile.durationNights + 1;
+        if (nextProfile.startDate) {
+          nextProfile.endDate = addDaysToDateStr(nextProfile.startDate, nextProfile.durationNights);
+        }
       }
+
       return {
         ...prev,
         profile: nextProfile,
@@ -225,6 +270,51 @@ export const TripProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       dailyCosts: {
         ...prev.dailyCosts,
         activities: { ...prev.dailyCosts.activities, ...actUpdate },
+      },
+    }));
+  };
+
+  const addActivityItem = (item: Omit<ActivityItem, 'id'>) => {
+    const newItem: ActivityItem = {
+      ...item,
+      id: `act-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`,
+    };
+    setState((prev) => ({
+      ...prev,
+      dailyCosts: {
+        ...prev.dailyCosts,
+        activities: {
+          ...prev.dailyCosts.activities,
+          items: [...(prev.dailyCosts.activities.items || []), newItem],
+        },
+      },
+    }));
+  };
+
+  const updateActivityItem = (id: string, update: Partial<ActivityItem>) => {
+    setState((prev) => ({
+      ...prev,
+      dailyCosts: {
+        ...prev.dailyCosts,
+        activities: {
+          ...prev.dailyCosts.activities,
+          items: (prev.dailyCosts.activities.items || []).map((item) =>
+            item.id === id ? { ...item, ...update } : item
+          ),
+        },
+      },
+    }));
+  };
+
+  const removeActivityItem = (id: string) => {
+    setState((prev) => ({
+      ...prev,
+      dailyCosts: {
+        ...prev.dailyCosts,
+        activities: {
+          ...prev.dailyCosts.activities,
+          items: (prev.dailyCosts.activities.items || []).filter((item) => item.id !== id),
+        },
       },
     }));
   };
@@ -400,6 +490,9 @@ export const TripProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         updateMeals,
         updateLocalTransport,
         updateActivities,
+        addActivityItem,
+        updateActivityItem,
+        removeActivityItem,
         updateTelecom,
         updateContingency,
         updateSectionNote,

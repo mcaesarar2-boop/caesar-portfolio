@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTripContext } from '../../context/TripContext';
 import { formatCurrency } from '../../utils/currency';
 import { FormattedNumberInput } from '../FormattedNumberInput';
 import { SectionNotesInput } from '../SectionNotesInput';
+import { ActivityItem } from '../../types';
 import { 
   Utensils, 
   Car, 
@@ -13,7 +14,14 @@ import {
   Coffee, 
   Compass, 
   Fuel,
-  Users
+  Users,
+  Pencil,
+  Trash2,
+  Plus,
+  Check,
+  X,
+  Calendar,
+  Sparkles
 } from 'lucide-react';
 
 export const Step3VariableCosts: React.FC = () => {
@@ -22,6 +30,9 @@ export const Step3VariableCosts: React.FC = () => {
     updateMeals, 
     updateLocalTransport, 
     updateActivities, 
+    addActivityItem,
+    updateActivityItem,
+    removeActivityItem,
     updateTelecom,
     updateSectionNote,
     calculations 
@@ -32,7 +43,78 @@ export const Step3VariableCosts: React.FC = () => {
   const days = profile.durationDays;
   const adults = profile.adults;
   const children = profile.children;
+  const totalPeople = adults + children;
   const effectiveFoodPeople = adults + children * 0.5;
+
+  // New ticket state
+  const [isAddingTicket, setIsAddingTicket] = useState(false);
+  const [newTicketName, setNewTicketName] = useState('');
+  const [newTicketCost, setNewTicketCost] = useState<number | ''>('');
+  const [newTicketTarget, setNewTicketTarget] = useState<'per_person' | 'adult_only' | 'child_only' | 'group'>('per_person');
+  const [newTicketFollowDuration, setNewTicketFollowDuration] = useState(false);
+  const [newTicketDaysCount, setNewTicketDaysCount] = useState<number>(1);
+
+  // Edit ticket state
+  const [editingTicketId, setEditingTicketId] = useState<string | null>(null);
+  const [editTicketName, setEditTicketName] = useState('');
+  const [editTicketCost, setEditTicketCost] = useState<number | ''>('');
+  const [editTicketTarget, setEditTicketTarget] = useState<'per_person' | 'adult_only' | 'child_only' | 'group'>('per_person');
+  const [editTicketFollowDuration, setEditTicketFollowDuration] = useState(false);
+  const [editTicketDaysCount, setEditTicketDaysCount] = useState<number>(1);
+
+  const startEditingTicket = (item: ActivityItem) => {
+    setEditingTicketId(item.id);
+    setEditTicketName(item.name);
+    setEditTicketCost(item.cost);
+    setEditTicketTarget(item.target);
+    setEditTicketFollowDuration(item.followTripDuration || false);
+    setEditTicketDaysCount(item.daysCount || 1);
+  };
+
+  const cancelEditingTicket = () => {
+    setEditingTicketId(null);
+    setEditTicketName('');
+    setEditTicketCost('');
+  };
+
+  const saveEditingTicket = (id: string) => {
+    if (!editTicketName.trim() || !editTicketCost || Number(editTicketCost) <= 0) return;
+    updateActivityItem(id, {
+      name: editTicketName.trim(),
+      cost: Number(editTicketCost),
+      target: editTicketTarget,
+      followTripDuration: editTicketFollowDuration,
+      daysCount: editTicketFollowDuration ? days : Math.max(1, editTicketDaysCount || 1),
+    });
+    setEditingTicketId(null);
+  };
+
+  const handleAddTicket = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newTicketName.trim() || !newTicketCost || Number(newTicketCost) <= 0) return;
+
+    addActivityItem({
+      name: newTicketName.trim(),
+      cost: Number(newTicketCost),
+      target: newTicketTarget,
+      followTripDuration: newTicketFollowDuration,
+      daysCount: newTicketFollowDuration ? days : Math.max(1, newTicketDaysCount || 1),
+    });
+
+    setNewTicketName('');
+    setNewTicketCost('');
+    setNewTicketTarget('per_person');
+    setNewTicketFollowDuration(false);
+    setNewTicketDaysCount(1);
+    setIsAddingTicket(false);
+  };
+
+  const quickTicketSuggestions = [
+    { name: 'Tiket Theme Park / Hiburan (1 Hari)', cost: 450000, target: 'per_person' as const, followDuration: false },
+    { name: 'Tiket Cagar Budaya / Museum', cost: 85000, target: 'per_person' as const, followDuration: false },
+    { name: 'Paket Snorkeling / Wisata Bahari', cost: 250000, target: 'per_person' as const, followDuration: false },
+    { name: 'Jasa Tour Guide Lokal Khusus (1 Hari)', cost: 350000, target: 'group' as const, followDuration: false },
+  ];
 
   return (
     <div className="space-y-8 animate-fade-in">
@@ -254,24 +336,343 @@ export const Step3VariableCosts: React.FC = () => {
         />
       </div>
 
-      {/* Bagian 3: Aktivitas, Wisata & Telekomunikasi */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Aktivitas & Wisata */}
-        <div className="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
-          <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-            <div className="flex items-center space-x-2">
-              <Ticket className="w-5 h-5 text-indigo-600" />
-              <h3 className="font-bold text-slate-900 text-sm sm:text-base">Aktivitas & Tiket Masuk</h3>
+      {/* Bagian 3: Aktivitas, Tiket Masuk & Objek Wisata */}
+      <div className="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 shadow-sm space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+          <div className="flex items-center space-x-2.5">
+            <div className="w-9 h-9 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center">
+              <Ticket className="w-5 h-5" />
             </div>
-            <span className="text-sm font-extrabold text-indigo-700">
+            <div>
+              <h3 className="font-bold text-slate-900 text-base">Aktivitas, Wisata & Tiket Masuk</h3>
+              <p className="text-xs text-slate-500">
+                Tiket masuk objek wisata (theme park, cagar budaya, museum), atraksi, & tour guide (bisa 1x masuk atau harian)
+              </p>
+            </div>
+          </div>
+
+          <div className="text-left sm:text-right">
+            <span className="text-[11px] text-slate-500 font-medium block">Total Aktivitas & Wisata</span>
+            <span className="text-base font-extrabold text-indigo-700">
               {formatCurrency(calculations.dailyActivitiesTotal, currency)}
             </span>
           </div>
+        </div>
 
-          <div className="space-y-3.5">
+        {/* 1. Tiket & Objek Wisata Spesifik Terdaftar (Nama & Harga Manual, Bebas Edit) */}
+        <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <h4 className="text-xs font-bold text-slate-900 flex items-center space-x-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
+              <span>Daftar Tiket & Atraksi Wisata Spesifik:</span>
+            </h4>
+            <span className="text-[11px] text-slate-500">
+              {(dailyCosts.activities.items || []).length} atraksi ditambahkan
+            </span>
+          </div>
+
+          {/* Quick Presets for fast adding */}
+          <div className="flex flex-wrap gap-1.5">
+            <span className="text-[10px] text-slate-400 font-semibold self-center mr-1">Rekomendasi Cepat:</span>
+            {quickTicketSuggestions.map((sug, idx) => (
+              <button
+                key={idx}
+                type="button"
+                onClick={() => {
+                  addActivityItem({
+                    name: sug.name,
+                    cost: sug.cost,
+                    target: sug.target,
+                    followTripDuration: sug.followDuration,
+                    daysCount: 1,
+                  });
+                }}
+                className="text-[11px] font-medium px-2.5 py-1 rounded-lg border border-slate-200 bg-slate-50 hover:bg-indigo-50 hover:border-indigo-300 hover:text-indigo-700 transition-all flex items-center space-x-1 shadow-2xs"
+              >
+                <Plus className="w-3 h-3 text-indigo-500" />
+                <span>{sug.name} ({formatCurrency(sug.cost, currency)})</span>
+              </button>
+            ))}
+          </div>
+
+          {/* List of Custom Ticket Items */}
+          {dailyCosts.activities.items && dailyCosts.activities.items.length > 0 && (
+            <div className="space-y-2 pt-1">
+              {dailyCosts.activities.items.map((item) => {
+                const multiplier = item.followTripDuration ? days : Math.max(1, item.daysCount || 1);
+                let count = 1;
+                let targetLabel = 'Lump Sum (Rombongan)';
+                if (item.target === 'per_person') {
+                  count = totalPeople;
+                  targetLabel = `x${totalPeople} Peserta`;
+                } else if (item.target === 'adult_only') {
+                  count = adults;
+                  targetLabel = `x${adults} Dewasa`;
+                } else if (item.target === 'child_only') {
+                  count = children;
+                  targetLabel = `x${children} Anak`;
+                }
+
+                const subtotal = item.cost * count * multiplier;
+
+                if (editingTicketId === item.id) {
+                  return (
+                    <div
+                      key={item.id}
+                      className="p-3.5 rounded-xl border-2 border-indigo-300 bg-indigo-50/50 space-y-3 animate-fade-in"
+                    >
+                      <div className="flex items-center justify-between text-xs font-bold text-indigo-950">
+                        <span>Edit Tiket / Objek Wisata</span>
+                        <button
+                          type="button"
+                          onClick={cancelEditingTicket}
+                          className="text-slate-400 hover:text-slate-600"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div className="sm:col-span-1">
+                          <label className="block text-[11px] font-semibold text-slate-600 mb-1">
+                            Nama Tiket / Tempat Wisata
+                          </label>
+                          <input
+                            type="text"
+                            value={editTicketName}
+                            onChange={(e) => setEditTicketName(e.target.value)}
+                            placeholder="Contoh: Tiket Universal Studios"
+                            className="w-full px-3 py-1.5 text-xs rounded-lg border border-slate-300 bg-white focus:border-indigo-500 outline-none font-medium"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-[11px] font-semibold text-slate-600 mb-1">
+                            Harga Satuan ({currency})
+                          </label>
+                          <FormattedNumberInput
+                            value={typeof editTicketCost === 'number' ? editTicketCost : 0}
+                            onChange={(val) => setEditTicketCost(val)}
+                            className="w-full px-3 py-1.5 text-xs rounded-lg border border-slate-300 bg-white focus:border-indigo-500 outline-none font-semibold"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-[11px] font-semibold text-slate-600 mb-1">
+                            Target Peserta
+                          </label>
+                          <select
+                            value={editTicketTarget}
+                            onChange={(e) => setEditTicketTarget(e.target.value as any)}
+                            className="w-full px-3 py-1.5 text-xs rounded-lg border border-slate-300 bg-white focus:border-indigo-500 outline-none"
+                          >
+                            <option value="per_person">Semua Peserta ({totalPeople} org)</option>
+                            <option value="adult_only">Dewasa Saja ({adults} org)</option>
+                            <option value="child_only">Anak-anak Saja ({children} anak)</option>
+                            <option value="group">Satu Grup (Lump Sum)</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-1 border-t border-indigo-200/60">
+                        <label className="flex items-center space-x-2 text-xs text-slate-700 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={editTicketFollowDuration}
+                            onChange={(e) => setEditTicketFollowDuration(e.target.checked)}
+                            className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 w-3.5 h-3.5"
+                          />
+                          <span>Mengikuti durasi penuh perjalanan ({days} hari)</span>
+                        </label>
+
+                        <div className="flex items-center space-x-2 self-end sm:self-auto">
+                          <button
+                            type="button"
+                            onClick={cancelEditingTicket}
+                            className="px-3 py-1 text-xs font-semibold rounded-lg text-slate-600 hover:bg-slate-200 transition-colors"
+                          >
+                            Batal
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => saveEditingTicket(item.id)}
+                            className="px-4 py-1 text-xs font-bold rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white transition-colors shadow-xs flex items-center space-x-1"
+                          >
+                            <Check className="w-3.5 h-3.5" />
+                            <span>Simpan</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }
+
+                return (
+                  <div
+                    key={item.id}
+                    className="p-3 rounded-xl border border-slate-200 bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-2xs hover:border-slate-300 transition-colors"
+                  >
+                    <div className="flex items-center space-x-2.5">
+                      <span className="w-2.5 h-2.5 rounded-full bg-indigo-500 shrink-0" />
+                      <div>
+                        <span className="text-xs font-bold text-slate-800">{item.name}</span>
+                        <div className="flex items-center space-x-1.5 mt-0.5">
+                          <span className="text-[10px] px-1.5 py-0.2 rounded bg-indigo-50 text-indigo-700 font-semibold border border-indigo-100">
+                            {targetLabel}
+                          </span>
+                          <span className="text-[10px] px-1.5 py-0.2 rounded bg-slate-100 text-slate-600 font-medium">
+                            {item.followTripDuration ? `Setiap Hari (${days} Hari)` : `${multiplier}x Kunjungan`}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between sm:justify-end space-x-3 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
+                      <div className="text-right">
+                        <span className="text-xs font-bold text-slate-900">
+                          {formatCurrency(subtotal, currency)}
+                        </span>
+                        <span className="text-[10px] text-slate-400 block">
+                          ({formatCurrency(item.cost, currency)} / unit)
+                        </span>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => startEditingTicket(item)}
+                        className="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"
+                        title="Edit tiket ini"
+                      >
+                        <Pencil className="w-3.5 h-3.5" />
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => removeActivityItem(item.id)}
+                        className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors"
+                        title="Hapus tiket"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
+          {/* Form Tambah Tiket Baru */}
+          {isAddingTicket ? (
+            <form
+              onSubmit={handleAddTicket}
+              className="p-4 rounded-xl border border-indigo-300 bg-indigo-50/40 space-y-3 animate-fade-in"
+            >
+              <div className="text-xs font-bold text-indigo-950">Input Manual Tiket & Objek Wisata Baru</div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="sm:col-span-1">
+                  <label className="block text-[11px] font-semibold text-slate-600 mb-1">
+                    Nama Tiket / Tempat Wisata
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Contoh: Tiket Masuk Candi Borobudur / Universal Studios"
+                    value={newTicketName}
+                    onChange={(e) => setNewTicketName(e.target.value)}
+                    className="w-full px-3 py-1.5 text-xs rounded-lg border border-slate-300 bg-white focus:border-indigo-500 outline-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-semibold text-slate-600 mb-1">
+                    Harga per Tiket ({currency})
+                  </label>
+                  <FormattedNumberInput
+                    value={typeof newTicketCost === 'number' ? newTicketCost : 0}
+                    onChange={(val) => setNewTicketCost(val)}
+                    placeholder="Nominal tiket"
+                    className="w-full px-3 py-1.5 text-xs rounded-lg border border-slate-300 bg-white font-semibold focus:border-indigo-500 outline-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-semibold text-slate-600 mb-1">
+                    Target Peserta
+                  </label>
+                  <select
+                    value={newTicketTarget}
+                    onChange={(e) => setNewTicketTarget(e.target.value as any)}
+                    className="w-full px-3 py-1.5 text-xs rounded-lg border border-slate-300 bg-white focus:border-indigo-500 outline-none"
+                  >
+                    <option value="per_person">Semua Peserta ({totalPeople} org)</option>
+                    <option value="adult_only">Dewasa Saja ({adults} org)</option>
+                    <option value="child_only">Anak-anak Saja ({children} anak)</option>
+                    <option value="group">Satu Grup (Lump Sum / Per Rombongan)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-1 border-t border-indigo-200/60">
+                <label className="flex items-center space-x-2 text-xs text-slate-700 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={newTicketFollowDuration}
+                    onChange={(e) => setNewTicketFollowDuration(e.target.checked)}
+                    className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 w-3.5 h-3.5"
+                  />
+                  <span>Tiket berlaku setiap hari selama {days} hari (Harian)</span>
+                </label>
+
+                <div className="flex items-center space-x-2 self-end sm:self-auto">
+                  <button
+                    type="button"
+                    onClick={() => setIsAddingTicket(false)}
+                    className="px-3 py-1 text-xs font-semibold rounded-lg text-slate-600 hover:bg-slate-200 transition-colors"
+                  >
+                    Batal
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-4 py-1 text-xs font-bold rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white transition-colors shadow-xs"
+                  >
+                    Simpan Tiket
+                  </button>
+                </div>
+              </div>
+            </form>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setIsAddingTicket(true)}
+              className="w-full py-2.5 border-2 border-dashed border-slate-200 hover:border-indigo-400 hover:bg-indigo-50/20 rounded-xl text-xs font-bold text-slate-600 hover:text-indigo-700 transition-all flex items-center justify-center space-x-2"
+            >
+              <Plus className="w-4 h-4" />
+              <span>+ Tambah Tiket / Objek Wisata Manual Sendiri (Bebas Nama & Harga)</span>
+            </button>
+          )}
+        </div>
+
+        {/* 2. Opsi Tarif Harian Umum (Opsional / Fleksibel) */}
+        <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/90 space-y-3">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <span className="text-xs font-bold text-slate-800">
+              Alokasi Biaya Harian Wisata Umum & Guide (Opsional)
+            </span>
+            <label className="flex items-center space-x-2 text-xs text-slate-600 cursor-pointer font-medium">
+              <input
+                type="checkbox"
+                checked={dailyCosts.activities.followTripDuration !== false}
+                onChange={(e) => updateActivities({ followTripDuration: e.target.checked })}
+                className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 w-3.5 h-3.5"
+              />
+              <span>Dikalikan seluruh hari ({days} hari)</span>
+            </label>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
-                Tiket Masuk / Wisata per Dewasa / Hari ({adults} orang)
+              <label className="block text-[11px] font-semibold text-slate-600 mb-1">
+                Tiket Masuk Harian / Dewasa ({adults} orang)
               </label>
               <div className="relative">
                 <FormattedNumberInput
@@ -279,16 +680,16 @@ export const Step3VariableCosts: React.FC = () => {
                   onChange={(val) =>
                     updateActivities({ ticketsDailyPerAdult: val })
                   }
-                  className="w-full pl-3 pr-12 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:border-indigo-500 font-semibold"
+                  className="w-full pl-3 pr-12 py-1.5 text-xs rounded-lg border border-slate-200 bg-white focus:outline-none focus:border-indigo-500 font-semibold"
                 />
-                <span className="absolute right-3 top-2 text-[11px] text-slate-400 font-medium">{currency}</span>
+                <span className="absolute right-3 top-1.5 text-[10px] text-slate-400 font-medium">{currency}</span>
               </div>
             </div>
 
             {children > 0 && (
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Tiket Masuk / Wisata per Anak / Hari ({children} anak)
+                <label className="block text-[11px] font-semibold text-slate-600 mb-1">
+                  Tiket Masuk Harian / Anak ({children} anak)
                 </label>
                 <div className="relative">
                   <FormattedNumberInput
@@ -296,16 +697,16 @@ export const Step3VariableCosts: React.FC = () => {
                     onChange={(val) =>
                       updateActivities({ ticketsDailyPerChild: val })
                     }
-                    className="w-full pl-3 pr-12 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:border-indigo-500 font-semibold"
+                    className="w-full pl-3 pr-12 py-1.5 text-xs rounded-lg border border-slate-200 bg-white focus:outline-none focus:border-indigo-500 font-semibold"
                   />
-                  <span className="absolute right-3 top-2 text-[11px] text-slate-400 font-medium">{currency}</span>
+                  <span className="absolute right-3 top-1.5 text-[10px] text-slate-400 font-medium">{currency}</span>
                 </div>
               </div>
             )}
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
-                Jasa Tour Guide / Pemandu Lokal / Hari (Opsional)
+              <label className="block text-[11px] font-semibold text-slate-600 mb-1">
+                Jasa Tour Guide Lokal Harian (Grup)
               </label>
               <div className="relative">
                 <FormattedNumberInput
@@ -313,20 +714,21 @@ export const Step3VariableCosts: React.FC = () => {
                   onChange={(val) =>
                     updateActivities({ tourGuideDaily: val })
                   }
-                  className="w-full pl-3 pr-12 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:border-indigo-500 font-semibold"
+                  className="w-full pl-3 pr-12 py-1.5 text-xs rounded-lg border border-slate-200 bg-white focus:outline-none focus:border-indigo-500 font-semibold"
                 />
-                <span className="absolute right-3 top-2 text-[11px] text-slate-400 font-medium">{currency}</span>
+                <span className="absolute right-3 top-1.5 text-[10px] text-slate-400 font-medium">{currency}</span>
               </div>
             </div>
-
-            {/* Catatan Aktivitas & Tiket */}
-            <SectionNotesInput
-              value={state.notes?.activities || ''}
-              onChange={(val) => updateSectionNote('activities', val)}
-              placeholder="Contoh: Beli tiket online waterpark, booking guide candi Borobudur..."
-            />
           </div>
         </div>
+
+        {/* Catatan Aktivitas & Tiket */}
+        <SectionNotesInput
+          value={state.notes?.activities || ''}
+          onChange={(val) => updateSectionNote('activities', val)}
+          placeholder="Contoh: Beli tiket online waterpark, booking guide candi Borobudur, snorkeling spot Manta Point..."
+        />
+      </div>
 
         {/* Telekomunikasi & Internet */}
         <div className="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
@@ -404,7 +806,6 @@ export const Step3VariableCosts: React.FC = () => {
             />
           </div>
         </div>
-      </div>
 
       {/* Subtotal Tahap 3 */}
       <div className="bg-slate-900 text-white p-5 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-md">

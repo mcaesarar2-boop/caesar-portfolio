@@ -44,6 +44,7 @@ import {
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { SearchPriceModal } from '../SearchPriceModal';
+import { formatDateIndo, addDaysToDateStr } from '../../utils/dateUtils';
 
 const SECTION_NOTE_INFO: Record<keyof SectionNotes, { title: string; category: string; step: number }> = {
   mainTransport: { title: 'Tiket & Transportasi Utama', category: 'Biaya Inti', step: 1 },
@@ -100,14 +101,22 @@ export const Step5Dashboard: React.FC = () => {
         activeNotes.map((n) => `• [${n.title}]: "${n.content}"`).join('\n')
       : '';
 
+    const hotelSummary = state.accommodation.name
+      ? `\n🏨 Penginapan: ${state.accommodation.name}${state.accommodation.location ? ` (${state.accommodation.location})` : ''} • ${state.accommodation.followTripDuration !== false ? `${profile.durationNights} Malam` : `${state.accommodation.totalNights} Malam (Kustom)`}`
+      : '';
+
+    const ticketsSummary = state.dailyCosts.activities.items && state.dailyCosts.activities.items.length > 0
+      ? `\n🎟️ Tiket & Wisata Terjadwal:\n` + state.dailyCosts.activities.items.map((it) => `  • ${it.name}: ${formatCurrency(it.cost, currency)} (${it.target === 'per_person' ? 'Per Peserta' : it.target === 'adult_only' ? 'Dewasa' : it.target === 'child_only' ? 'Anak' : 'Rombongan'})`).join('\n')
+      : '';
+
     const textSummary = `
 ✈️ RINGKASAN SIMULASI BIAYA PERJALANAN EKSTENSIF
 ------------------------------------------------
 📍 Rute: ${profile.origin || 'Kota Asal'} ➔ ${profile.destination || 'Kota Tujuan'} (${profile.type.toUpperCase()})
 🎫 Tiket: ${state.mainTransport.tripType === 'roundTrip' ? 'Pulang-Pergi (PP)' : 'Satu Arah (One-Way)'} • Moda: ${state.mainTransport.transportMode.toUpperCase()}
-📅 Durasi: ${profile.durationDays} Hari / ${profile.durationNights} Malam
+📅 Jadwal: ${formatDateIndo(profile.startDate)} ➔ ${formatDateIndo(profile.endDate || addDaysToDateStr(profile.startDate, profile.durationNights))} (${profile.durationDays} Hari / ${profile.durationNights} Malam)
 👥 Peserta: ${profile.adults} Dewasa${profile.children > 0 ? `, ${profile.children} Anak (50% F&B)` : ''}
-🎒 Gaya Liburan: ${profile.travelStyle.toUpperCase()}
+🎒 Gaya Liburan: ${profile.travelStyle.toUpperCase()}${hotelSummary}${ticketsSummary}
 
 💰 RINGKASAN FINANSIAL:
 • Grand Total Estimasi: ${formatCurrency(calculations.grandTotalWithScenarios, currency)}
