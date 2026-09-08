@@ -103,7 +103,7 @@ export const Step5Dashboard: React.FC = () => {
     const textSummary = `
 ✈️ RINGKASAN SIMULASI BIAYA PERJALANAN EKSTENSIF
 ------------------------------------------------
-📍 Rute: ${profile.origin} ➔ ${profile.destination} (${profile.type.toUpperCase()})
+📍 Rute: ${profile.origin || 'Kota Asal'} ➔ ${profile.destination || 'Kota Tujuan'} (${profile.type.toUpperCase()})
 🎫 Tiket: ${state.mainTransport.tripType === 'roundTrip' ? 'Pulang-Pergi (PP)' : 'Satu Arah (One-Way)'} • Moda: ${state.mainTransport.transportMode.toUpperCase()}
 📅 Durasi: ${profile.durationDays} Hari / ${profile.durationNights} Malam
 👥 Peserta: ${profile.adults} Dewasa${profile.children > 0 ? `, ${profile.children} Anak (50% F&B)` : ''}
@@ -146,7 +146,7 @@ Dihasilkan oleh Kalkulator & Simulasi Perjalanan Ekstensif (Mode Offline)
     downloadAnchor.setAttribute('href', dataStr);
     downloadAnchor.setAttribute(
       'download',
-      `simulasi-trip-${profile.destination.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase()}.json`
+      `simulasi-trip-${profile.destination ? profile.destination.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase() : 'rencana_perjalanan'}.json`
     );
     document.body.appendChild(downloadAnchor);
     downloadAnchor.click();
@@ -174,7 +174,7 @@ Dihasilkan oleh Kalkulator & Simulasi Perjalanan Ekstensif (Mode Offline)
           <div>
             <h1 className="text-2xl font-black text-slate-900 tracking-tight">LAPORAN ESTIMASI ANGGARAN PERJALANAN</h1>
             <p className="text-sm font-semibold text-slate-700 mt-0.5">
-              {profile.origin} ➔ {profile.destination} ({profile.type === 'domestic' ? 'Domestik' : 'Internasional'})
+              {profile.origin || 'Kota Asal'} ➔ {profile.destination || 'Kota Tujuan'} ({profile.type === 'domestic' ? 'Domestik' : 'Internasional'})
             </p>
             <p className="text-xs text-slate-500 mt-0.5">
               {profile.durationDays} Hari {profile.durationNights} Malam • {profile.adults} Dewasa{profile.children > 0 ? `, ${profile.children} Anak` : ''} • Gaya: {profile.travelStyle} • Tiket: {state.mainTransport.tripType === 'roundTrip' ? 'PP' : 'One-Way'}
@@ -202,7 +202,7 @@ Dihasilkan oleh Kalkulator & Simulasi Perjalanan Ekstensif (Mode Offline)
               </span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-              {profile.origin} ➔ {profile.destination}
+              {profile.origin || 'Kota Asal'} ➔ {profile.destination || 'Kota Tujuan'}
             </h2>
             <p className="text-sm text-slate-300 flex flex-wrap items-center gap-x-3 gap-y-1">
               <span>{profile.durationDays} Hari {profile.durationNights} Malam</span>

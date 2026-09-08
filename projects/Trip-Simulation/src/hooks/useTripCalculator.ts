@@ -12,10 +12,10 @@ export function useTripCalculator(state: TripState): CalculationResults {
   return useMemo(() => {
     const { profile, mainTransport, accommodation, fixedItems, dailyCosts, contingency } = state;
 
-    const days = Math.max(1, profile.durationDays);
-    const nights = Math.max(0, profile.durationNights);
-    const adults = Math.max(1, profile.adults);
-    const children = Math.max(0, profile.children);
+    const days = Math.max(0, profile.durationDays || 0);
+    const nights = Math.max(0, profile.durationNights || 0);
+    const adults = Math.max(0, profile.adults || 0);
+    const children = Math.max(0, profile.children || 0);
     const totalPeople = adults + children;
 
     // --- TAHAP 1 & 2: PERSIAPAN, DOKUMEN & BIAYA TETAP (PRE-TRIP) ---
@@ -49,7 +49,7 @@ export function useTripCalculator(state: TripState): CalculationResults {
       const isRental = mainTransport.carOwnership === 'sewa';
       if (isRental) {
         const rate = Number(mainTransport.rentalDailyRate) || 0;
-        const rentalDuration = Math.max(1, Number(mainTransport.rentalDays) || days || 1);
+        const rentalDuration = Math.max(0, Number(mainTransport.rentalDays) || days || 0);
         const rentCost = rate * rentalDuration;
         const driverCost =
           mainTransport.rentalType === 'dengan_supir'
@@ -88,7 +88,7 @@ export function useTripCalculator(state: TripState): CalculationResults {
     const preTripTotal = documentsAndPrepCost + mainTransportTotal;
 
     // --- TAHAP 2: AKOMODASI (ON-TRIP FIXED) ---
-    const roomCount = Math.max(1, accommodation.roomCount || 1);
+    const roomCount = Math.max(0, accommodation.roomCount || 0);
     const pricePerNight = Number(accommodation.pricePerNight) || 0;
     const taxRate = (Number(accommodation.taxPercentage) || 0) / 100;
     const depositAmount = Number(accommodation.depositAmount) || 0;
@@ -125,7 +125,7 @@ export function useTripCalculator(state: TripState): CalculationResults {
     const dailyActivitiesTotal = (dailyTicketsAdult + dailyTicketsChild + dailyGuide) * days;
 
     // Telekomunikasi (Roaming / Sewa Wi-Fi harian x jumlah perangkat x durasi)
-    const deviceCount = Math.max(1, dailyCosts.telecom.devicesCount || 1);
+    const deviceCount = Math.max(0, dailyCosts.telecom.devicesCount || 0);
     const dailyTelecomTotal =
       (Number(dailyCosts.telecom.roamingOrWifiDaily) || 0) * deviceCount * days;
 
@@ -219,10 +219,10 @@ export function useTripCalculator(state: TripState): CalculationResults {
 
     // Tiket & aktivitas
     const transportPerPerson = effectiveTicketPerPerson + (Number(mainTransport.baggageCostPerPerson) || 0);
-    const activitiesPerAdultTotal = (Number(dailyCosts.activities.ticketsDailyPerAdult) || 0) * days + (dailyGuide * days / totalPeople);
-    const activitiesPerChildTotal = (Number(dailyCosts.activities.ticketsDailyPerChild) || 0) * days + (dailyGuide * days / totalPeople);
+    const activitiesPerAdultTotal = (Number(dailyCosts.activities.ticketsDailyPerAdult) || 0) * days + (totalPeople > 0 ? (dailyGuide * days / totalPeople) : 0);
+    const activitiesPerChildTotal = (Number(dailyCosts.activities.ticketsDailyPerChild) || 0) * days + (totalPeople > 0 ? (dailyGuide * days / totalPeople) : 0);
 
-    const costPerAdult = Math.round(sharedPerPerson + mealAdultTotal + transportPerPerson + activitiesPerAdultTotal);
+    const costPerAdult = adults > 0 ? Math.round(sharedPerPerson + mealAdultTotal + transportPerPerson + activitiesPerAdultTotal) : 0;
     const costPerChild = children > 0 
       ? Math.round(sharedPerPerson + mealChildTotal + transportPerPerson + activitiesPerChildTotal)
       : 0;
@@ -358,7 +358,20 @@ export function useTripCalculator(state: TripState): CalculationResults {
     const isHighContingency = contingencyRatio >= 12;
     const isMediumContingency = contingencyRatio >= 7 && contingencyRatio < 12;
 
-    if (contingencyRatio >= 10 && (!hasActiveRisk || coversActiveRisk)) {
+    if (totalCoreExpense === 0) {
+      safetyScore = {
+        status: 'safe',
+        label: 'Belum Ada Input Biaya (Rp 0)',
+        badgeClass: 'bg-slate-100 text-slate-700 border-slate-300',
+        description:
+          'Semua pos pengeluaran saat ini bernilai 0. Silakan isi rincian rencana perjalanan Anda untuk melihat simulasi dan analisis kesehatan anggaran.',
+        contingencyRatio: 0,
+        recommendations: [
+          'Mulai dengan memasukkan rute, moda transportasi, akomodasi, dan durasi.',
+          'Atur alokasi dana darurat (5%–25%) sesuai tingkat kenyamanan perjalanan Anda.',
+        ],
+      };
+    } else if (contingencyRatio >= 10 && (!hasActiveRisk || coversActiveRisk)) {
       safetyScore = {
         status: 'safe',
         label: 'Anggaran Aman & Terproteksi (Safe)',

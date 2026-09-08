@@ -365,7 +365,7 @@ export const Step3VariableCosts: React.FC = () => {
                 <button
                   type="button"
                   onClick={() =>
-                    updateTelecom({ devicesCount: Math.max(1, dailyCosts.telecom.devicesCount - 1) })
+                    updateTelecom({ devicesCount: Math.max(0, dailyCosts.telecom.devicesCount - 1) })
                   }
                   className="w-8 h-8 rounded-lg bg-slate-100 font-bold text-slate-700 hover:bg-slate-200"
                 >
@@ -373,11 +373,11 @@ export const Step3VariableCosts: React.FC = () => {
                 </button>
                 <input
                   type="number"
-                  min="1"
+                  min="0"
                   max="10"
                   value={dailyCosts.telecom.devicesCount}
                   onChange={(e) =>
-                    updateTelecom({ devicesCount: Math.max(1, parseInt(e.target.value) || 1) })
+                    updateTelecom({ devicesCount: Math.max(0, parseInt(e.target.value) || 0) })
                   }
                   className="w-12 text-center font-bold text-sm bg-transparent"
                 />
@@ -421,7 +421,7 @@ export const Step3VariableCosts: React.FC = () => {
             {formatCurrency(calculations.dailyExpensesGrandTotal, currency)}
           </span>
           <span className="text-xs text-slate-400 block">
-            Rata-rata {formatCurrency(calculations.dailyExpensesGrandTotal / days, currency)} / hari
+            Rata-rata {days > 0 ? formatCurrency(calculations.dailyExpensesGrandTotal / days, currency) : formatCurrency(0, currency)} / hari
           </span>
         </div>
       </div>

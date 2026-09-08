@@ -96,6 +96,9 @@ export const FormattedNumberInput: React.FC<FormattedNumberInputProps> = ({
 
   const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
     isEditingRef.current = true;
+    if (value === 0 || displayValue === '0') {
+      e.target.select();
+    }
     if (restProps.onFocus) {
       restProps.onFocus(e);
     }

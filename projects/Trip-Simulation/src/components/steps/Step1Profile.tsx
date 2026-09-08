@@ -178,18 +178,18 @@ export const Step1Profile: React.FC = () => {
               <div className="flex items-center space-x-2">
                 <button
                   type="button"
-                  onClick={() => updateProfile({ durationDays: Math.max(1, profile.durationDays - 1) })}
+                  onClick={() => updateProfile({ durationDays: Math.max(0, profile.durationDays - 1) })}
                   className="w-8 h-8 rounded-lg bg-white border border-slate-200 font-bold text-slate-700 hover:bg-slate-100 transition-colors"
                 >
                   -
                 </button>
                 <input
                   type="number"
-                  min="1"
+                  min="0"
                   max="60"
                   value={profile.durationDays}
                   onChange={(e) =>
-                    updateProfile({ durationDays: Math.max(1, parseInt(e.target.value) || 1) })
+                    updateProfile({ durationDays: Math.max(0, parseInt(e.target.value) || 0) })
                   }
                   className="w-14 text-center font-bold text-lg text-slate-900 bg-transparent focus:outline-none"
                 />
@@ -276,7 +276,7 @@ export const Step1Profile: React.FC = () => {
             <div className="flex items-center space-x-2.5">
               <button
                 type="button"
-                onClick={() => updateProfile({ adults: Math.max(1, profile.adults - 1) })}
+                onClick={() => updateProfile({ adults: Math.max(0, profile.adults - 1) })}
                 className="w-9 h-9 rounded-lg bg-white border border-slate-200 font-bold text-slate-700 hover:bg-slate-100 transition-colors"
               >
                 -

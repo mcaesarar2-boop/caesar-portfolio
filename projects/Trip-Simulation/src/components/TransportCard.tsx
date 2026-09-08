@@ -159,7 +159,7 @@ export const TransportCard: React.FC<TransportCardProps> = ({ onOpenSearch }) =>
               </span>
             </div>
             <p className="text-xs text-slate-500 mt-0.5">
-              Rute: <strong>{profile.origin}</strong> ➔ <strong>{profile.destination}</strong> ({profile.type})
+              Rute: <strong>{profile.origin || 'Kota Asal'}</strong> ➔ <strong>{profile.destination || 'Kota Tujuan'}</strong> ({profile.type})
             </p>
           </div>
         </div>
@@ -296,7 +296,7 @@ export const TransportCard: React.FC<TransportCardProps> = ({ onOpenSearch }) =>
               <>
                 <div>
                   <label className="block text-xs font-semibold text-slate-700 mb-1">
-                    Harga Tiket Berangkat / Orang ({profile.origin} ➔ {profile.destination})
+                    Harga Tiket Berangkat / Orang ({profile.origin || 'Asal'} ➔ {profile.destination || 'Tujuan'})
                   </label>
                   <div className="relative">
                     <FormattedNumberInput
@@ -316,7 +316,7 @@ export const TransportCard: React.FC<TransportCardProps> = ({ onOpenSearch }) =>
 
                 <div>
                   <label className="block text-xs font-semibold text-slate-700 mb-1">
-                    Harga Tiket Pulang / Orang ({profile.destination} ➔ {profile.origin})
+                    Harga Tiket Pulang / Orang ({profile.destination || 'Tujuan'} ➔ {profile.origin || 'Asal'})
                   </label>
                   <div className="relative">
                     <FormattedNumberInput
@@ -880,9 +880,9 @@ export const TransportCard: React.FC<TransportCardProps> = ({ onOpenSearch }) =>
                   </label>
                   <input
                     type="text"
-                    value={mainTransport.rentalCarModel || 'Avanza / Xpander'}
+                    value={mainTransport.rentalCarModel || ''}
                     onChange={(e) => updateMainTransport({ rentalCarModel: e.target.value })}
-                    placeholder="Contoh: Innova Reborn / HiAce"
+                    placeholder="Contoh: Avanza / Innova / HiAce"
                     className="w-full px-3 py-1.5 text-xs rounded-xl border border-slate-200 bg-white font-medium focus:border-blue-500 outline-none"
                   />
                 </div>
@@ -908,7 +908,7 @@ export const TransportCard: React.FC<TransportCardProps> = ({ onOpenSearch }) =>
                     </span>
                   </div>
                   <p className="text-[10px] text-slate-400 mt-1">
-                    x {mainTransport.rentalDays || profile.durationDays} hari = {formatCurrency((mainTransport.rentalDailyRate || 0) * (mainTransport.rentalDays || profile.durationDays), currency)}
+                    x {mainTransport.rentalDays ?? profile.durationDays ?? 0} hari = {formatCurrency((mainTransport.rentalDailyRate || 0) * (mainTransport.rentalDays ?? profile.durationDays ?? 0), currency)}
                   </p>
                 </div>
 
@@ -918,9 +918,9 @@ export const TransportCard: React.FC<TransportCardProps> = ({ onOpenSearch }) =>
                     Durasi Sewa (Hari)
                   </label>
                   <FormattedNumberInput
-                    value={mainTransport.rentalDays || profile.durationDays}
+                    value={mainTransport.rentalDays ?? profile.durationDays ?? 0}
                     onChange={(val) =>
-                      updateMainTransport({ rentalDays: Math.max(1, val) })
+                      updateMainTransport({ rentalDays: Math.max(0, val) })
                     }
                     className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 bg-white font-semibold focus:border-blue-500 outline-none"
                   />
@@ -948,7 +948,7 @@ export const TransportCard: React.FC<TransportCardProps> = ({ onOpenSearch }) =>
                       </span>
                     </div>
                     <p className="text-[10px] text-slate-400 mt-1">
-                      Total: {formatCurrency((mainTransport.rentalDriverAllowanceDaily || 0) * (mainTransport.rentalDays || profile.durationDays), currency)}
+                      Total: {formatCurrency((mainTransport.rentalDriverAllowanceDaily || 0) * (mainTransport.rentalDays ?? profile.durationDays ?? 0), currency)}
                     </p>
                   </div>
                 ) : (
@@ -1332,7 +1332,7 @@ export const TransportCard: React.FC<TransportCardProps> = ({ onOpenSearch }) =>
             {isCar
               ? carOwnership === 'pribadi'
                 ? `Mobil Pribadi (${mainTransport.carType || 'MPV'}) • Bensin, Tol, Parkir & Servis`
-                : `Rental Mobil (${mainTransport.rentalCarModel || 'Mobil'}) • ${mainTransport.rentalType === 'dengan_supir' ? 'Dengan Supir' : 'Lepas Kunci'} (${mainTransport.rentalDays || profile.durationDays} Hari)`
+                : `Rental Mobil (${mainTransport.rentalCarModel || 'Mobil'}) • ${mainTransport.rentalType === 'dengan_supir' ? 'Dengan Supir' : 'Lepas Kunci'} (${mainTransport.rentalDays ?? profile.durationDays ?? 0} Hari)`
               : `Tiket ${mainTransport.tripType === 'roundTrip' ? 'PP' : 'Satu Arah'} (${totalPeople} Peserta × ${formatCurrency(effectiveTicket, currency)}) + Bagasi & Add-on`}
           </span>
         </div>

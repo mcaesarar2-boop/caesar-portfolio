@@ -31,13 +31,16 @@ interface TripContextType {
   resetAll: () => void;
 }
 
-const STORAGE_KEY = 'simulasi_perjalanan_ekstensif_v1';
+const STORAGE_KEY = 'simulasi_perjalanan_ekstensif_v2';
 
 const TripContext = createContext<TripContextType | undefined>(undefined);
 
 export const TripProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [state, setState] = useState<TripState>(() => {
     try {
+      // Clean up legacy cache with dummy data
+      localStorage.removeItem('simulasi_perjalanan_ekstensif_v1');
+
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
@@ -69,7 +72,7 @@ export const TripProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     } catch (e) {
       console.error('Failed to restore from localStorage:', e);
     }
-    return DEFAULT_INITIAL_STATE;
+    return JSON.parse(JSON.stringify(DEFAULT_INITIAL_STATE));
   });
 
   const [activeStep, setActiveStep] = useState<number>(1);
@@ -374,6 +377,7 @@ export const TripProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setState(JSON.parse(JSON.stringify(DEFAULT_INITIAL_STATE)));
     setActiveStep(1);
     localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem('simulasi_perjalanan_ekstensif_v1');
   };
 
   return (

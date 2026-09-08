@@ -106,15 +106,16 @@ export const Step4Contingency: React.FC = () => {
 
           <div className="space-y-3">
             <div className="flex items-center justify-between text-xs font-semibold text-slate-600">
+              <span>0%</span>
               <span>5% (Minimal)</span>
               <span>10% (Standar)</span>
-              <span>15% (Rekomendasi Internasional)</span>
+              <span>15% (Internasional)</span>
               <span>25%</span>
             </div>
 
             <input
               type="range"
-              min="5"
+              min="0"
               max="25"
               step="1"
               value={contingency.contingencyPercent}

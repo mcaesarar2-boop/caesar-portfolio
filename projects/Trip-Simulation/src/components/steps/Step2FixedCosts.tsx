@@ -176,7 +176,7 @@ export const Step2FixedCosts: React.FC = () => {
               <button
                 type="button"
                 onClick={() =>
-                  updateAccommodation({ roomCount: Math.max(1, accommodation.roomCount - 1) })
+                  updateAccommodation({ roomCount: Math.max(0, accommodation.roomCount - 1) })
                 }
                 className="w-9 h-9 rounded-lg bg-slate-100 border border-slate-200 font-bold text-slate-700 hover:bg-slate-200 transition-colors shrink-0"
               >
@@ -184,10 +184,10 @@ export const Step2FixedCosts: React.FC = () => {
               </button>
               <input
                 type="number"
-                min="1"
+                min="0"
                 value={accommodation.roomCount}
                 onChange={(e) =>
-                  updateAccommodation({ roomCount: Math.max(1, Number(e.target.value) || 1) })
+                  updateAccommodation({ roomCount: Math.max(0, Number(e.target.value) || 0) })
                 }
                 className="w-full text-center py-2 text-sm font-bold rounded-xl border border-slate-200"
               />
