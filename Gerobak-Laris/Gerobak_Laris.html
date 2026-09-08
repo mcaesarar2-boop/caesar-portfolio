@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brand Identity — Gerobak Laris</title>
+  <meta name="description" content="Brand Identity Guideline untuk Gerobak Laris. Panduan lengkap sistem visual, logo, warna, tipografi, dan implementasi mockup." />
+  <link rel="icon" type="image/png" href="assets/Grobak Laris Logo red.png" />
+
+  <!-- Google Fonts: Nunito, Caveat, Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              maroon: '#801013',
+              maroonDark: '#6B0B0E',
+              maroonLight: '#8F1418',
+              softRed: '#BA383C',
+              warmBlush: '#BE8284',
+              blushLight: '#FBF5F5',
+              stickerWhite: '#FFFFFF',
+              bgLight: '#F3F4F6',
+              bgParchment: '#FAF7F5',
+              charcoal: '#1E1E1E',
+              muted: '#71717A',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            nunito: ['"Nunito"', 'sans-serif'],
+            script: ['"Caveat"', 'cursive'],
+          },
+          boxShadow: {
+            'card': '0 10px 30px -5px rgba(0, 0, 0, 0.05), 0 4px 10px -2px rgba(0, 0, 0, 0.03)',
+            'card-hover': '0 20px 40px -10px rgba(128, 16, 19, 0.12), 0 8px 16px -4px rgba(0, 0, 0, 0.06)',
+            'maroon-glow': '0 10px 35px -5px rgba(128, 16, 19, 0.35)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Smooth animations & custom styles */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Watermark pattern */
+    .watermark-pattern {
+      background-image: radial-gradient(rgba(128, 16, 19, 0.06) 1px, transparent 1px);
+      background-size: 18px 18px;
+    }
+
+    /* Toast notification */
+    #copyToast {
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    }
+
+    /* Interactive image zoom */
+    .mockup-card img {
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mockup-card:hover img {
+      transform: scale(1.035);
+    }
+
+    /* Subtle culinary pattern background */
+    .bg-culinary-pattern {
+      background-color: #ECEEF0;
+      background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23801013' fill-opacity='0.035' fill-rule='evenodd'%3E%3C!-- Steaming Bowl --%3E%3Cpath d='M25 40c0 8.284 6.716 15 15 15s15-6.716 15-15H25zm5-6c0-3 2-4 2-7s-2-4-2-7h2c0 2 2 3 2 6s-2 4-2 8h-2zm8 0c0-3 2-4 2-7s-2-4-2-7h2c0 2 2 3 2 6s-2 4-2 8h-2zm8 0c0-3 2-4 2-7s-2-4-2-7h2c0 2 2 3 2 6s-2 4-2 8h-2z'/%3E%3C!-- Sparkle / Star --%3E%3Cpath d='M95 20l2 6 6 2-6 2-2 6-2-6-6-2 6-2 2-6z'/%3E%3C!-- Chef Hat / Cloche --%3E%3Cpath d='M80 85c0-4.418 3.582-8 8-8s8 3.582 8 8h-16zm-4 4h24v3H76v-3z'/%3E%3C!-- Cup & Straw --%3E%3Cpath d='M28 88l3 20h12l3-20H28zm14-10l-2 8h-2l3-12h2l1 4z'/%3E%3C!-- Little Dumpling --%3E%3Cpath d='M90 55c0-5 5-9 10-9s10 4 10 9c0 3-4 6-10 6s-10-3-10-6z'/%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    /* Floating gentle animation */
+    @keyframes floatGentle {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(2deg); }
+    }
+    @keyframes floatReverse {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(8px) rotate(-2deg); }
+    }
+    .animate-float-1 { animation: floatGentle 7s ease-in-out infinite; }
+    .animate-float-2 { animation: floatReverse 8.5s ease-in-out infinite; }
+    .animate-float-3 { animation: floatGentle 6s ease-in-out infinite 1s; }
+    .animate-float-4 { animation: floatReverse 9s ease-in-out infinite 2s; }
+  </style>
+</head>
+<body class="bg-culinary-pattern text-gray-800 font-sans antialiased selection:bg-brand-maroon selection:text-white pb-16 relative min-h-screen overflow-x-hidden">
+
+  <!-- ==================================================================== -->
+  <!-- ORGANIC PARALLAX SCATTERED CULINARY DOODLES (Full Page Canvas)       -->
+  <!-- ==================================================================== -->
+  <div class="absolute inset-0 pointer-events-none z-0 overflow-hidden h-full min-h-full" aria-hidden="true">
+    
+    <!-- 1. Top Left: Noodle Bowl (Near Header) -->
+    <div class="parallax-doodle absolute top-[140px] -left-6 sm:left-[2%] lg:-left-4 xl:left-[3%] opacity-25 text-brand-maroon animate-float-1" 
+         data-base-rot="-12" data-speed-y="0.22" data-speed-rot="0.04">
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="transform -rotate-12">
+        <path d="M12 28h40c-1.5 16-9 24-20 24S13.5 44 12 28z"/>
+        <path d="M22 52v4h20v-4"/>
+        <path d="M24 12c-2 4 2 7 0 11"/>
+        <path d="M32 10c-2 5 2 8 0 13"/>
+        <path d="M40 12c-2 4 2 7 0 11"/>
+        <path d="M8 24l48-6"/>
+      </svg>
+    </div>
+
+    <!-- 2. Top Right: Gerobak Laris Cart (Near Logo Variants) -->
+    <div class="parallax-doodle absolute top-[360px] -right-6 sm:right-[2%] lg:-right-4 xl:right-[3%] opacity-25 text-brand-maroon animate-float-2" 
+         data-base-rot="15" data-speed-y="-0.28" data-speed-rot="-0.05">
+      <svg width="78" height="78" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="transform rotate-12">
+        <path d="M12 20h38l-4 18H16L12 20z"/>
+        <path d="M10 20h42l-2-6H14l-4 6z"/>
+        <circle cx="26" cy="48" r="6"/>
+        <circle cx="26" cy="48" r="2" fill="currentColor"/>
+        <path d="M32 48h18v-8"/>
+        <path d="M12 28h38"/>
+        <path d="M22 10c0-3 2-4 0-6"/>
+        <path d="M30 10c0-3 2-4 0-6"/>
+      </svg>
+    </div>
+
+    <!-- 3. Upper Mid Left: Satay Skewers (Near Filosofi Visual) -->
+    <div class="parallax-doodle absolute top-[720px] left-[1%] lg:-left-6 xl:left-[2%] opacity-25 text-brand-maroon animate-float-3" 
+         data-base-rot="-25" data-speed-y="0.32" data-speed-rot="0.06">
+      <svg width="58" height="58" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="transform -rotate-45">
+        <line x1="12" y1="52" x2="52" y2="12"/>
+        <rect x="36" y="16" width="12" height="12" rx="3" transform="rotate(45 42 22)" fill="currentColor" fill-opacity="0.2"/>
+        <rect x="25" y="27" width="12" height="12" rx="3" transform="rotate(45 31 33)" fill="currentColor" fill-opacity="0.2"/>
+        <rect x="14" y="38" width="12" height="12" rx="3" transform="rotate(45 20 44)" fill="currentColor" fill-opacity="0.2"/>
+      </svg>
+    </div>
+
+    <!-- 4. Upper Mid Right: Hot Chili Pepper & Sparkle -->
+    <div class="parallax-doodle absolute top-[980px] right-[1%] lg:-right-6 xl:right-[2.5%] opacity-25 text-brand-maroon animate-float-4" 
+         data-base-rot="20" data-speed-y="-0.24" data-speed-rot="-0.04">
+      <svg width="56" height="56" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="transform rotate-20">
+        <path d="M48 14c-4 2-8 6-12 12-8 12-16 20-22 22-4 1-6-2-4-6 4-8 12-16 24-22 6-3 10-5 14-6z" fill="currentColor" fill-opacity="0.15"/>
+        <path d="M48 14c4-3 8-4 10-2s-1 6-4 10"/>
+        <!-- Star -->
+        <path d="M16 18l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5 1.5-4z" fill="currentColor"/>
+      </svg>
+    </div>
+
+    <!-- 5. Center Left: Iced Boba/Coffee Drink (Near Warna Identitas) -->
+    <div class="parallax-doodle absolute top-[1380px] -left-4 sm:left-[2%] lg:-left-5 xl:left-[2.5%] opacity-25 text-brand-maroon animate-float-1" 
+         data-base-rot="8" data-speed-y="0.30" data-speed-rot="0.05">
+      <svg width="68" height="68" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="transform rotate-6">
+        <path d="M18 20h28l-4 34H22L18 20z"/>
+        <ellipse cx="32" cy="20" rx="14" ry="4"/>
+        <line x1="32" y1="8" x2="28" y2="20"/>
+        <line x1="32" y1="8" x2="40" y2="4"/>
+        <circle cx="28" cy="38" r="2.5" fill="currentColor"/>
+        <circle cx="36" cy="42" r="2.5" fill="currentColor"/>
+        <circle cx="31" cy="46" r="2.5" fill="currentColor"/>
+      </svg>
+    </div>
+
+    <!-- 6. Center Right: Dumpling Dimsum Basket -->
+    <div class="parallax-doodle absolute top-[1620px] -right-4 sm:right-[2%] lg:-right-5 xl:right-[3%] opacity-25 text-brand-maroon animate-float-2" 
+         data-base-rot="-15" data-speed-y="-0.32" data-speed-rot="-0.06">
+      <svg width="66" height="66" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="transform -rotate-12">
+        <path d="M14 36c0-10 8-18 18-18s18 8 18 18H14z" fill="currentColor" fill-opacity="0.15"/>
+        <path d="M14 36v12c0 4 8 6 18 6s18-2 18-6V36"/>
+        <ellipse cx="32" cy="36" rx="18" ry="4"/>
+        <path d="M26 14c-1 3 1 4 0 7"/>
+        <path d="M32 12c-1 3 1 4 0 7"/>
+        <path d="M38 14c-1 3 1 4 0 7"/>
+      </svg>
+    </div>
+
+    <!-- 7. Lower Mid Left: Chef Spatula & Frying Pan (Near Tipografi) -->
+    <div class="parallax-doodle absolute top-[2050px] left-[1%] lg:-left-6 xl:left-[2%] opacity-25 text-brand-maroon animate-float-3" 
+         data-base-rot="18" data-speed-y="0.26" data-speed-rot="0.04">
+      <svg width="62" height="62" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="transform rotate-15">
+        <path d="M22 14h10v16c0 3-2 5-5 5s-5-2-5-5V14z"/>
+        <line x1="27" y1="35" x2="27" y2="52"/>
+        <line x1="25" y1="18" x2="25" y2="28"/>
+        <line x1="29" y1="18" x2="29" y2="28"/>
+        <!-- Star -->
+        <path d="M42 20l2 5 5 2-5 2-2 5-2-5-5-2 5-2 2-5z" fill="currentColor"/>
+      </svg>
+    </div>
+
+    <!-- 8. Lower Mid Right: Steaming Takeaway Cup & Steam (Near Implementasi) -->
+    <div class="parallax-doodle absolute top-[2380px] -right-5 sm:right-[2%] lg:-right-4 xl:right-[3%] opacity-25 text-brand-maroon animate-float-4" 
+         data-base-rot="-10" data-speed-y="-0.26" data-speed-rot="-0.05">
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="transform -rotate-6">
+        <path d="M16 26h32l-4 28H20L16 26z"/>
+        <path d="M14 20h36v6H14v-6z" fill="currentColor" fill-opacity="0.15"/>
+        <path d="M26 8c0 3 2 4 0 7"/>
+        <path d="M32 6c0 3 2 5 0 9"/>
+        <path d="M38 8c0 3 2 4 0 7"/>
+      </svg>
+    </div>
+
+    <!-- 9. Bottom Left: Delicious Hot Snack / Croissant -->
+    <div class="parallax-doodle absolute top-[2820px] -left-4 sm:left-[2%] lg:-left-5 xl:left-[2.5%] opacity-25 text-brand-maroon animate-float-1" 
+         data-base-rot="22" data-speed-y="0.28" data-speed-rot="0.05">
+      <svg width="60" height="60" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="transform rotate-25">
+        <path d="M12 40c6-14 20-22 36-16 6 2 10 7 8 13-3 8-12 13-22 13-10 0-18-4-22-10z" fill="currentColor" fill-opacity="0.15"/>
+        <path d="M22 28c4 4 6 10 6 16"/>
+        <path d="M34 26c2 4 4 10 3 16"/>
+        <circle cx="50" cy="18" r="3" fill="currentColor"/>
+      </svg>
+    </div>
+
+    <!-- 10. Bottom Right: Big Street Food Wheel & Cart (Near Footer) -->
+    <div class="parallax-doodle absolute top-[3150px] -right-6 sm:right-[2%] lg:-right-4 xl:right-[3%] opacity-25 text-brand-maroon animate-float-2" 
+         data-base-rot="-18" data-speed-y="-0.22" data-speed-rot="-0.04">
+      <svg width="74" height="74" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="transform -rotate-15">
+        <circle cx="32" cy="32" r="20"/>
+        <circle cx="32" cy="32" r="5" fill="currentColor"/>
+        <line x1="32" y1="12" x2="32" y2="52"/>
+        <line x1="12" y1="32" x2="52" y2="32"/>
+        <line x1="18" y1="18" x2="46" y2="46"/>
+        <line x1="18" y1="46" x2="46" y2="18"/>
+      </svg>
+    </div>
+
+  </div>
+
+  <!-- Top Floating Navigation Bar -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200/80 transition-all shadow-sm">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="../index.html" class="group flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gray-100 hover:bg-brand-maroon hover:text-white border border-gray-200 text-xs sm:text-sm font-semibold text-gray-700 transition-all shadow-sm" title="Kembali ke Portofolio Utama">
+          <svg class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+          <span>Portofolio</span>
+        </a>
+        <div class="h-4 w-px bg-gray-300 hidden sm:block"></div>
+        <span class="text-xs font-semibold uppercase tracking-wider text-gray-500 hidden sm:inline-block">Project 01 · Gerobak Laris</span>
+      </div>
+
+      <div class="flex items-center gap-4 text-xs sm:text-sm font-medium text-gray-600">
+        <a href="#logo-variants" class="hover:text-brand-maroon transition-colors hidden md:inline-block">Logo</a>
+        <a href="#filosofi" class="hover:text-brand-maroon transition-colors hidden md:inline-block">Filosofi</a>
+        <a href="#warna" class="hover:text-brand-maroon transition-colors hidden md:inline-block">Warna</a>
+        <a href="#tipografi" class="hover:text-brand-maroon transition-colors hidden md:inline-block">Tipografi</a>
+        <a href="#implementasi" class="hover:text-brand-maroon transition-colors hidden md:inline-block">Implementasi</a>
+        <a href="https://www.behance.net/gallery/245527979/Gerobak-Laris-Street-Vendor-Food-Restaurant" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-xs font-bold text-brand-maroon hover:underline">
+          Behance ↗
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="relative z-10 max-w-4xl mx-auto px-3 sm:px-6 pt-6 sm:pt-8 space-y-6 sm:space-y-8">
+
+    <!-- ==================================================================== -->
+    <!-- 1. HEADER BANNER                                                     -->
+    <!-- ==================================================================== -->
+    <section class="reveal bg-brand-maroon rounded-2xl sm:rounded-3xl shadow-maroon-glow relative overflow-hidden text-white min-h-[150px] sm:min-h-[175px] flex items-center border border-brand-maroonDark">
+      <!-- Background Image with Circle Sign scaled to fit height naturally on the left -->
+      <div class="absolute inset-y-0 left-0 w-[55%] sm:w-[50%] pointer-events-none overflow-hidden" 
+           style="-webkit-mask-image: linear-gradient(to right, black 0%, black 40%, rgba(0,0,0,0.6) 70%, transparent 100%); mask-image: linear-gradient(to right, black 0%, black 40%, rgba(0,0,0,0.6) 70%, transparent 100%);">
+        <img 
+          src="assets/Free Circle Sign Mockup.png" 
+          alt="Gerobak Laris Circle Sign Background" 
+          class="h-[210%] max-w-none w-auto object-contain -translate-y-[27%] -translate-x-[24%] sm:-translate-x-[22%]"
+        />
+        <!-- Subtle warm maroon tint overlay to blend naturally -->
+        <div class="absolute inset-0 bg-brand-maroon/15 mix-blend-multiply"></div>
+      </div>
+
+      <!-- Banner Text on the Right -->
+      <div class="relative z-10 w-full px-6 sm:px-12 py-6 sm:py-8 flex flex-col md:flex-row items-center justify-between md:justify-end">
+        <div class="text-center md:text-right">
+          <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight pb-2 sm:pb-3 text-white border-b-2 sm:border-b-[3px] border-white inline-block">
+            Brand Identity
+          </h1>
+          <p class="mt-2 sm:mt-3 text-xs sm:text-sm uppercase tracking-[0.28em] font-bold text-white/90">
+            GEROBAK LARIS
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================== -->
+    <!-- 2. LOGO VARIANTS                                                     -->
+    <!-- ==================================================================== -->
+    <section id="logo-variants" class="reveal space-y-4 pt-2">
+      <div class="text-center max-w-2xl mx-auto space-y-2">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-maroon tracking-tight">
+          Logo Variants
+        </h2>
+        <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
+          Bentuk logo resmi Gerobak Laris yang disesuaikan dengan kebutuhan latar belakang dan ruang aplikasi, untuk memastikan keterbacaan yang maksimal.
+        </p>
+      </div>
+
+      <!-- 3 Logo Variant Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
+        <!-- Variant 1: Primary / Dark (Maroon BG) -->
+        <div class="bg-brand-maroon rounded-2xl p-6 sm:p-8 flex flex-col justify-between shadow-card hover:shadow-card-hover transition-all min-h-[220px] relative group overflow-hidden border border-brand-maroonDark">
+          <span class="text-[10px] tracking-widest font-bold uppercase text-white/60">PRIMARY / DARK</span>
+          <div class="my-auto py-6 flex items-center justify-center">
+            <img src="assets/Grobak Laris Logo White.png" alt="Primary Logo Dark Variation" class="h-24 sm:h-28 w-auto object-contain group-hover:scale-105 transition-transform duration-300" />
+          </div>
+          <span class="text-[10px] text-white/40 text-center font-mono">White on Maroon</span>
+        </div>
+
+        <!-- Variant 2: Primary / Light (White BG) -->
+        <div class="bg-white rounded-2xl p-6 sm:p-8 flex flex-col justify-between shadow-card hover:shadow-card-hover transition-all min-h-[220px] relative group border border-gray-200/80">
+          <span class="text-[10px] tracking-widest font-bold uppercase text-brand-maroon/60">PRIMARY / LIGHT</span>
+          <div class="my-auto py-6 flex items-center justify-center">
+            <img src="assets/Grobak Laris Logo red.png" alt="Primary Logo Light Variation" class="h-24 sm:h-28 w-auto object-contain group-hover:scale-105 transition-transform duration-300" />
+          </div>
+          <span class="text-[10px] text-gray-400 text-center font-mono">Maroon on White</span>
+        </div>
+
+        <!-- Variant 3: Logotype / Text Maroon -->
+        <div class="bg-white rounded-2xl p-6 sm:p-8 flex flex-col justify-between shadow-card hover:shadow-card-hover transition-all min-h-[220px] relative group border border-gray-200/80">
+          <span class="text-[10px] tracking-widest font-bold uppercase text-brand-maroon/60">SECONDARY / TYPO</span>
+          <div class="my-auto py-6 flex items-center justify-center">
+            <img src="assets/Grobak Laris Logo Text Maroon.png" alt="Logo Wordmark Text Maroon" class="h-16 sm:h-20 w-auto object-contain group-hover:scale-105 transition-transform duration-300" />
+          </div>
+          <span class="text-[10px] text-gray-400 text-center font-mono">Wordmark Typo Only</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================== -->
+    <!-- 3. FILOSOFI VISUAL                                                   -->
+    <!-- ==================================================================== -->
+    <section id="filosofi" class="reveal bg-white rounded-2xl sm:rounded-3xl shadow-card border border-gray-200/80 overflow-hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-12 min-h-[380px]">
+        <!-- Left Maroon Side -->
+        <div class="lg:col-span-4 bg-brand-maroon p-8 sm:p-10 text-white flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute -bottom-10 -right-10 w-44 h-44 bg-white/5 rounded-full pointer-events-none blur-xl"></div>
+          <div class="space-y-4 relative z-10">
+            <h2 class="text-3xl sm:text-4xl font-extrabold leading-tight tracking-tight">
+              Filosofi<br />Visual
+            </h2>
+            <p class="text-xs sm:text-sm text-white/85 leading-relaxed">
+              Pendekatan desain yang memadukan kehangatan street food tradisional dengan estetika modern yang ramah dan mengundang.
+            </p>
+          </div>
+          <div class="mt-8 pt-6 border-t border-white/15 relative z-10">
+            <span class="text-[11px] font-mono uppercase tracking-wider text-white/60">Brand Narrative · 2026</span>
+          </div>
+        </div>
+
+        <!-- Right Cards Side with Doodle Watermark -->
+        <div class="lg:col-span-8 p-6 sm:p-8 bg-[#FBFBFB] relative flex flex-col justify-center space-y-4 watermark-pattern">
+          <!-- Card 1 & Card 2 in 2-column grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- Item 1: Gaya Doodle Organik -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-all space-y-2.5">
+              <div class="flex items-center gap-2.5">
+                <span class="w-6 h-6 rounded-full bg-red-100 text-brand-maroon font-bold text-xs flex items-center justify-center">1</span>
+                <h3 class="text-sm font-bold text-gray-900">Gaya "Doodle" Organik</h3>
+              </div>
+              <p class="text-xs text-gray-600 leading-relaxed">
+                Garis-garis tangan yang tidak kaku menciptakan kesan hangat, personal, dan ramah (friendly), menjauhkan kesan korporat yang kaku.
+              </p>
+            </div>
+
+            <!-- Item 2: Simbolisme Gerobak -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-all space-y-2.5">
+              <div class="flex items-center gap-2.5">
+                <span class="w-6 h-6 rounded-full bg-red-100 text-brand-maroon font-bold text-xs flex items-center justify-center">2</span>
+                <h3 class="text-sm font-bold text-gray-900">Simbolisme Gerobak</h3>
+              </div>
+              <p class="text-xs text-gray-600 leading-relaxed">
+                Ikon gerobak merepresentasikan warisan kuliner jalanan (street food) yang autentik dan selalu bergerak mendekati pelanggan.
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 3: Tipografi Laris (Full Width on Bottom) -->
+          <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-all space-y-2.5">
+            <div class="flex items-center gap-2.5">
+              <span class="w-6 h-6 rounded-full bg-red-100 text-brand-maroon font-bold text-xs flex items-center justify-center">3</span>
+              <h3 class="text-sm font-bold text-gray-900">Tipografi "Laris"</h3>
+            </div>
+            <p class="text-xs text-gray-600 leading-relaxed">
+              Tulisan sambung yang mengalir mengekspresikan kelancaran dan pergerakan, doa agar bisnis selalu laris dan ramai pengunjung.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================== -->
+    <!-- 4. WARNA IDENTITAS (COLOR PALETTE)                                   -->
+    <!-- ==================================================================== -->
+    <section id="warna" class="reveal bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-10 shadow-card border border-gray-200/80 space-y-6">
+      <div class="space-y-1.5">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-maroon tracking-tight">
+          Warna Identitas
+        </h2>
+        <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
+          Palet warna yang merepresentasikan kehangatan, kelezatan rasa, dan keramahan jalanan.
+        </p>
+      </div>
+
+      <!-- 4 Swatches Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5">
+        <!-- Swatch 1: Deep Maroon -->
+        <div onclick="copyColor('#801013', 'Deep Maroon')" class="group cursor-pointer rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-all flex flex-col">
+          <div class="h-28 sm:h-36 bg-brand-maroon flex items-end p-3 relative group-hover:opacity-95 transition-opacity">
+            <span class="text-[10px] font-mono text-white/70 bg-black/20 px-2 py-0.5 rounded backdrop-blur-sm group-hover:bg-white group-hover:text-brand-maroon transition-all">Click to copy</span>
+          </div>
+          <div class="p-3.5 sm:p-4 bg-white space-y-1">
+            <h4 class="text-xs sm:text-sm font-bold text-gray-900">Deep Maroon</h4>
+            <div class="text-[10px] sm:text-xs font-mono text-gray-500 space-y-0.5">
+              <p>HEX: <span class="font-semibold text-gray-700">#801013</span></p>
+              <p>RGB: 128, 16, 19</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Swatch 2: Soft Red Fill -->
+        <div onclick="copyColor('#BA383C', 'Soft Red Fill')" class="group cursor-pointer rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-all flex flex-col">
+          <div class="h-28 sm:h-36 bg-brand-softRed flex items-end p-3 relative group-hover:opacity-95 transition-opacity">
+            <span class="text-[10px] font-mono text-white/70 bg-black/20 px-2 py-0.5 rounded backdrop-blur-sm group-hover:bg-white group-hover:text-brand-softRed transition-all">Click to copy</span>
+          </div>
+          <div class="p-3.5 sm:p-4 bg-white space-y-1">
+            <h4 class="text-xs sm:text-sm font-bold text-gray-900">Soft Red Fill</h4>
+            <div class="text-[10px] sm:text-xs font-mono text-gray-500 space-y-0.5">
+              <p>HEX: <span class="font-semibold text-gray-700">#BA383C</span></p>
+              <p>RGB: 186, 56, 60</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Swatch 3: Warm Blush -->
+        <div onclick="copyColor('#BE8284', 'Warm Blush')" class="group cursor-pointer rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-all flex flex-col">
+          <div class="h-28 sm:h-36 bg-brand-warmBlush flex items-end p-3 relative group-hover:opacity-95 transition-opacity">
+            <span class="text-[10px] font-mono text-white/70 bg-black/20 px-2 py-0.5 rounded backdrop-blur-sm group-hover:bg-white group-hover:text-brand-warmBlush transition-all">Click to copy</span>
+          </div>
+          <div class="p-3.5 sm:p-4 bg-white space-y-1">
+            <h4 class="text-xs sm:text-sm font-bold text-gray-900">Warm Blush</h4>
+            <div class="text-[10px] sm:text-xs font-mono text-gray-500 space-y-0.5">
+              <p>HEX: <span class="font-semibold text-gray-700">#BE8284</span></p>
+              <p>RGB: 190, 130, 132</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Swatch 4: Sticker White -->
+        <div onclick="copyColor('#FFFFFF', 'Sticker White')" class="group cursor-pointer rounded-2xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition-all flex flex-col">
+          <div class="h-28 sm:h-36 bg-white flex items-end p-3 relative border-b border-gray-100 group-hover:bg-gray-50 transition-colors">
+            <span class="text-[10px] font-mono text-gray-500 bg-gray-100 px-2 py-0.5 rounded group-hover:bg-brand-maroon group-hover:text-white transition-all">Click to copy</span>
+          </div>
+          <div class="p-3.5 sm:p-4 bg-white space-y-1">
+            <h4 class="text-xs sm:text-sm font-bold text-gray-900">Sticker White</h4>
+            <div class="text-[10px] sm:text-xs font-mono text-gray-500 space-y-0.5">
+              <p>HEX: <span class="font-semibold text-gray-700">#FFFFFF</span></p>
+              <p>RGB: 255, 255, 255</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================== -->
+    <!-- 5. SISTEM TIPOGRAFI                                                  -->
+    <!-- ==================================================================== -->
+    <section id="tipografi" class="reveal bg-brand-maroon rounded-2xl sm:rounded-3xl p-6 sm:p-10 shadow-maroon-glow text-white relative overflow-hidden">
+      <!-- Ambient background blur -->
+      <div class="absolute -right-20 -top-20 w-72 h-72 bg-white/5 rounded-full pointer-events-none blur-3xl"></div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+        <!-- Left: Intro Description -->
+        <div class="lg:col-span-4 space-y-3">
+          <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
+            Sistem Tipografi
+          </h2>
+          <p class="text-xs sm:text-sm text-white/80 leading-relaxed">
+            Kombinasi font sans-serif modern yang bulat dan ramah dengan script typeface kasual untuk memberikan sentuhan personal dan dinamis pada identitas visual.
+          </p>
+        </div>
+
+        <!-- Right: 2 Font Specimen Cards -->
+        <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- Font Card 1: Nunito Bold -->
+          <div class="bg-white/10 backdrop-blur-md rounded-2xl p-5 sm:p-6 border border-white/20 space-y-3 relative overflow-hidden">
+            <div class="flex items-start justify-between">
+              <div>
+                <h3 class="text-base font-bold font-nunito text-white">Nunito Bold</h3>
+                <span class="text-[10px] tracking-wider uppercase text-white/60 font-mono">Display / Heading Font</span>
+              </div>
+              <span class="text-3xl font-bold font-nunito text-white/90">Aa</span>
+            </div>
+            <div class="pt-2 border-t border-white/10 space-y-2">
+              <p class="text-sm font-extrabold font-nunito text-white leading-snug">
+                Rasa Bintang Lima,<br />Harga Kaki Lima.
+              </p>
+              <p class="text-[10px] font-nunito text-white/70 tracking-wider">
+                Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz<br />
+                0 1 2 3 4 5 6 7 8 9 ! @ # $ %
+              </p>
+            </div>
+          </div>
+
+          <!-- Font Card 2: Script / Handcrafted Font -->
+          <div class="bg-white/10 backdrop-blur-md rounded-2xl p-5 sm:p-6 border border-white/20 space-y-3 relative overflow-hidden">
+            <div class="flex items-start justify-between">
+              <div>
+                <h3 class="text-base font-bold text-white">Caveat Script</h3>
+                <span class="text-[10px] tracking-wider uppercase text-white/60 font-mono">Accent / Script Font</span>
+              </div>
+              <span class="text-3xl font-script text-white/90">Aa</span>
+            </div>
+            <div class="pt-2 border-t border-white/10 space-y-2">
+              <p class="text-lg font-bold font-script text-white leading-snug">
+                Pasti enak, lagi...
+              </p>
+              <p class="text-xs font-script text-white/80 tracking-wider">
+                Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz<br />
+                0 1 2 3 4 5 6 7 8 9
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================== -->
+    <!-- 6. IMPLEMENTASI DESAIN (MOCKUPS GRID)                                -->
+    <!-- ==================================================================== -->
+    <section id="implementasi" class="reveal space-y-5 pt-2">
+      <div class="text-center max-w-2xl mx-auto space-y-1.5">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-maroon tracking-tight">
+          Implementasi Desain
+        </h2>
+        <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
+          Visualisasi bagaimana identitas merek diterapkan pada berbagai media fisik dan digital/Cetak.
+        </p>
+      </div>
+
+      <!-- Mockup Grid -->
+      <div class="space-y-4 sm:space-y-5">
+        
+        <!-- Row 1: 3-column mockups (Takeaway Box, Paper Bag, Apron) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5">
+          <!-- Takeaway Box (Packaging) -->
+          <div class="mockup-card bg-[#E4E4E4] rounded-2xl sm:rounded-3xl shadow-card hover:shadow-card-hover transition-all border border-gray-200/80 relative overflow-hidden h-72 sm:h-80">
+            <span class="absolute top-4 left-4 z-10 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-sm text-[9px] font-bold tracking-wider uppercase text-gray-700 shadow-sm border border-gray-100">
+              PACKAGING
+            </span>
+            <img src="assets/Takeaway_Box_Mockup_1.png" alt="Takeaway Box Mockup" class="w-full h-full object-cover object-center" loading="lazy" />
+          </div>
+
+          <!-- Paper Bag -->
+          <div class="mockup-card bg-[#C8B8A6] rounded-2xl sm:rounded-3xl shadow-card hover:shadow-card-hover transition-all border border-gray-200/80 relative overflow-hidden h-72 sm:h-80">
+            <span class="absolute top-4 left-4 z-10 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-sm text-[9px] font-bold tracking-wider uppercase text-gray-700 shadow-sm border border-gray-100">
+              PAPER BAG
+            </span>
+            <img src="assets/Free Stitched Craft Paper Bag Mockup PSD 2018.png" alt="Craft Paper Bag Mockup" class="w-full h-full object-cover object-center" loading="lazy" />
+          </div>
+
+          <!-- Apron Uniform -->
+          <div class="mockup-card bg-gray-100 rounded-2xl sm:rounded-3xl shadow-card hover:shadow-card-hover transition-all border border-gray-200/80 relative overflow-hidden h-72 sm:h-80 sm:col-span-2 md:col-span-1">
+            <span class="absolute top-4 right-4 z-10 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-sm text-[9px] font-bold tracking-wider uppercase text-gray-700 shadow-sm border border-gray-100">
+              UNIFORM
+            </span>
+            <img src="assets/Apron Mockup.png" alt="Apron Uniform Mockup" class="w-full h-full object-cover object-center" loading="lazy" />
+          </div>
+        </div>
+
+        <!-- Row 2: 2-column (Sign on Brick Building + Coffee Cup) -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-5">
+          <!-- Sign on Brick Building (Col span 8) -->
+          <div class="md:col-span-8 mockup-card bg-gray-900 rounded-2xl sm:rounded-3xl shadow-card hover:shadow-card-hover transition-all border border-gray-800 relative overflow-hidden min-h-[260px] sm:min-h-[320px]">
+            <img src="assets/Sign on Brick Building Mockup.png" alt="Sign on Brick Building Mockup" class="w-full h-full object-cover absolute inset-0" loading="lazy" />
+            <!-- Gradient Overlay for contrast text on left -->
+            <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent p-6 sm:p-8 flex flex-col justify-between z-10">
+              <div class="space-y-2">
+                <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                  Hidden Gem<br />Vibes
+                </h3>
+              </div>
+              <div>
+                <span class="inline-block px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[10px] font-bold uppercase tracking-wider text-white border border-white/20">
+                  STREET FOOD STORE
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cup of Coffee / Beverage (Col span 4) -->
+          <div class="md:col-span-4 mockup-card bg-[#E2E4E6] rounded-2xl sm:rounded-3xl shadow-card hover:shadow-card-hover transition-all border border-gray-200/80 relative overflow-hidden min-h-[260px] sm:min-h-[320px]">
+            <span class="absolute top-4 left-4 z-10 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-sm text-[9px] font-bold tracking-wider uppercase text-gray-700 shadow-sm border border-gray-100">
+              BEVERAGE
+            </span>
+            <img src="assets/CupOfCoffee.png" alt="Beverage Cup Mockup" class="w-full h-full object-cover object-center" loading="lazy" />
+          </div>
+        </div>
+
+        <!-- Row 3: Social Media Feed Card (3 Instagram Posts) -->
+        <div class="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-card border border-gray-200/80 relative space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-1 rounded-full bg-gray-100 text-[9px] font-bold tracking-wider uppercase text-gray-700 border border-gray-200">
+              SOCIAL MEDIA FEED
+            </span>
+            <span class="text-xs font-mono text-gray-400">@gerobaklaris.id</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+            <!-- Feed Post 1: Pancakes -->
+            <div class="group relative rounded-xl overflow-hidden shadow-sm aspect-square bg-brand-maroon">
+              <img src="assets/pexels-pixabay-357573.jpg" alt="Breakfast Bliss" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+              <!-- Gradient vignette -->
+              <div class="absolute inset-0 bg-gradient-to-t from-brand-maroon/90 via-transparent to-transparent flex flex-col justify-between p-3.5">
+                <div class="flex justify-end">
+                  <img src="assets/Grobak Laris Logo White.png" alt="Watermark Logo" class="h-5 w-auto object-contain opacity-90" />
+                </div>
+                <p class="text-xs font-bold font-script text-white text-shadow text-sm">
+                  Breakfast Bliss
+                </p>
+              </div>
+            </div>
+
+            <!-- Feed Post 2: Hot Fried Snack / Chicken -->
+            <div class="group relative rounded-xl overflow-hidden shadow-sm aspect-square bg-brand-maroon">
+              <img src="assets/pexels-cristian-rojas-7613568.jpg" alt="Hot, Gurih & Renyah" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+              <div class="absolute inset-0 bg-gradient-to-t from-brand-maroon/90 via-transparent to-transparent flex flex-col justify-between p-3.5">
+                <div class="flex justify-end">
+                  <img src="assets/Grobak Laris Logo White.png" alt="Watermark Logo" class="h-5 w-auto object-contain opacity-90" />
+                </div>
+                <p class="text-xs font-bold font-script text-white text-shadow text-sm">
+                  Hot, Gurih &amp; Renyah
+                </p>
+              </div>
+            </div>
+
+            <!-- Feed Post 3: Noodles -->
+            <div class="group relative rounded-xl overflow-hidden shadow-sm aspect-square bg-brand-maroon">
+              <img src="assets/pexels-pixabay-60616.jpg" alt="Kelezatan Kuah Segar" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+              <div class="absolute inset-0 bg-gradient-to-t from-brand-maroon/90 via-transparent to-transparent flex flex-col justify-between p-3.5">
+                <div class="flex justify-end">
+                  <img src="assets/Grobak Laris Logo White.png" alt="Watermark Logo" class="h-5 w-auto object-contain opacity-90" />
+                </div>
+                <p class="text-xs font-bold font-script text-white text-shadow text-sm">
+                  Kelezatan Kuah Segar
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 4: Full-Width Circle Sign Mockup -->
+        <div class="mockup-card rounded-2xl sm:rounded-3xl shadow-card hover:shadow-card-hover transition-all overflow-hidden border border-gray-200/80 bg-white">
+          <img src="assets/Free Circle Sign Mockup.png" alt="Gerobak Laris Circle Sign Mockup" class="w-full h-auto object-cover" loading="lazy" />
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================================================================== -->
+    <!-- 7. FOOTER                                                            -->
+    <!-- ==================================================================== -->
+    <footer class="pt-8 pb-4 text-center space-y-3">
+      <div class="flex justify-center">
+        <a href="#logo-variants" class="p-2 rounded-full hover:bg-white transition-colors">
+          <img src="assets/Grobak Laris Logo red.png" alt="Gerobak Laris Red Logo" class="h-8 w-auto object-contain" />
+        </a>
+      </div>
+      <p class="text-[11px] sm:text-xs text-gray-500">
+        © 2026 Gerobak Laris · Brand Identity Guideline · Designed by <span class="font-semibold text-gray-700">Muhammad Caesar Afian Rahman</span>
+      </p>
+      <div class="pt-2">
+        <a href="../index.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-maroon hover:underline">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+          Kembali ke Portofolio Utama
+        </a>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- Copy Toast Notification -->
+  <div id="copyToast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 pointer-events-none bg-gray-900 text-white px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-2.5 text-xs font-medium border border-gray-700">
+    <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+    </svg>
+    <span id="copyToastText">Warna berhasil disalin!</span>
+  </div>
+
+  <!-- JavaScript for Reveal Animations & Clipboard -->
+  <script>
+    // Reveal animation on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, {
+      threshold: 0.08,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    reveals.forEach(el => revealObserver.observe(el));
+
+    // Copy to clipboard helper
+    let toastTimeout;
+    function copyColor(hex, name) {
+      navigator.clipboard.writeText(hex).then(() => {
+        const toast = document.getElementById('copyToast');
+        const toastText = document.getElementById('copyToastText');
+        toastText.textContent = `${name} (${hex}) disalin ke clipboard!`;
+        
+        toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+        toast.classList.add('translate-y-0', 'opacity-100');
+
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+          toast.classList.remove('translate-y-0', 'opacity-100');
+          toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+        }, 2200);
+      }).catch(err => {
+        console.error('Failed to copy', err);
+      });
+    }
+
+    // Smooth Scroll Parallax for Scattered Culinary Doodles & Background
+    const parallaxDoodles = document.querySelectorAll('.parallax-doodle');
+    let ticking = false;
+
+    function onScroll() {
+      const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+      
+      // Parallax & rotational shift for scattered doodles
+      parallaxDoodles.forEach(el => {
+        const speedY = parseFloat(el.getAttribute('data-speed-y') || 0.2);
+        const speedRot = parseFloat(el.getAttribute('data-speed-rot') || 0.03);
+        const baseRot = parseFloat(el.getAttribute('data-base-rot') || 0);
+        
+        const yOffset = scrollY * speedY;
+        const currentRot = baseRot + (scrollY * speedRot);
+        
+        el.style.transform = `translate3d(0, ${yOffset}px, 0) rotate(${currentRot}deg)`;
+      });
+
+      // Subtle parallax shift on background pattern
+      document.body.style.backgroundPositionY = `${scrollY * 0.18}px`;
+
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(onScroll);
+        ticking = true;
+      }
+    }, { passive: true });
+  </script>
+</body>
+</html>
+
