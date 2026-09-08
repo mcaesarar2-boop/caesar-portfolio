@@ -1,0 +1,34 @@
+﻿{
+  "redirects": [
+    {
+      "source": "/shoes_porto/shoes.html",
+      "destination": "/projects/wayag-shoes/index.html",
+      "permanent": true
+    },
+    {
+      "source": "/shoes_porto/:path*",
+      "destination": "/projects/wayag-shoes/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/Gerobak-Laris/Gerobak_Laris.html",
+      "destination": "/projects/gerobak-laris/index.html",
+      "permanent": true
+    },
+    {
+      "source": "/Gerobak-Laris/:path*",
+      "destination": "/projects/gerobak-laris/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/design-annur2026-guideline.html",
+      "destination": "/projects/annur-guideline/index.html",
+      "permanent": true
+    },
+    {
+      "source": "/Design-Instagram-Porto.html",
+      "destination": "/projects/instagram-porto/index.html",
+      "permanent": true
+    }
+  ]
+}
