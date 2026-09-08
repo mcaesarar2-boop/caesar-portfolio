@@ -29,6 +29,16 @@
       "source": "/Design-Instagram-Porto.html",
       "destination": "/projects/instagram-porto/index.html",
       "permanent": true
+    },
+    {
+      "source": "/projects/Trip-Simulation",
+      "destination": "/projects/Trip-Simulation/dist/index.html",
+      "permanent": true
+    },
+    {
+      "source": "/projects/Trip-Simulation/",
+      "destination": "/projects/Trip-Simulation/dist/index.html",
+      "permanent": true
     }
   ]
 }
