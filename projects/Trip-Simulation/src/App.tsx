@@ -5,6 +5,7 @@ import { StepProgressBar } from './components/StepProgressBar';
 import { FloatingSummaryBar } from './components/FloatingSummaryBar';
 import { PresetsModal } from './components/PresetsModal';
 import { SearchPriceModal } from './components/SearchPriceModal';
+import { ToastNotification } from './components/ToastNotification';
 import { Footer } from './components/Footer';
 
 import { Step1Profile } from './components/steps/Step1Profile';
@@ -14,7 +15,7 @@ import { Step4Contingency } from './components/steps/Step4Contingency';
 import { Step5Dashboard } from './components/steps/Step5Dashboard';
 
 const WizardContent: React.FC = () => {
-  const { activeStep } = useTripContext();
+  const { activeStep, lastImportedFlight, clearLastImportedFlight } = useTripContext();
   const [isPresetsOpen, setIsPresetsOpen] = useState(false);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
 
@@ -52,6 +53,9 @@ const WizardContent: React.FC = () => {
         isOpen={isSearchModalOpen}
         onClose={() => setIsSearchModalOpen(false)}
       />
+
+      {/* Floating Toast Notification for Flight Companion & Auto Sync */}
+      <ToastNotification toast={lastImportedFlight} onClose={clearLastImportedFlight} />
     </div>
   );
 };

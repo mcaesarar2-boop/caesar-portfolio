@@ -1,0 +1,48 @@
+{
+  "manifest_version": 3,
+  "name": "Trip Simulation - Google Flights Companion",
+  "version": "1.0.1",
+  "description": "Ekstensi pendamping untuk menyerok data harga tiket & jadwal dari Google Flights langsung ke aplikasi Simulasi Perjalanan secara instan.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Trip Simulation Companion"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.google.com/travel/flights*",
+        "https://www.google.co.id/travel/flights*"
+      ],
+      "js": ["flights-scraper.js"],
+      "css": ["styles.css"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "http://localhost/*",
+        "http://127.0.0.1/*",
+        "https://localhost/*",
+        "https://127.0.0.1/*",
+        "https://mcaesarar.site/*"
+      ],
+      "js": ["companion-bridge.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "permissions": [
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://www.google.com/travel/flights*",
+    "https://www.google.co.id/travel/flights*",
+    "http://localhost/*",
+    "http://127.0.0.1/*",
+    "https://localhost/*",
+    "https://127.0.0.1/*",
+    "https://mcaesarar.site/*"
+  ]
+}

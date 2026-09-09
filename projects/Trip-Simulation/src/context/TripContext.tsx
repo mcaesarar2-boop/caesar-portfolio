@@ -4,6 +4,7 @@ import { DEFAULT_INITIAL_STATE, TRIP_PRESETS, getStyleRecommendations } from '..
 import { useTripCalculator } from '../hooks/useTripCalculator';
 import { convertCurrency } from '../utils/currency';
 import { calculateDurationFromDates, addDaysToDateStr, isValidDateStr } from '../utils/dateUtils';
+import { ToastData } from '../components/ToastNotification';
 
 interface TripContextType {
   state: TripState;
@@ -33,6 +34,15 @@ interface TripContextType {
   applyTravelStyle: (style: TravelStyle) => void;
   loadPreset: (presetId: string) => void;
   resetAll: () => void;
+  lastImportedFlight: ToastData | null;
+  clearLastImportedFlight: () => void;
+  importFlightData: (data: {
+    airline?: string;
+    price: number;
+    tripType?: 'roundTrip' | 'oneWay';
+    departureDate?: string;
+    returnDate?: string;
+  }) => void;
 }
 
 const STORAGE_KEY = 'simulasi_perjalanan_ekstensif_v2';
@@ -470,6 +480,133 @@ export const TripProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     localStorage.removeItem('simulasi_perjalanan_ekstensif_v1');
   };
 
+  const [lastImportedFlight, setLastImportedFlight] = useState<ToastData | null>(null);
+
+  const clearLastImportedFlight = () => {
+    setLastImportedFlight(null);
+  };
+
+  const importFlightData = (data: {
+    airline?: string;
+    price: number | string;
+    tripType?: 'roundTrip' | 'oneWay';
+    departureDate?: string;
+    returnDate?: string;
+    origin?: string;
+    destination?: string;
+  }) => {
+    if (!data) return;
+    const rawPrice = typeof data.price === 'number' ? data.price : parseInt(String(data.price).replace(/[^\d]/g, ''), 10);
+    if (!rawPrice || isNaN(rawPrice) || rawPrice <= 0) return;
+
+    const isRoundTrip = data.tripType !== 'oneWay';
+    const price = Math.round(rawPrice);
+
+    // 1. Update main transport to flight with scraped price & type
+    updateMainTransport({
+      tripType: isRoundTrip ? 'roundTrip' : 'oneWay',
+      transportMode: 'pesawat',
+      ticketPricePerPerson: price,
+      departureTicketPerPerson: isRoundTrip ? Math.round(price / 2) : price,
+      returnTicketPerPerson: isRoundTrip ? Math.round(price / 2) : 0,
+    });
+
+    // 2. Update profile dates, duration, & route if available
+    const profileUpdate: Partial<TripState['profile']> = {};
+    if (data.departureDate && isValidDateStr(data.departureDate)) {
+      profileUpdate.startDate = data.departureDate;
+      if (data.returnDate && isValidDateStr(data.returnDate) && isRoundTrip) {
+        profileUpdate.endDate = data.returnDate;
+        const { days, nights } = calculateDurationFromDates(data.departureDate, data.returnDate);
+        profileUpdate.durationDays = days;
+        profileUpdate.durationNights = nights;
+      }
+    }
+    if (data.origin && (!state.profile.origin || state.profile.origin === 'Kota Asal' || state.profile.origin === 'Jakarta')) {
+      profileUpdate.origin = data.origin;
+    }
+    if (data.destination && (!state.profile.destination || state.profile.destination === 'Kota Tujuan' || state.profile.destination === 'Bali')) {
+      profileUpdate.destination = data.destination;
+    }
+    if (Object.keys(profileUpdate).length > 0) {
+      updateProfile(profileUpdate);
+    }
+
+    // 3. Show visual confirmation toast
+    setLastImportedFlight({
+      airline: data.airline || 'Google Flights',
+      price: price,
+      tripType: isRoundTrip ? 'roundTrip' : 'oneWay',
+      departureDate: data.departureDate,
+      returnDate: data.returnDate,
+      currency: state.profile.currency,
+    });
+  };
+
+  // Auto-dismiss toast notification after 6 seconds
+  useEffect(() => {
+    if (lastImportedFlight) {
+      const timer = setTimeout(() => {
+        setLastImportedFlight(null);
+      }, 6000);
+      return () => clearTimeout(timer);
+    }
+  }, [lastImportedFlight]);
+
+  // Global listeners for Chrome Extension Companion Bridge, postMessage, and localStorage sync
+  useEffect(() => {
+    const handleFlightPayload = (payload: any) => {
+      if (!payload) return;
+      importFlightData(payload);
+    };
+
+    // 1. Listen for CustomEvent from extension content script bridge
+    const handleCustomEvent = (event: Event) => {
+      const customEvent = event as CustomEvent;
+      if (customEvent && customEvent.detail) {
+        handleFlightPayload(customEvent.detail);
+      }
+    };
+    window.addEventListener('trip-sim-flight-import', handleCustomEvent);
+
+    // 2. Listen for postMessage from Mini Window popup or bridge
+    const handleMessage = (event: MessageEvent) => {
+      if (event.data && event.data.type === 'TRIP_SIMULATION_IMPORT_FLIGHT' && event.data.payload) {
+        handleFlightPayload(event.data.payload);
+      }
+    };
+    window.addEventListener('message', handleMessage);
+
+    // 3. Listen for BroadcastChannel
+    let channel: BroadcastChannel | null = null;
+    try {
+      channel = new BroadcastChannel('trip_simulation_flight_sync');
+      channel.onmessage = (event) => {
+        if (event.data && event.data.type === 'TRIP_SIMULATION_IMPORT_FLIGHT' && event.data.payload) {
+          handleFlightPayload(event.data.payload);
+        }
+      };
+    } catch (e) {}
+
+    // 4. Listen for StorageEvent (in case cross-tab localStorage was used)
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === 'trip_sim_imported_flight' && e.newValue) {
+        try {
+          const parsed = JSON.parse(e.newValue);
+          handleFlightPayload(parsed);
+        } catch (err) {}
+      }
+    };
+    window.addEventListener('storage', handleStorage);
+
+    return () => {
+      window.removeEventListener('trip-sim-flight-import', handleCustomEvent);
+      window.removeEventListener('message', handleMessage);
+      window.removeEventListener('storage', handleStorage);
+      if (channel) channel.close();
+    };
+  }, [state.profile.currency, state.profile.origin, state.profile.destination]);
+
   return (
     <TripContext.Provider
       value={{
@@ -500,6 +637,9 @@ export const TripProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         applyTravelStyle,
         loadPreset,
         resetAll,
+        lastImportedFlight,
+        clearLastImportedFlight,
+        importFlightData,
       }}
     >
       {children}

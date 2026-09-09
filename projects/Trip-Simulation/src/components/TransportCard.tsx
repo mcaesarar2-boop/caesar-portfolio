@@ -39,7 +39,9 @@ import {
   Navigation,
   Pencil,
   X,
-  Calendar
+  Calendar,
+  MapPin,
+  Search
 } from 'lucide-react';
 import { addDaysToDateStr, formatDateIndo } from '../utils/dateUtils';
 
@@ -187,14 +189,14 @@ export const TransportCard: React.FC<TransportCardProps> = ({ onOpenSearch }) =>
           <div>
             <div className="flex items-center space-x-2">
               <h3 className="text-base font-bold text-slate-900">
-                Input Manual Tiket & Moda Perjalanan
+                Input Tiket & Moda Perjalanan
               </h3>
               <span className="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">
                 100% Offline
               </span>
             </div>
             <p className="text-xs text-slate-500 mt-0.5">
-              Rute: <strong>{profile.origin || 'Kota Asal'}</strong> ➔ <strong>{profile.destination || 'Kota Tujuan'}</strong> ({profile.type})
+              Atur rute perjalanan, tipe perjalanan (PP/Satu Arah), dan detail tiket transportasi
             </p>
           </div>
         </div>
@@ -237,54 +239,131 @@ export const TransportCard: React.FC<TransportCardProps> = ({ onOpenSearch }) =>
         </div>
       </div>
 
-      {/* Sinkronisasi Kalender Tanggal Tiket (Berangkat & Pulang) */}
-      <div className="p-3.5 rounded-xl bg-blue-50/70 border border-blue-200/80 space-y-2">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+      {/* Rute, Destinasi & Jadwal Tiket (Dilebur Efisien & Terpadu) */}
+      <div className="p-4 rounded-xl bg-slate-50/80 border border-slate-200/90 space-y-3.5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
           <div className="flex items-center space-x-2">
-            <Calendar className="w-4 h-4 text-blue-700 shrink-0" />
-            <span className="text-xs font-bold text-blue-950">
-              Jadwal Tanggal Tiket ({mainTransport.tripType === 'roundTrip' ? 'Pulang-Pergi' : 'Satu Arah'})
-            </span>
-            <span className="text-[10px] bg-blue-200/60 text-blue-800 font-semibold px-2 py-0.5 rounded-md">
-              Sinkron dengan Profil
+            <MapPin className="w-4 h-4 text-blue-600" />
+            <span className="text-xs font-bold text-slate-900">
+              Rute & Destinasi Perjalanan
             </span>
           </div>
-          <span className="text-[11px] text-blue-800 font-semibold">
-            ⏱️ {profile.durationDays} Hari, {profile.durationNights} Malam
-          </span>
+
+          <div className="flex items-center flex-wrap gap-2">
+            {/* Domestik vs Internasional Toggle */}
+            <div className="flex items-center p-1 bg-white border border-slate-200 rounded-lg text-xs font-semibold shadow-2xs">
+              <button
+                type="button"
+                onClick={() => updateProfile({ type: 'domestic' })}
+                className={`px-3 py-1 rounded-md transition-all ${
+                  profile.type === 'domestic'
+                    ? 'bg-blue-600 text-white shadow-xs font-bold'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                Domestik
+              </button>
+              <button
+                type="button"
+                onClick={() => updateProfile({ type: 'international' })}
+                className={`px-3 py-1 rounded-md transition-all ${
+                  profile.type === 'international'
+                    ? 'bg-blue-600 text-white shadow-xs font-bold'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                Internasional
+              </button>
+            </div>
+
+            {/* Tombol Cek di Search Engine */}
+            {onOpenSearch && (
+              <button
+                type="button"
+                onClick={onOpenSearch}
+                className="py-1 px-3 text-xs font-bold rounded-lg border border-blue-200 bg-blue-50/80 hover:bg-blue-100 text-blue-700 transition-all flex items-center justify-center space-x-1.5 shadow-2xs shrink-0"
+              >
+                <Search className="w-3.5 h-3.5" />
+                <span>Cek Harga di Search Engine</span>
+              </button>
+            )}
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+        {/* Input Kota Asal & Tujuan */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <label className="block text-[11px] font-semibold text-slate-700 mb-1">
-              Tanggal Berangkat ({profile.origin || 'Asal'} ➔ {profile.destination || 'Tujuan'})
+              Kota / Bandara Asal
             </label>
             <input
-              type="date"
-              value={profile.startDate}
-              onChange={(e) => updateProfile({ startDate: e.target.value })}
-              className="w-full px-3 py-1.5 text-xs rounded-lg border border-blue-200 bg-white font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              type="text"
+              value={profile.origin}
+              onChange={(e) => updateProfile({ origin: e.target.value })}
+              placeholder="Contoh: Jakarta (CGK)"
+              className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all font-medium text-slate-800"
             />
           </div>
 
-          {mainTransport.tripType === 'roundTrip' ? (
+          <div>
+            <label className="block text-[11px] font-semibold text-slate-700 mb-1">
+              Kota / Negara Tujuan
+            </label>
+            <input
+              type="text"
+              value={profile.destination}
+              onChange={(e) => updateProfile({ destination: e.target.value })}
+              placeholder={profile.type === 'international' ? "Contoh: Tokyo, Jepang (NRT/HND)" : "Contoh: Denpasar, Bali (DPS)"}
+              className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all font-medium text-slate-800"
+            />
+          </div>
+        </div>
+
+        {/* Sinkronisasi Kalender Tanggal Tiket (Berangkat & Pulang) */}
+        <div className="pt-2 border-t border-slate-200/70">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-[11px] font-semibold text-slate-700 mb-1">
-                Tanggal Pulang ({profile.destination || 'Tujuan'} ➔ {profile.origin || 'Asal'})
+              <label className="block text-[11px] font-semibold text-slate-700 mb-1 flex items-center justify-between">
+                <span>Tanggal Tiket Berangkat</span>
+                <span className="text-[10px] text-slate-400 font-normal">
+                  {profile.origin || 'Asal'} ➔ {profile.destination || 'Tujuan'}
+                </span>
               </label>
               <input
                 type="date"
-                min={profile.startDate}
-                value={profile.endDate || addDaysToDateStr(profile.startDate, profile.durationNights)}
-                onChange={(e) => updateProfile({ endDate: e.target.value })}
-                className="w-full px-3 py-1.5 text-xs rounded-lg border border-blue-200 bg-white font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                value={profile.startDate}
+                onChange={(e) => updateProfile({ startDate: e.target.value })}
+                className="w-full px-3 py-1.5 text-xs rounded-lg border border-slate-200 bg-white font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-400"
               />
             </div>
-          ) : (
-            <div className="flex items-center text-xs text-slate-500 italic pt-4">
-              * Mode satu arah (tidak ada tiket pulang terjadwal)
-            </div>
-          )}
+
+            {mainTransport.tripType === 'roundTrip' ? (
+              <div>
+                <label className="block text-[11px] font-semibold text-slate-700 mb-1 flex items-center justify-between">
+                  <span>Tanggal Tiket Pulang</span>
+                  <span className="text-[10px] text-slate-400 font-normal">
+                    {profile.destination || 'Tujuan'} ➔ {profile.origin || 'Asal'}
+                  </span>
+                </label>
+                <input
+                  type="date"
+                  min={profile.startDate}
+                  value={profile.endDate || addDaysToDateStr(profile.startDate, profile.durationNights)}
+                  onChange={(e) => updateProfile({ endDate: e.target.value })}
+                  className="w-full px-3 py-1.5 text-xs rounded-lg border border-slate-200 bg-white font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                />
+              </div>
+            ) : (
+              <div className="flex items-center text-xs text-slate-500 italic pt-3 sm:pt-6">
+                * Tiket Satu Arah (tidak ada jadwal tiket pulang)
+              </div>
+            )}
+          </div>
+
+          <div className="mt-2 text-[11px] text-slate-500 flex items-center justify-between bg-blue-50/50 px-2.5 py-1.5 rounded-lg border border-blue-100/60">
+            <span>⏱️ Durasi: <strong>{profile.durationDays} Hari, {profile.durationNights} Malam</strong> (Tersinkron otomatis)</span>
+            <span className="text-[10px] text-blue-700 font-medium">Jadwal Utama</span>
+          </div>
         </div>
       </div>
 
